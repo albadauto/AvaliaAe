@@ -1,0 +1,42 @@
+
+@* {
+    font-family: Helvetica !important;
+}
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.logo{
+    width: 170px;
+}
+
+.welcome{
+    background: url("../img/backgrounds/background-index-home.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.title{
+    margin-top: 20vh;
+}
+
+.button-startup{
+    margin-bottom: 30vh;
+    font-size: 30px;
+    margin-top:10px;
+}
