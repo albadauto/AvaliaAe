@@ -6,6 +6,10 @@ var connection = builder.Configuration.GetConnectionString("Database");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddEntityFrameworkSqlServer().AddDbContext<DatabaseContext>(o => o.UseSqlServer(connection));
+builder.Services.AddSession(o =>
+{
+    o.IdleTimeout = TimeSpan.FromHours(8);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,7 +22,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
