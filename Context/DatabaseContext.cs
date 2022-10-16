@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AvaliaAe.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AvaliaAe.Context
 {
@@ -8,5 +9,6 @@ namespace AvaliaAe.Context
         {
                 
         }
+        public DbSet<UserModel> User { get; set; }
     }
 }

@@ -23,7 +23,7 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Repository\" />
+    <Folder Include="Repository\Interfaces\" />
   </ItemGroup>
 
 </Project>

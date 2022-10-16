@@ -27,17 +27,17 @@
                     </div>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-3">
-                            <button class="btn btn-primary ml-3"> <i class="bi bi-box-arrow-in-right"></i> </i><b>Cadastre-se</b> </button>
+                            <a class="btn btn-primary ml-3" asp-controller="Register" asp-action="Index"> <i class="bi bi-box-arrow-in-right"></i> </i><b>Cadastre-se</b> </a>
                         </li>
                         <li class="nav-item ">
-                            <button class="btn btn-light text-dark border" asp-area="" asp-controller="Home" asp-action="Privacy"> <i class="bi bi-person-circle"></i> <b>Login</b></button>
+                            <a class="btn btn-light text-dark border" asp-area="" asp-controller="Login" asp-action="Index" > <i class="bi bi-person-circle"></i> <b>Login</b></a>
                         </li>
                     </ul>
                     
                 </div>
             </div>
         </nav>
-        <nav class="navbar-sm navbar-expand-sm navbar-light bg-white border-bottom box-shadow">
+        <nav class="navbar-sm navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <ul class="navbar-nav ">
                     <li class="nav-item me-5">
@@ -56,7 +56,7 @@
                         <a class="nav-link" href="#">Cadastre uma instituição</a>
                     </li>
                     <li class="nav-item me-5">
-                        <a class="nav-link" href="#">Quem somos?</a>
+                        <a class="nav-link" asp-controller="WeAre" asp-action="Index">Quem somos?</a>
                     </li>
                     <li class="nav-item me-5">
                         <a class="nav-link" href="#">Pesquisar uma certificação</a>
@@ -73,36 +73,10 @@
             @RenderBody()
         </main>
 
-    <footer class="border-top text-muted bg-light">
-        <div class="container">
-            <div class="row mt-5">
-                <div class="col">
-                    <h5>Para estudante</h5>
-                    <button class="btn btn-primary">Área do estudante</button>
-                </div>
-                <div class="col">
-                    <h5>Para instituição</h5>
-                    <button class="btn btn-primary">Área da instituição</button>
-                </div>
-                <div class="col">
-                    <h5>Sobre nós</h5>
-                </div>
-                <div class="col">
-                    <h5>Ajuda</h5>
-                </div>
-            </div>
-            <div class="mt-5">
-               <div class="row">
-                   <div class="col">
-                       <img src="~/img/logos/logo.png" width="200px"/>
-                   </div>
-                   <div class="col">
-                        
+    <footer class="border-top footer text-muted bg-light">
+       <div class="container">
+          Avalia Ae! - @DateTime.Now.Year.ToString()
 
-                   </div>
-               </div>
-
-            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
