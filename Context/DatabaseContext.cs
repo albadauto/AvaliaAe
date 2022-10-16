@@ -7,7 +7,6 @@ namespace AvaliaAe.Context
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {
-                
         }
         public DbSet<UserModel> User { get; set; }
     }

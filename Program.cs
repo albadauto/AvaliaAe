@@ -1,4 +1,6 @@
 using AvaliaAe.Context;
+using AvaliaAe.Repository;
+using AvaliaAe.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,7 @@ var connection = builder.Configuration.GetConnectionString("Database");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddEntityFrameworkSqlServer().AddDbContext<DatabaseContext>(o => o.UseSqlServer(connection));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSession(o =>
 {
     o.IdleTimeout = TimeSpan.FromHours(8);

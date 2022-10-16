@@ -8,5 +8,12 @@ namespace AvaliaAe.Controllers
         {
             return View();
         }
+
+        public IActionResult Institution()
+        {
+            return View();
+        }
+
+       
     }
 }
