@@ -4,4 +4,103 @@
 @{
 }
 
-<p>Pessoa Jurídica</p>
+
+<div class="container text-center bg-light mt-5">
+	<h1 class="display-6 mt-5">Registro de Instituição</h1>
+	<form>
+		<div class="row">
+			<div class="col">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Nome da instituição">
+					<label for="floatingPassword">Nome da instituição</label>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="CNPJ">
+					<label for="floatingPassword">CNPJ</label>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row mt-3">
+			<div class="col">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Telefone">
+					<label for="floatingPassword">Telefone</label>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Email">
+					<label for="floatingPassword">Email</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row mt-3">
+			<div class="col">
+				<div class="form-floating">
+					<input type="password" class="form-control" id="floatingPassword" placeholder="Senha">
+					<label for="floatingPassword">Senha</label>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-floating">
+					<input type="password" class="form-control" id="floatingPassword" placeholder="Repita a senha">
+					<label for="floatingPassword">Repita a senha</label>
+				</div>
+			</div>
+		</div>
+
+		<h1 class="display-6 mt-3">Informações de localidade</h1>
+		<div class="row mt-3">
+			<div class="col">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço">
+					<label for="floatingPassword">Endereço</label>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-floating">
+					<input type="number" class="form-control" id="floatingPassword" placeholder="Número">
+					<label for="floatingPassword">Número</label>
+				</div>
+			</div>
+			
+		</div>
+		<h1 class="display-6 mt-3">Informações adicionais</h1>
+		<div class="row mt-3">
+			<div class="col">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Nome do diretor da unidade">
+					<label for="floatingPassword">Nome do diretor da unidade</label>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="CPF">
+					<label for="floatingPassword">CPF</label>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col">
+					<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+					<label class="form-check-label" for="flexCheckChecked">
+						Concordo e aceito os Termos de <a asp-controller="Register" asp-action="Privacy">privacidade de dados</a>
+					</label>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col">
+				<button class="btn btn-primary">Cadastrar</button>
+				<a class="btn btn-secondary" asp-action="Index">Sou pessoa Física!</a>
+			</div>
+			
+		</div>
+		<a asp-controller="Login" asp-action="Index">Já tenho conta no Avalia Aê!</a>
+	</form>
+
+</div>
