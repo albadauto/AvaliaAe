@@ -6,7 +6,8 @@
 
 <div class="container bg-light text-center mt-5 p-5">
     <h4 class="display-6 ">Pesquise o código de uma certificação</h4>
-    <form>
+    @using (Html.BeginForm("", "", FormMethod.Post))
+    {
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
@@ -16,6 +17,7 @@
             </div>
         </div>
         <button class="btn btn-primary" type="submit">Pesquisar</button>
-    </form>
+    }
+      
     
 </div>

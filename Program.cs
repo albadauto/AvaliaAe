@@ -14,7 +14,6 @@ builder.Services.AddSession(o =>
     o.IdleTimeout = TimeSpan.FromHours(8);
 });
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
