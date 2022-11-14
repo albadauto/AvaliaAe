@@ -8,5 +8,12 @@ namespace AvaliaAe.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult ForTest()
+        {
+            HttpContext.Session.SetString("name", "super");
+            return View("Index", "Home");
+        }
     }
 }

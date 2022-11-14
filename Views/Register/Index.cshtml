@@ -6,7 +6,8 @@
 
 <div class="container text-center bg-light mt-5">
 	<h1 class="display-6 mt-5">Registro de usuário</h1>
-	<form>
+	@using (Html.BeginForm("", "", FormMethod.Post))
+	{
 		<div class="row">
 			<div class="col">
 				<div class="form-floating">
@@ -67,7 +68,7 @@
 					<label for="floatingPassword">Número</label>
 				</div>
 			</div>
-			
+
 		</div>
 		<div class="row mt-3">
 			<div class="col">
@@ -85,10 +86,10 @@
 		</div>
 		<div class="row mt-3">
 			<div class="col">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-					<label class="form-check-label" for="flexCheckChecked">
-						Concordo e aceito os Termos de <a asp-controller="Register" asp-action="Privacy">privacidade de dados</a>
-					</label>
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+				<label class="form-check-label" for="flexCheckChecked">
+					Concordo e aceito os Termos de <a asp-controller="Register" asp-action="Privacy">privacidade de dados</a>
+				</label>
 			</div>
 		</div>
 		<div class="row mt-5">
@@ -96,10 +97,11 @@
 				<button class="btn btn-primary">Cadastrar</button>
 				<a class="btn btn-secondary" asp-action="Institution">Sou pessoa jurídica!</a>
 			</div>
-			
+
 		</div>
 		<a asp-controller="Login" asp-action="Index">Já tenho conta no Avalia Aê!</a>
-	</form>
+	}
+	
 
 </div>
 

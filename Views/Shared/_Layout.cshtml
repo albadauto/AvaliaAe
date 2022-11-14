@@ -1,6 +1,8 @@
 ﻿
 <!DOCTYPE html>
 <html lang="en">
+@inject IHttpContextAccessor context
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -53,7 +55,7 @@
         </nav>
         <nav class="navbar-sm navbar-expand-sm navbar-light bg-white border-bottom box-shadow ">
                 <ul class="navbar-nav text-center justify-content-center">
-                    
+                    @context.HttpContext.Session.GetString("name")
                     <li class="nav-item me-5">
                         <a class="nav-link" asp-controller="Institutions" asp-action="Index">Instituições</a>
                     </li>

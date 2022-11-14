@@ -4,4 +4,26 @@
 @{
 }
 
-<p>Esqueci minha senha</p>
+<div class="container mt-5 bg-light p-3">
+    <div class="text-center">
+        <h3>Digite seu email para recuperar sua senha</h3>
+    </div>
+    @using (Html.BeginForm("", "", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary">Prosseguir</button>
+            </div>
+        </div>
+    }
+    
+</div>
