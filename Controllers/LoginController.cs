@@ -29,6 +29,9 @@ namespace AvaliaAe.Controllers
         public IActionResult VerifyUser(UserModel user)
         {
             CryptographyHelper helper = new CryptographyHelper(SHA256.Create());
+            if (user.Password == null) return RedirectToAction("Index");
+
+
             user.Password = helper.hashPassword(user.Password);
             var result = _repository.VerifyLogin(user);
             if(result != null)
