@@ -42,14 +42,27 @@
                         <input class="form-control ml-3 box-shadow" placeholder="Pesquise uma instituição aqui"/>
                     </div>
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item mx-3">
-                            <a class="btn btn-primary ml-3" asp-controller="Register" asp-action="Index"> <i class="bi bi-box-arrow-in-right"></i> </i><b>Cadastre-se</b> </a>
+                        @if(context.HttpContext.Session.GetString("email") == null)
+                         {
+                         <li class="nav-item mx-3">
+                            <a class="btn btn-primary ml-3" asp-controller="Register" asp-action="Index"> <i class="bi bi-box-arrow-in-right"></i> <b>Cadastre-se</b> </a>
                         </li>
                         <li class="nav-item ">
                             <a class="btn btn-light text-dark border" asp-area="" asp-controller="Login" asp-action="Index" > <i class="bi bi-person-circle"></i> <b>Login</b></a>
+                         </li>
+                        }
+                        else
+                        {
+                         <li class="nav-item mx-3">
+                             <a class="btn btn-dark border" asp-area="" asp-controller="MyProfile" asp-action="Index"> <i class="bi bi-person-circle"></i> <b>Meu Perfil</b></a>
                         </li>
+                        <li class="nav-item ">
+                             <a class="btn btn-danger ml-3" asp-controller="Login" asp-action="Logout"> <i class="bi bi-box-arrow-in-right"></i> <b>Logout</b> </a>
+
+                         </li>
+                        }
                     </ul>
-                    
+
                 </div>
             </div>
         </nav>

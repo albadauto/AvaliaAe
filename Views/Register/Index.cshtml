@@ -1,23 +1,33 @@
-﻿@*
+﻿@model UserModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 
 <div class="container text-center bg-light mt-5">
+	@if(TempData["success"] != null)
+	{
+		<div class="alert alert-success">
+			@TempData["success"]
+		</div>
+	}
 	<h1 class="display-6 mt-5">Registro de usuário</h1>
-	@using (Html.BeginForm("", "", FormMethod.Post))
+	@using (Html.BeginForm("CreateNewUser", "Register", FormMethod.Post))
 	{
 		<div class="row">
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.Name, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Nome">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Nome" asp-for="Name">
 					<label for="floatingPassword">Nome</label>
 				</div>
 			</div>
+
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.Cpf, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="CPF">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="CPF" asp-for="Cpf">
 					<label for="floatingPassword">CPF</label>
 				</div>
 			</div>
@@ -26,14 +36,16 @@
 
 		<div class="row mt-3">
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.Phone, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Telefone">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Telefone" asp-for="Phone">
 					<label for="floatingPassword">Telefone</label>
 				</div>
 			</div>
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.Email, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Email">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Email" asp-for="Email">
 					<label for="floatingPassword">Email</label>
 				</div>
 			</div>
@@ -41,14 +53,16 @@
 
 		<div class="row mt-3">
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.Password, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="password" class="form-control" id="floatingPassword" placeholder="Senha">
+					<input type="password" class="form-control" id="Pass" placeholder="Senha" asp-for="Password" >
 					<label for="floatingPassword">Senha</label>
 				</div>
 			</div>
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.Password, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="password" class="form-control" id="floatingPassword" placeholder="Repita a senha">
+					<input type="password" class="form-control" id="repeatPass" placeholder="Repita a senha" >
 					<label for="floatingPassword">Repita a senha</label>
 				</div>
 			</div>
@@ -57,14 +71,16 @@
 		<h1 class="display-6 mt-3">Informações de localidade</h1>
 		<div class="row mt-3">
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.Address, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço" asp-for="Address">
 					<label for="floatingPassword">Endereço</label>
 				</div>
 			</div>
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.Number, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="number" class="form-control" id="floatingPassword" placeholder="Número">
+					<input type="number" class="form-control" id="floatingPassword" placeholder="Número" asp-for="Number">
 					<label for="floatingPassword">Número</label>
 				</div>
 			</div>
@@ -72,14 +88,16 @@
 		</div>
 		<div class="row mt-3">
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.District, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Bairro">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Bairro" asp-for="District">
 					<label for="floatingPassword">Bairro</label>
 				</div>
 			</div>
 			<div class="col">
+				@Html.ValidationMessageFor(x => x.Cep, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="CEP">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="CEP" asp-for="Cep">
 					<label for="floatingPassword">CEP</label>
 				</div>
 			</div>
@@ -94,7 +112,7 @@
 		</div>
 		<div class="row mt-5">
 			<div class="col">
-				<button class="btn btn-primary">Cadastrar</button>
+				<button class="btn btn-primary" type="submit">Cadastrar</button>
 				<a class="btn btn-secondary" asp-action="Institution">Sou pessoa jurídica!</a>
 			</div>
 
@@ -104,4 +122,16 @@
 	
 
 </div>
+
+<script>
+	document.getElementById("repeatPass").addEventListener("blur", (e) => {
+		if (e.target.value != document.getElementById('Pass').value){
+			alert('senha nao coincide')
+			document.getElementById("repeatPass").value = "";
+			document.getElementById("Pass").value = "";
+
+		}
+	})
+	
+</script>
 

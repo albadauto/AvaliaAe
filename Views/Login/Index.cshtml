@@ -1,9 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@inject IHttpContextAccessor context
+@model UserModel
 
+@TempData["error"]
 <div class="container text-center border mt-5">
     <div class="row">
         <div class="col mt-3">
@@ -11,12 +9,12 @@
         </div>
     </div>
     <div class="row m-5">
-        @using (Html.BeginForm("ForTest", "Login", FormMethod.Post))
+        @using (Html.BeginForm("VerifyUser", "Login", FormMethod.Post))
         {
             <div class="row">
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Email">
                         <label for="floatingInput"><i class="bi bi-envelope-check-fill"></i> Email</label>
                     </div>
                 </div>
@@ -25,7 +23,7 @@
             <div class="row">
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Password"> 
                         <label for="floatingInput"><i class="bi bi-key-fill"></i> Senha</label>
                     </div>
                 </div>
