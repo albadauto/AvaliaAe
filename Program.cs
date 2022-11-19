@@ -15,7 +15,11 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSession(o =>
 {
     o.IdleTimeout = TimeSpan.FromHours(1);
+    o.Cookie.Name = "Avaliae.Session";
+    o.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     o.Cookie.HttpOnly = true;
+    o.Cookie.IsEssential = true;
+    o.Cookie.SameSite = SameSiteMode.Strict;
 });
 
 var app = builder.Build();

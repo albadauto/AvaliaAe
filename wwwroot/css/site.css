@@ -1,7 +1,4 @@
 
-* {
-    font-family: Helvetica !important;
-}
 
 html {
   font-size: 14px;
@@ -50,4 +47,6 @@ navbar{
 .for-school {
     background-color: #022143;
 }
-
+.carousel-inner > .carousel-item > img {
+    height: 80vh;
+}
