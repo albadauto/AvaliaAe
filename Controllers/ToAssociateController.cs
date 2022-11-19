@@ -6,6 +6,7 @@ namespace AvaliaAe.Controllers
     {
         public IActionResult Index(int id)
         {
+            if (HttpContext.Session.GetString("email") == null) return RedirectToAction("Index", "Login");
             return View();
         }
 

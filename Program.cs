@@ -14,7 +14,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddSession(o =>
 {
-    o.IdleTimeout = TimeSpan.FromHours(8);
+    o.IdleTimeout = TimeSpan.FromHours(1);
     o.Cookie.HttpOnly = true;
 });
 
