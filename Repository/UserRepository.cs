@@ -11,6 +11,13 @@ namespace AvaliaAe.Repository
         {
             _context = context;
         }
+
+        public UserModel GetUser(int id)
+        {
+            var result = _context.User.FirstOrDefault(x => x.Id == id);
+            return result;
+        }
+
         public UserModel InsertUser(UserModel user)
         {
             _context.User.Add(user);
@@ -23,5 +30,7 @@ namespace AvaliaAe.Repository
             var result = _context.User.FirstOrDefault(o => o.Email == user.Email && o.Password == user.Password);
             return result;
 		}
+
+
 	}
 }

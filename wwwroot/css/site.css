@@ -48,5 +48,6 @@ navbar{
     background-color: #022143;
 }
 .carousel-inner > .carousel-item > img {
-    height: 40vh;
+    height: 90vh;
+    width: 10vh !important;
 }

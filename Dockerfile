@@ -15,6 +15,7 @@ RUN dotnet build "AvaliaAe.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "AvaliaAe.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN Update-Database
 
 FROM base AS final
 WORKDIR /app

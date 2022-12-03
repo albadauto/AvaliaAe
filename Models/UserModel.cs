@@ -13,6 +13,7 @@ namespace AvaliaAe.Models
 
         [Required(ErrorMessage = "Digite um telefone")]
         public string Phone { get; set; }
+
 		[Required(ErrorMessage = "Digite um email")]
 		[EmailAddress(ErrorMessage = "Digite um email válido")]
 		public string Email { get; set; }

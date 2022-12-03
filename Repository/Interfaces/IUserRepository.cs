@@ -6,5 +6,6 @@ namespace AvaliaAe.Repository.Interfaces
     {
         public UserModel InsertUser(UserModel user);
         public UserModel VerifyLogin(UserModel user);
+        public UserModel GetUser(int id);
     }
 }

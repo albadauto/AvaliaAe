@@ -29,7 +29,10 @@ namespace AvaliaAe.Controllers
         public IActionResult VerifyUser(UserModel user)
         {
             CryptographyHelper helper = new CryptographyHelper(SHA256.Create());
-            if (user.Password == null) return RedirectToAction("Index");
+            if (user.Password == null)
+            {
+                return RedirectToAction("Index");
+            }
 
 
             user.Password = helper.hashPassword(user.Password);
@@ -37,6 +40,7 @@ namespace AvaliaAe.Controllers
             if(result != null)
             {
 				HttpContext.Session.SetString("email", user.Email);
+                HttpContext.Session.SetInt32("Id", result.Id);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -49,6 +53,7 @@ namespace AvaliaAe.Controllers
 
         public IActionResult Logout()
         {
+            HttpContext.Session.Remove("Id");
             HttpContext.Session.Remove("email");
             return RedirectToAction("Index", "Home");
         }
