@@ -1,4 +1,6 @@
 using AvaliaAe.Context;
+using AvaliaAe.Helpers;
+using AvaliaAe.Helpers.Interfaces;
 using AvaliaAe.Repository;
 using AvaliaAe.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEntityFrameworkSqlServer().AddDbContext<DatabaseContext>(o => o.UseSqlServer(connection));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+builder.Services.AddScoped<IEmail, Email>();
 builder.Services.AddSession(o =>
 {
     o.IdleTimeout = TimeSpan.FromHours(1);
