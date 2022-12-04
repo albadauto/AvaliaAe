@@ -31,6 +31,15 @@ namespace AvaliaAe.Repository
             return result;
 		}
 
+        public string VerifyIfEmailIsValid(string mail)
+        {
+            var result = (from u in _context.User
+                          where u.Email == mail
+                          select u.Email
+                          ).FirstOrDefault();
+            return result;
+        }
+
 
 	}
 }
