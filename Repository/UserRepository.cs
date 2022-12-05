@@ -46,9 +46,17 @@ namespace AvaliaAe.Repository
             return viewModel;
         }
 
-        public UserModel ResetPassword(UserModel user)
+        public UserModel ResetPassword(UserModel reset)
         {
-            throw new NotImplementedException();
+            UserModel result = this.GetUser(reset.Id);
+            if (result == null)
+            {
+                throw new Exception("Erro!");
+            }
+            result.Password = reset.Password;
+            _context.User.Update(result);
+            _context.SaveChanges();
+            return result;
         }
     }
 }

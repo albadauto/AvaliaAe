@@ -3,6 +3,7 @@ using AvaliaAe.Helpers.Interfaces;
 using AvaliaAe.Models;
 using AvaliaAe.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 
 namespace AvaliaAe.Controllers
 {
@@ -24,7 +25,8 @@ namespace AvaliaAe.Controllers
 
 		public IActionResult CompleteVerification()
 		{
-			return View();
+
+            return View();
 		}
 
 		[HttpPost]
@@ -35,7 +37,8 @@ namespace AvaliaAe.Controllers
             foreach (var value in result)
             {
 				viewModel.Email = value.Email;
-				viewModel.Id = value.Id;	
+				viewModel.Id = value.Id;
+				Console.WriteLine(value.Id);
             }
 
 
@@ -45,6 +48,8 @@ namespace AvaliaAe.Controllers
 				var cod = rand.Next().ToString().Substring(0, 5);
 				_mail.SendMail(model.Email, "(Não compartilhe com ninguém!) Recuperação de senha - Avalia Aê!", $"Utilize o código: {cod} para recuperar a senha");
 				_codeRepository.InsertNewCode(new CodeModel { Code = cod, UserModelId = viewModel.Id });
+				Console.WriteLine(viewModel.Id);
+				HttpContext.Session.SetInt32("idUser", viewModel.Id);
 				return RedirectToAction("CompleteVerification");
 
 			}
@@ -55,5 +60,27 @@ namespace AvaliaAe.Controllers
 			}
 			
 		}
+		[HttpPost]
+		public IActionResult CreateNewPassword(CreatePasswordViewModel newUser)
+		{
+			var findedCode = _codeRepository.FindCode(newUser.Code);
+			CryptographyHelper crypt = new CryptographyHelper(SHA256.Create());
+
+            if (findedCode != null)
+			{
+
+                int idUser = HttpContext.Session.GetInt32("idUser") ?? 0;
+                _repository.ResetPassword(new UserModel() { Id = idUser, Password = crypt.hashPassword(newUser.User.Password) });
+				TempData["successEdit"] = "Senha atualizada com sucesso!";
+                HttpContext.Session.Remove("idUser");
+                return RedirectToAction("CompleteVerification");
+			}
+			else
+			{
+				TempData["errorEdit"] = "Erro: Código inexistente!";
+                return RedirectToAction("CompleteVerification");
+
+            }
+        }
 	}
 }

@@ -1,6 +1,16 @@
-﻿@using (Html.BeginForm("","", FormMethod.Post))
+﻿@model CreatePasswordViewModel
+@using (Html.BeginForm("CreateNewPassword","ForgotPassword", FormMethod.Post))
 {
     <div class="container">
+        @if (TempData["successEdit"] != null)
+        {
+            <div class="alert alert-success mt-3">@TempData["successEdit"]</div>  
+        }
+
+        @if(TempData["errorEdit"] != null)
+        {
+            <div class="alert alert-danger mt-3">@TempData["errorEdit"]</div>  
+        }
         <div class="row">
             <div class="col text-center mt-5">
                 <h3>Recuperar a senha</h3>
@@ -10,7 +20,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Code">
                     <label for="floatingInput">Código de verificação enviado ao email</label>
                 </div>
             </div>
@@ -21,7 +31,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="User.Password">
                     <label for="floatingInput">Senha</label>
                 </div>
             </div>
@@ -30,13 +40,13 @@
              <div class="row">
             <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Repita a senha</label>
                     </div>
                 </div>
             </div>
             <div class="text-center">
-            <button class="btn btn-primary">Atualizar senha</button>
+            <button class="btn btn-primary" type="submit">Atualizar senha</button>
 
             </div>
     </div>
