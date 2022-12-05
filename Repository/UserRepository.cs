@@ -31,15 +31,24 @@ namespace AvaliaAe.Repository
             return result;
 		}
 
-        public string VerifyIfEmailIsValid(string mail)
+        public List<ForgotPasswordViewModel> VerifyIfEmailIsValid(string mail)
         {
+            List<ForgotPasswordViewModel> viewModel = new List<ForgotPasswordViewModel>();
             var result = (from u in _context.User
                           where u.Email == mail
-                          select u.Email
-                          ).FirstOrDefault();
-            return result;
+                          select new { u.Email, u.Id }
+                          ).ToList();
+
+           foreach(var value in result) 
+           {
+                viewModel.Add(new ForgotPasswordViewModel() { Email = value.Email, Id = value.Id });
+           } 
+            return viewModel;
         }
 
-
-	}
+        public UserModel ResetPassword(UserModel user)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

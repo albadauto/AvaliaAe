@@ -8,6 +8,7 @@ namespace AvaliaAe.Context
         public DatabaseContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<CodeModel> Code { get; set; }
         public DbSet<UserModel> User { get; set; }
     }
 }

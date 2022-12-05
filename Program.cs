@@ -12,8 +12,9 @@ var connection = builder.Configuration.GetConnectionString("Database");
 builder.Services.AddControllersWithViews();
 builder.Services.AddEntityFrameworkSqlServer().AddDbContext<DatabaseContext>(o => o.UseSqlServer(connection));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IEmail, Email>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<ICodeRepository, CodeRepository>();
 builder.Services.AddSession(o =>
 {
     o.IdleTimeout = TimeSpan.FromHours(1);

@@ -7,6 +7,7 @@ namespace AvaliaAe.Repository.Interfaces
         public UserModel InsertUser(UserModel user);
         public UserModel VerifyLogin(UserModel user);
         public UserModel GetUser(int id);
-        public string VerifyIfEmailIsValid(string mail);
+        public List<ForgotPasswordViewModel> VerifyIfEmailIsValid(string mail);
+        public UserModel ResetPassword(UserModel user);
     }
 }

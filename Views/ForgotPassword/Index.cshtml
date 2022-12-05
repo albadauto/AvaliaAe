@@ -2,6 +2,12 @@
 <div class="container mt-5 bg-light p-3">
     <div class="text-center">
         <h3>Digite seu email para recuperar sua senha</h3>
+        @if(TempData["errorMail"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["errorMail"]
+            </div>
+        }
     </div>
     @using (Html.BeginForm("VerifyEmail", "ForgotPassword", FormMethod.Post))
     {

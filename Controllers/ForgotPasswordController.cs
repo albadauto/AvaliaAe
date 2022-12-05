@@ -10,36 +10,50 @@ namespace AvaliaAe.Controllers
 	{
 		private readonly IEmail _mail;
 		private readonly IUserRepository _repository;
-
-		public ForgotPasswordController(IEmail mail, IUserRepository repository)
+		private readonly ICodeRepository _codeRepository;
+		public ForgotPasswordController(IEmail mail, IUserRepository repository, ICodeRepository codeRepository)
 		{
 			_mail = mail; 
 			_repository = repository;
+			_codeRepository = codeRepository;
 		}
 		public IActionResult Index()
 		{
 			return View();
 		}
 
-		public IActionResult ForTest()
+		public IActionResult CompleteVerification()
 		{
-			_mail.SendMail("joseadauto923@gmail.com", "teste", "teste");
-			return RedirectToAction("Index", "Home");
+			return View();
 		}
 
 		[HttpPost]
 		public IActionResult VerifyEmail(UserModel model) 
 		{
 			var result = _repository.VerifyIfEmailIsValid(model.Email);
-			if(result != null)
+			ForgotPasswordViewModel viewModel = new ForgotPasswordViewModel();
+            foreach (var value in result)
+            {
+				viewModel.Email = value.Email;
+				viewModel.Id = value.Id;	
+            }
+
+
+			if (viewModel.Email != null)
 			{
 				Random rand = new Random();
 				var cod = rand.Next().ToString().Substring(0, 5);
 				_mail.SendMail(model.Email, "(Não compartilhe com ninguém!) Recuperação de senha - Avalia Aê!", $"Utilize o código: {cod} para recuperar a senha");
-				return RedirectToAction("Index");
+				_codeRepository.InsertNewCode(new CodeModel { Code = cod, UserModelId = viewModel.Id });
+				return RedirectToAction("CompleteVerification");
 
 			}
-			return RedirectToAction("Index");
+			else {
+				TempData["errorMail"] = "Email inexistente";
+				return RedirectToAction("Index");
+			
+			}
+			
 		}
 	}
 }
