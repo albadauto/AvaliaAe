@@ -1,43 +1,99 @@
 ﻿@inject IHttpContextAccessor context
 @model UserModel
 
+
 <div class="container text-center border mt-5">
-    <div class="row">
-        <div class="col mt-3">
-            <h3 class="display-6">Login - Avalia Aê!</h3>
-        </div>
+    <div class="text-center mt-3 mb-5">
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked onclick="showFisicPeople()">
+        <label class="btn btn-outline-primary" for="btnradio1">Pessoa física</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="showInstituion()">
+        <label class="btn btn-outline-dark" for="btnradio2">Instituição</label>
     </div>
+</div>
+    
     <div class="row m-5">
-        @using (Html.BeginForm("VerifyUser", "Login", FormMethod.Post))
+        <div id="fisic-people" style="display:block">
+            <div class="row">
+                <div class="col mt-3">
+                    <h3 class="display-6">Login - Avalia Aê!</h3>
+                </div>
+            </div>
+            @using (Html.BeginForm("VerifyUser", "Login", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Email">
+                            <label for="floatingInput"><i class="bi bi-envelope-check-fill"></i> Email</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Password">
+                            <label for="floatingInput"><i class="bi bi-key-fill"></i> Senha</label>
+                        </div>
+                    </div>
+                </div>
+                <a asp-controller="ForgotPassword" asp-action="Index">Esqueci minha senha</a>
+
+                <div class="row mt-3 mb-5">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                        <a asp-controller="Register" asp-action="Index" class="btn btn-secondary">Registrar-se</a>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+        
+
+        <div class="container" id="intitution" style="display: none">
+            <div class="row">
+                <div class="col mt-3">
+                    <h3 class="display-6">Login (Instituição) - Avalia Aê!</h3>
+                </div>
+            </div>
+
+        @using (Html.BeginForm("","", FormMethod.Post))
         {
-            <div class="row">
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Email">
-                        <label for="floatingInput"><i class="bi bi-envelope-check-fill"></i> Email</label>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Email">
+                            <label for="floatingInput"><i class="bi bi-envelope-check-fill"></i> CNPJ</label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Password"> 
-                        <label for="floatingInput"><i class="bi bi-key-fill"></i> Senha</label>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Password">
+                            <label for="floatingInput"><i class="bi bi-key-fill"></i> Senha</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <a asp-controller="ForgotPassword" asp-action="Index">Esqueci minha senha</a>
+                <a asp-controller="ForgotPassword" asp-action="Index">Esqueci minha senha</a>
 
-            <div class="row mt-3 mb-5">
-                <div class="col">
-                    <button type="submit" class="btn btn-primary">Entrar</button>
-                    <a asp-controller="Register" asp-action="Index" class="btn btn-secondary">Registrar-se</a>
+                <div class="row mt-3 mb-5">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                        <a asp-controller="Register" asp-action="Index" class="btn btn-secondary">Registrar-se</a>
+
+                    </div>
 
                 </div>
 
-            </div>
         }
+        </div>
+
         @if(TempData["error"] != null)
         {
             <div class="alert alert-danger text-center">
@@ -45,9 +101,22 @@
             </div>
 
         }
-      
-        
-
        
     </div>
 </div>
+
+<script>
+    
+    function showFisicPeople(){
+        document.getElementById("fisic-people").style = "display: block"
+        document.getElementById("intitution").style = "display: none"
+    }
+    function showInstituion(){
+        document.getElementById("fisic-people").style = "display: none"
+        document.getElementById("intitution").style = "display: block"
+    }
+</script>
+
+
+
+    
