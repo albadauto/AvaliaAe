@@ -48,7 +48,6 @@ namespace AvaliaAe.Controllers
 				var cod = rand.Next().ToString().Substring(0, 5);
 				_mail.SendMail(model.Email, "(Não compartilhe com ninguém!) Recuperação de senha - Avalia Aê!", $"Utilize o código: {cod} para recuperar a senha");
 				_codeRepository.InsertNewCode(new CodeModel { Code = cod, UserModelId = viewModel.Id });
-				Console.WriteLine(viewModel.Id);
 				HttpContext.Session.SetInt32("idUser", viewModel.Id);
 				return RedirectToAction("CompleteVerification");
 
