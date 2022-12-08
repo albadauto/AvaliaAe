@@ -1,5 +1,5 @@
 ﻿@inject IHttpContextAccessor context
-@model UserModel
+@model LoginViewModel
 
 
 <div class="container text-center border mt-5">
@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Email">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="User.Email">
                             <label for="floatingInput"><i class="bi bi-envelope-check-fill"></i> Email</label>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Password">
+                            <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="User.Password">
                             <label for="floatingInput"><i class="bi bi-key-fill"></i> Senha</label>
                         </div>
                     </div>
@@ -66,8 +66,8 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Email">
-                            <label for="floatingInput"><i class="bi bi-envelope-check-fill"></i> CNPJ</label>
+                            <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Institution.Email">
+                            <label for="floatingInput"><i class="bi bi-building"></i> CNPJ</label>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Password">
+                            <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Institution.Password">
                             <label for="floatingInput"><i class="bi bi-key-fill"></i> Senha</label>
                         </div>
                     </div>

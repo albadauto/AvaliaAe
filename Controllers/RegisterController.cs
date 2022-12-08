@@ -2,6 +2,7 @@
 using AvaliaAe.Models;
 using AvaliaAe.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,9 +12,11 @@ namespace AvaliaAe.Controllers
     public class RegisterController : Controller
     {
         private readonly IUserRepository _repository;
-        public RegisterController(IUserRepository repo)
+        private readonly IInstitutionRepository _instituionRepository;
+        public RegisterController(IUserRepository repo, IInstitutionRepository institutionRepository)
         {
-            _repository= repo;  
+            _repository = repo;
+            _instituionRepository = institutionRepository;
         }
         public IActionResult Index()
         {
@@ -44,5 +47,19 @@ namespace AvaliaAe.Controllers
 			}
             return View("Index", user);
         }
-    }
+
+		[HttpPost]
+		public IActionResult CreateNewInstitution(InstitutionModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				CryptographyHelper crypto = new CryptographyHelper(SHA256.Create());
+				model.Password = crypto.hashPassword(model.Password);
+				_instituionRepository.InsertNewInstitution(model);
+				TempData["successInstitution"] = "Instituição cadastrada com sucesso!";
+				return RedirectToAction("Institution");
+			}
+            return View("Institution");
+		}
+	}
 }
