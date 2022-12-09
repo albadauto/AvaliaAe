@@ -7,8 +7,6 @@ const toastElList = document.querySelectorAll('.toast')
 const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, option))
 
 
-
-
 function cnpjValidation(value) {
     if (!value) return false
 

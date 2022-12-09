@@ -51,6 +51,14 @@ namespace AvaliaAe.Controllers
 
 		}
 
+
+        [HttpPost]
+        public IActionResult VerifyInstitution(InstitutionModel institution)
+        {
+            CryptographyHelper helper = new CryptographyHelper(SHA256.Create());
+            return RedirectToAction();
+        }
+
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("Id");
