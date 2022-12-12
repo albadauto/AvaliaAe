@@ -31,8 +31,8 @@ namespace AvaliaAe.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            
-            return View();
+			UserModel result = _repository.GetUser(id);
+			return View(result);
         }
 
         public IActionResult InstitutionProfile(int id)
