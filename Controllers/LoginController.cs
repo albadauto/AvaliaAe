@@ -65,7 +65,6 @@ namespace AvaliaAe.Controllers
             }
             institution.Password = helper.hashPassword(institution.Password);
             var result = _institutionRepository.GetInstitutionByEmailAndPassword(format.FormatCPF(institution.Cnpj), institution.Password);
-            Console.WriteLine(format.FormatCPF(institution.Cnpj));
             if(result != null ) {
 				HttpContext.Session.SetString("email", result.Email);
 				HttpContext.Session.SetInt32("Id", result.Id);
