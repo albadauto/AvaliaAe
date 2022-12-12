@@ -22,7 +22,7 @@
 			<div class="col">
 				@Html.ValidationMessageFor(x => x.Cnpj, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="CNPJ" asp-for="Cnpj" onblur="if(!validarCNPJ(this.value)) return alert('CNPJ Inválido') ">
+					<input type="number" class="form-control" id="floatingPassword" placeholder="CNPJ" asp-for="Cnpj" onblur="if(!validarCNPJ(this.value)) return alert('CNPJ Inválido') ">
 					<label for="floatingPassword">CNPJ</label>
 				</div>
 			</div>
@@ -78,6 +78,13 @@
 				<div class="form-floating">
 					<input type="number" class="form-control" id="floatingPassword" placeholder="Número" asp-for="Number">
 					<label for="floatingPassword">Número</label>
+				</div>
+			</div>
+			<div class="col">
+				@Html.ValidationMessageFor(x => x.District, "", new {style = "color: red"})
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço" asp-for="District">
+					<label for="floatingPassword">Bairro</label>
 				</div>
 			</div>
 

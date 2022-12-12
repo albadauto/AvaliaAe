@@ -61,12 +61,12 @@
                 </div>
             </div>
 
-        @using (Html.BeginForm("","", FormMethod.Post))
+            @using (Html.BeginForm("VerifyInstitution", "Login", FormMethod.Post))
         {
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Institution.Email">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Institution.Cnpj">
                             <label for="floatingInput"><i class="bi bi-building"></i> CNPJ</label>
                         </div>
                     </div>

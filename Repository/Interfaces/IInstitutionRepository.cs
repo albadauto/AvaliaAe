@@ -7,5 +7,9 @@ namespace AvaliaAe.Repository.Interfaces
         public InstitutionModel InsertNewInstitution(InstitutionModel institution);
 
         public List<InstitutionModel> GetAllInstitutions();
+
+        public InstitutionModel GetInstitutionByEmailAndPassword(string cnpj, string password);
+
+        public InstitutionModel GetInstitutionById(int id);
     }
 }

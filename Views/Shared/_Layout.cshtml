@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AvaliaAe</title>
+    <title>@ViewData["Title"] Avalia Aê - Avaliação de instituições educacionais</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AvaliaAe.styles.css" asp-append-version="true" />
@@ -54,7 +54,7 @@
                         else
                         {
                          <li class="nav-item mx-3">
-                             <a class="btn btn-light border" asp-area="" asp-controller="MyProfile" asp-action="Profile" asp-route-id=@context.HttpContext.Session.GetInt32("Id")> <i class="bi bi-person-circle"></i> <b>Meu Perfil</b></a>
+                             <a class="btn btn-light border" asp-area="" asp-controller="MyProfile" asp-action=@(context.HttpContext.Session.GetString("type") == "user" ? "Profile" : "InstitutionProfile") asp-route-id=@context.HttpContext.Session.GetInt32("Id")> <i class="bi bi-person-circle"></i> <b>Meu Perfil</b></a>
                         </li>
                         <li class="nav-item ">
                              <a class="btn btn-danger ml-3" asp-controller="Login" asp-action="Logout"> <i class="bi bi-box-arrow-in-right"></i> <b>Logout</b> </a>
@@ -89,7 +89,7 @@
                         <a class="nav-link" asp-controller="SearchCertification" asp-action="Index">Pesquisar certificação</a>
                     </li>
                     <li class="nav-item me-5">
-                        <a class="nav-link" href="#">Geral</a>
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Geral</a>
                     </li>
                 </ul>
             

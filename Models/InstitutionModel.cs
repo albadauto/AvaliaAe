@@ -18,8 +18,10 @@ namespace AvaliaAe.Models
 		public string Password { get; set; }
 		[Required(ErrorMessage = "Endereço obrigatório!")]
 		public string Address { get; set; }
-		[Required(ErrorMessage = "Número obrigatório!")]
-		public string Number { get; set; }
+		[Required(ErrorMessage = "Bairro é obrigatório")]
+		public string District { get; set; }
+        [Required(ErrorMessage = "Número obrigatório!")]
+        public string Number { get; set; }
         public string? OwnerName { get; set; }
         public string? OwnerCpf { get; set; }
 

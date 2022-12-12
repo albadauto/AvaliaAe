@@ -47,7 +47,3 @@ navbar{
 .for-school {
     background-color: #022143;
 }
-.carousel-inner > .carousel-item > img {
-    height: 90vh;
-    width: 10vh !important;
-}
