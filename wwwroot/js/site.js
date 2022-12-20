@@ -72,3 +72,4 @@ function cnpjValidation(value) {
     const digit1 = calc(13)
     return digit1 === digits[1]
 }
+

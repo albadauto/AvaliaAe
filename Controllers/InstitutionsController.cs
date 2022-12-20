@@ -13,7 +13,8 @@ namespace AvaliaAe.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var result = _repository.GetAllInstitutions();
+            return View(result);
         }
 
         public IActionResult InsertNewInstitution()

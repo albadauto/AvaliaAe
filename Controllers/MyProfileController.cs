@@ -12,12 +12,12 @@ namespace AvaliaAe.Controllers
         public MyProfileController(IUserRepository repository, IInstitutionRepository institutionRepository)
         {
             _repository = repository;
-            _institutionRepository = institutionRepository; 
+            _institutionRepository = institutionRepository;
         }
 
-        public ActionResult Index() 
+        public ActionResult Index()
         {
-      
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -31,8 +31,8 @@ namespace AvaliaAe.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-			UserModel result = _repository.GetUser(id);
-			return View(result);
+            UserModel result = _repository.GetUser(id);
+            return View(result);
         }
 
         public IActionResult InstitutionProfile(int id)
@@ -42,12 +42,13 @@ namespace AvaliaAe.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-         
+
             InstitutionModel inst = _institutionRepository.GetInstitutionById(id);
-            if (inst == null) {
+            if (inst == null)
+            {
                 return RedirectToAction("Index", "Home");
             }
-     
+
             return View(inst);
         }
     }

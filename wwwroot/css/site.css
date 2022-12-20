@@ -1,4 +1,4 @@
-
+﻿
 
 html {
   font-size: 14px;
@@ -46,4 +46,17 @@ navbar{
 
 .for-school {
     background-color: #022143;
+}
+
+
+fa-star {
+    color: rgba(112, 111, 111, 0.856);
+}
+
+.fa-star:hover {
+    color: orange;
+}
+
+.fa-star.selected {
+    color: orange;
 }
