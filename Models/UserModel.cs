@@ -20,7 +20,8 @@ namespace AvaliaAe.Models
 
 		[Required(ErrorMessage = "Digite uma senha válida")]
 		public string Password { get; set; }
-		public string? Photo { get; set; }
+		public string photo_uri { get; set; }
+		public byte[] photo { get; set; }
 		public bool Is_allowed { get; set; }
 
 		[Required(ErrorMessage = "Digite um Bairro")]

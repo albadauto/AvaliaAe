@@ -22,6 +22,8 @@ namespace AvaliaAe.Models
 		public string District { get; set; }
         [Required(ErrorMessage = "Número obrigatório!")]
         public string Number { get; set; }
+        [Required(ErrorMessage = "Cep é obrigatório")]
+        public string Cep { get; set; }
         public string? OwnerName { get; set; }
         public string? OwnerCpf { get; set; }
 

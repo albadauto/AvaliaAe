@@ -1,149 +1,193 @@
 ﻿@model InstitutionModel
 
-<div class="text-center">
-    <h1 class="display-6 ">Meu perfil</h1>
 
-</div>
-@using (Html.BeginForm("", "", FormMethod.Post))
-{
-   
-    <div class="container bg-light p-3">
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-6">Meu perfil</h1>
+    </div>
+    @using(Html.BeginForm("UploadFile", "Institutions", FormMethod.Post, new { enctype = "multipart/data" }))
+    {
         <div class="row">
-            <div class="col text-center">
-                <h3 class="display-6">Dados pessoais</h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="InstitutionName">
-                    <label for="floatingInput">Nome</label>
+            <div class="col-3 mt-5">
+                <div class="wrap">
+                    <img src="https://pm1.narvii.com/6918/1c73f6a7e14d993420709b7353022ad8955bacd4r1-540-660v2_hq.jpg" class="main-profile-img" />
+                    <button class="edit-button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pen"></i></button>
                 </div>
+                <button class="btn btn-primary mt-2" style="margin-left: 60px" disabled id="sendImage" type="submit" onclick="">Enviar</button>
             </div>
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Email">
-                    <label for="floatingInput">Email</label>
-                </div>
-            </div>
+            <div class="col-9 mt-5">
 
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cnpj">
-                    <label for="floatingInput">CNPJ</label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Phone">
-                    <label for="floatingInput">Número de telefone</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col text-center">
-                <h3 class="display-6">Informações de localidade</h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Address">
-                    <label for="floatingInput">Endereço</label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="District">
-                    <label for="floatingInput">Bairro</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-           
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Number">
-                    <label for="floatingInput">Número</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-           
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="OwnerName">
-                    <label for="floatingInput">Diretor da instituição</label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="OwnerCpf">
-                    <label for="floatingInput">CPF</label>
-                </div>
-            </div>
-        </div>
-
-       @* <div class="row">
-            <div class="col text-center">
-                <h3 class="display-6">Instituições associadas</h3>
-            </div>
-        </div>
-
-       @* @if (true)
-        {
-            <div class="alert alert-secondary text-center">
-                <h5>Ops... Parece que você não tem associação a nenhuma instituição...</h5>
                 <div class="row">
-                    <div class="col mt-3">
-                        <button asp-controller="Institutions" asp-action="Index" class="btn btn-secondary">Achar minha instituição já!</button>
-
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Email">
+                            <label for="floatingInput">Email</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="InstitutionName">
+                            <label for="floatingInput">Nome</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cnpj">
+                            <label for="floatingInput">CPF</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Phone">
+                            <label for="floatingInput">Telefone</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cep">
+                            <label for="floatingInput">CEP</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Address">
+                            <label for="floatingInput">Endereço</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="District">
+                            <label for="floatingInput">Bairro</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Number">
+                            <label for="floatingInput">Número</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        }
-        else
-        {
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>twitter</td>
-                    </tr>
-                </tbody>
-            </table>*@
-        @*}*@
+        </div>
+    }
+    
 
+
+
+</div>
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-6">Instituições associadas a você</h1>
     </div>
+    @if (true)
+    {
+        <div class="alert alert-secondary text-center">
+            <h5>Ops... Parece que você não tem associação a nenhuma instituição...</h5>
+            <div class="row">
+                <div class="col mt-3">
+                    <button asp-controller="Institutions" asp-action="Index" class="btn btn-secondary">Achar minha instituição já!</button>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>twitter</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
 
-}
+
+@*-----------------MODAL--------------------*@
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enviar foto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Enviar novo foto de perfil:</h5>
+                <input type="file" accept="image/*"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" onclick="SendImageToIcon()">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .main-profile-img {
+        width: 190px;
+        height: 190px;
+        border-radius: 50%;
+        border-style: solid;
+        border-color: #FFFFFF;
+        box-shadow: 0 0 8px 3px #B8B8B8;
+        position: relative;
+    }
+
+    .wrap {
+        position: relative;
+    }
+
+    .edit-button {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid grey;
+        top: 0;
+        left: 113px;
+        background: white;
+        color: blue;
+    }
+</style>
+
+
+<script>
+    function SendImageToIcon(){
+        document.querySelector('.main-profile-img').src = 'https://br.web.img3.acsta.net/c_310_420/pictures/20/03/25/18/52/4193364.jpg';
+        $('#exampleModal').modal('hide')
+        document.getElementById('sendImage').disabled = false
+    }
+</script>
+
+
 

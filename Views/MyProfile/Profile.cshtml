@@ -5,72 +5,98 @@
     <div class="text-center">
         <h1 class="display-6">Meu perfil</h1>
     </div>
+    @using (Html.BeginForm("UploadFile", "MyProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-3 mt-5">
+                <div class="wrap">
+                    <img src="https://pm1.narvii.com/6918/1c73f6a7e14d993420709b7353022ad8955bacd4r1-540-660v2_hq.jpg" class="main-profile-img" />
+                    <button class="edit-button" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"><i class="bi bi-pen"></i></button>
+                </div>
+                <button class="btn btn-primary mt-2" style="margin-left: 60px" disabled id="sendImage" type="submit"> Enviar</button>
+            </div>
+            <div class="col-9 mt-5">
 
-    <div class="row">
-        <div class="col-3 mt-5">
-            <div class="wrap">
-                <img src="https://pm1.narvii.com/6918/1c73f6a7e14d993420709b7353022ad8955bacd4r1-540-660v2_hq.jpg" class="main-profile-img" />
-                <button class="edit-button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pen"></i></button>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Email">
+                            <label for="floatingInput">Email</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Name">
+                            <label for="floatingInput">Nome</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cpf">
+                            <label for="floatingInput">CPF</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Phone">
+                            <label for="floatingInput">Telefone</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cep">
+                            <label for="floatingInput">CEP</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Address">
+                            <label for="floatingInput">Endereço</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="District">
+                            <label for="floatingInput">Bairro</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Number">
+                            <label for="floatingInput">Número</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-9 mt-5">
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Email">
-                        <label for="floatingInput">Email</label>
+        @*-----------------MODAL--------------------*@
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Enviar foto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Name">
-                        <label for="floatingInput">Nome</label>
+                    <div class="modal-body">
+                        <h5>Enviar novo foto de perfil:</h5>
+                        <input type="file" accept="image/*" name="file" id="fileModal"/>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cpf">
-                        <label for="floatingInput">CPF</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Phone">
-                        <label for="floatingInput">Telefone</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cep">
-                        <label for="floatingInput">CEP</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Address">
-                        <label for="floatingInput">Endereço</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="District">
-                        <label for="floatingInput">Bairro</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Number">
-                        <label for="floatingInput">Número</label>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" onclick="SendImageToIcon()">Enviar</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+
 
 
 
@@ -87,7 +113,6 @@
             <div class="row">
                 <div class="col mt-3">
                     <button asp-controller="Institutions" asp-action="Index" class="btn btn-secondary">Achar minha instituição já!</button>
-
                 </div>
             </div>
         </div>
@@ -127,27 +152,7 @@
 </div>
 
 
-@*-----------------MODAL--------------------*@
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Enviar foto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5>Enviar novo foto de perfil:</h5>
-                <input type="file" accept="image/*"/>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" onclick="SendImageToIcon()">Enviar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <style>
     .main-profile-img {
@@ -179,10 +184,12 @@
 
 
 <script>
-    function SendImageToIcon(){
-        document.querySelector('.main-profile-img').src = 'https://br.web.img3.acsta.net/c_310_420/pictures/20/03/25/18/52/4193364.jpg';
+    function SendImageToIcon() {
+        document.querySelector('.main-profile-img').src = URL.createObjectURL(document.getElementById("fileModal").files[0]);
         $('#exampleModal').modal('hide')
+        document.getElementById('sendImage').disabled = false
     }
+
 </script>
 
 
