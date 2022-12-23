@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AvaliaAe.Models
@@ -35,6 +36,9 @@ namespace AvaliaAe.Models
 
 		[Required(ErrorMessage = "Digite um Endereço")]
 		public string Address { get; set; }
+
+		[NotMapped]
+		public IFormFile File { get; set; }
 
     }
 }

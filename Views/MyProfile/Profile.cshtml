@@ -1,4 +1,4 @@
-﻿@model UserModel
+﻿@model UserPhotoViewModel
 
 
 <div class="container">
@@ -20,13 +20,13 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Email">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="userModel.Email">
                             <label for="floatingInput">Email</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Name">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="userModel.Name">
                             <label for="floatingInput">Nome</label>
                         </div>
                     </div>
@@ -34,19 +34,19 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cpf">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="userModel.Cpf">
                             <label for="floatingInput">CPF</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Phone">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="userModel.Phone">
                             <label for="floatingInput">Telefone</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cep">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="userModel.Cep">
                             <label for="floatingInput">CEP</label>
                         </div>
                     </div>
@@ -54,19 +54,19 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Address">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="userModel.Address">
                             <label for="floatingInput">Endereço</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="District">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="userModel.District">
                             <label for="floatingInput">Bairro</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Number">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="userModel.Number">
                             <label for="floatingInput">Número</label>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="modal-body">
                         <h5>Enviar novo foto de perfil:</h5>
-                        <input type="file" accept="image/*" name="file" id="fileModal"/>
+                        <input type="file" accept="image/*" name="file" id="fileModal" asp-for="File"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>

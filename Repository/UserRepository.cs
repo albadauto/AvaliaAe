@@ -12,9 +12,10 @@ namespace AvaliaAe.Repository
             _context = context;
         }
 
-        public UserModel GetUser(int id)
+        public UserPhotoViewModel GetUser(int id)
         {
-            var result = _context.User.FirstOrDefault(x => x.Id == id);
+            UserPhotoViewModel result = new UserPhotoViewModel();
+            result.userModel = _context.User.FirstOrDefault(x => x.Id == id);
             return result;
         }
 
@@ -23,6 +24,17 @@ namespace AvaliaAe.Repository
             _context.User.Add(user);
             _context.SaveChanges();
             return user;
+        }
+
+        public UserPhotoViewModel UpdateUser(UserPhotoViewModel user)
+        {
+            var result = this.GetUser(user.userModel.Id);
+            if(result != null)
+            {
+                result = user;
+                _context.SaveChanges();
+            }
+            return result;
         }
 
 		public UserModel VerifyLogin(UserModel user)
@@ -48,7 +60,7 @@ namespace AvaliaAe.Repository
 
         public UserModel ResetPassword(UserModel reset)
         {
-            UserModel result = this.GetUser(reset.Id);
+            UserModel result = _context.User.FirstOrDefault(x => x.Id == reset.Id);
             if (result == null)
             {
                 throw new Exception("Erro!");

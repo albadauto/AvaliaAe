@@ -32,7 +32,7 @@ namespace AvaliaAe.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            UserModel result = _repository.GetUser(id);
+            UserPhotoViewModel result = _repository.GetUser(id);
             return View(result);
         }
 
@@ -53,10 +53,10 @@ namespace AvaliaAe.Controllers
             return View(inst);
         }
         [HttpPost]
-        public IActionResult UploadFile(IFormFile file)
+        public IActionResult UploadFile(UserPhotoViewModel User)
         {
             string pathImage = pathServer + "\\images\\";
-            string newName = Guid.NewGuid().ToString() + "_" + file.FileName; 
+            string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName; 
             if(!Directory.Exists(pathImage))
             {
                 Directory.CreateDirectory(pathImage);
@@ -64,7 +64,7 @@ namespace AvaliaAe.Controllers
 
             using(var stream = System.IO.File.Create(pathImage + newName))
             {
-                file.CopyToAsync(stream);
+                User.File.CopyToAsync(stream);
             }
             return RedirectToAction("Index");
         }
