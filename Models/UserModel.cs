@@ -37,8 +37,6 @@ namespace AvaliaAe.Models
 		[Required(ErrorMessage = "Digite um Endereço")]
 		public string Address { get; set; }
 
-		[NotMapped]
-		public IFormFile File { get; set; }
 
     }
 }

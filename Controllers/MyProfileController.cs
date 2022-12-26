@@ -56,8 +56,9 @@ namespace AvaliaAe.Controllers
         public IActionResult UploadFile(UserPhotoViewModel User)
         {
             string pathImage = pathServer + "\\images\\";
-            string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName; 
-            if(!Directory.Exists(pathImage))
+            string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName;
+     
+            if (!Directory.Exists(pathImage))
             {
                 Directory.CreateDirectory(pathImage);
             }
@@ -66,6 +67,9 @@ namespace AvaliaAe.Controllers
             {
                 User.File.CopyToAsync(stream);
             }
+
+            User.userModel.photo_uri = pathImage + newName;
+            _repository.UpdateUser(User.userModel);
             return RedirectToAction("Index");
         }
     }

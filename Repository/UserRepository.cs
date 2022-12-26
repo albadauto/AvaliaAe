@@ -26,14 +26,27 @@ namespace AvaliaAe.Repository
             return user;
         }
 
-        public UserPhotoViewModel UpdateUser(UserPhotoViewModel user)
+        public UserModel UpdateUser(UserModel user)
         {
-            var result = this.GetUser(user.userModel.Id);
+            var result = _context.User.FirstOrDefault(o => o.Id == user.Id);
             if(result != null)
             {
-                result = user;
+                result.Name = user.Name;
+                result.Address = user.Address;
+                result.Phone = user.Phone;
+                result.Email = user.Email;
+                result.Cep = user.Cep;
+                result.District = user.District;
+                result.Cpf = user.Cpf;
+                result.photo_uri = user.photo_uri;
+                result.Number = user.Number;
                 _context.SaveChanges();
             }
+            else
+            {
+                Console.WriteLine("é nulo");
+            }
+           
             return result;
         }
 
