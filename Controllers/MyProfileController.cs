@@ -7,13 +7,15 @@ namespace AvaliaAe.Controllers
     {
         private readonly IUserRepository _repository;
         private readonly IInstitutionRepository _institutionRepository;
+        private readonly IAssociationRepository _associationRepository;
         private string pathServer;
 
-        public MyProfileController(IUserRepository repository, IInstitutionRepository institutionRepository, IWebHostEnvironment webHost)
+        public MyProfileController(IUserRepository repository, IInstitutionRepository institutionRepository, IWebHostEnvironment webHost, IAssociationRepository associationRepository)
         {
             _repository = repository;
             _institutionRepository = institutionRepository;
             pathServer = webHost.WebRootPath;
+            _associationRepository = associationRepository;
         }
 
         public ActionResult Index()
@@ -52,6 +54,22 @@ namespace AvaliaAe.Controllers
 
             return View(inst);
         }
+
+        public IActionResult ForTest()
+        {
+            var result = _associationRepository.GetUserAndInstitution(1002);
+            foreach(var value in result)
+            {
+                Console.WriteLine(value.UserModel.Name);
+                Console.WriteLine(value.InstitutionModel.InstitutionName);
+				Console.WriteLine(value.Status);
+
+			}
+			Console.WriteLine("Opa");
+
+			return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public async Task<IActionResult> UploadFile(UserPhotoViewModel User)
         {

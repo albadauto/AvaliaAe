@@ -16,6 +16,8 @@ builder.Services.AddScoped<IEmail, Email>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ICodeRepository, CodeRepository>();
 builder.Services.AddScoped<IInstitutionRepository, InstitutionRepository>();
+builder.Services.AddScoped<IAssociationRepository, AssociationRepository>();
+
 builder.Services.AddSession(o =>
 {
     o.IdleTimeout = TimeSpan.FromHours(1);
