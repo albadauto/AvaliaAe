@@ -57,9 +57,8 @@ namespace AvaliaAe.Controllers
                 model.Password = crypto.hashPassword(model.Password);
                 _instituionRepository.InsertNewInstitution(model);
                 TempData["successInstitution"] = "Instituição cadastrada com sucesso!";
-                return RedirectToAction("Institution");
             }
-            return View("Institution");
+            return RedirectToAction("Institution");
         }
     }
 }

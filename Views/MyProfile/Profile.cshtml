@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-3 mt-5">
                 <div class="wrap">
-                    <img src=@Model.userModel.photo_uri class="main-profile-img" />
+                    <img src="@Model.userModel.photo_uri" class="main-profile-img" />
                     <button class="edit-button" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"><i class="bi bi-pen"></i></button>
                 </div>
             </div>
@@ -189,8 +189,11 @@
 
 
 <script>
+    
     function SendImageToIcon() {
-        document.querySelector('.main-profile-img').src = URL.createObjectURL(document.getElementById("fileModal").files[0]);
+       
+          document.querySelector('.main-profile-img').src = URL.createObjectURL(document.getElementById("fileModal").files[0]);
+
         $('#exampleModal').modal('hide')
        
     }

@@ -53,23 +53,27 @@ namespace AvaliaAe.Controllers
             return View(inst);
         }
         [HttpPost]
-        public IActionResult UploadFile(UserPhotoViewModel User)
+        public async Task<IActionResult> UploadFile(UserPhotoViewModel User)
         {
-            string pathImage = pathServer + "\\images\\";
+            string pathImage = pathServer + "\\img\\profile_photos\\";
+            /*if(Path.GetExtension(User.File.FileName).ToLower() != "jpg")
+            {
+                return RedirectToAction("Index");
+            }*/
             string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName;
-     
             if (!Directory.Exists(pathImage))
             {
                 Directory.CreateDirectory(pathImage);
             }
+            
 
-            using(var stream = System.IO.File.Create(pathImage + newName))
+            using (var stream = System.IO.File.Create(pathImage + newName))
             {
-                User.File.CopyToAsync(stream);
+                await User.File.CopyToAsync(stream);
             }
+            _repository.UpdateUser(User.userModel, $"/img/profile_photos/{newName}");
 
-            User.userModel.photo_uri = pathImage + newName;
-            _repository.UpdateUser(User.userModel);
+
             return RedirectToAction("Index");
         }
     }

@@ -87,6 +87,13 @@
 					<label for="floatingPassword">Bairro</label>
 				</div>
 			</div>
+			<div class="col">
+				@Html.ValidationMessageFor(x => x.Cep, "", new {style = "color: red"})
+				<div class="form-floating">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço" asp-for="Cep">
+					<label for="floatingPassword">CEP</label>
+				</div>
+			</div>
 
 		</div>
 		<h1 class="display-6 mt-3">Informações adicionais</h1>
@@ -178,6 +185,5 @@
 
 		return true;
 
-	}
 	}
 </script>
