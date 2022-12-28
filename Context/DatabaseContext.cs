@@ -12,6 +12,7 @@ namespace AvaliaAe.Context
         public DbSet<UserModel> User { get; set; }
         public DbSet<InstitutionModel> Institution { get; set; }
         public DbSet<AssociationsModel> Associations { get; set; }
+        public DbSet<DocumentationModel> Documentations { get; set; }
 
     }
 }

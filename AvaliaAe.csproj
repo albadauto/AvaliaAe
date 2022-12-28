@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Tests\SQL\" />
+    <Folder Include="wwwroot\docs\" />
   </ItemGroup>
 
 </Project>
