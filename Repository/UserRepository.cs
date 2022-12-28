@@ -12,10 +12,10 @@ namespace AvaliaAe.Repository
             _context = context;
         }
 
-        public UserPhotoViewModel GetUser(int id)
+        public UserModel GetUser(int id)
         {
-            UserPhotoViewModel result = new UserPhotoViewModel();
-            result.userModel = _context.User.FirstOrDefault(x => x.Id == id);
+            UserModel result = new UserModel();
+            result = _context.User.FirstOrDefault(x => x.Id == id);
             return result;
         }
 
@@ -40,7 +40,6 @@ namespace AvaliaAe.Repository
                 result.Cpf = user.Cpf;
                 result.Number = user.Number;
                 result.photo_uri = photo_uri;
-                Console.WriteLine("Foi");
                 _context.SaveChanges();
             }
             else

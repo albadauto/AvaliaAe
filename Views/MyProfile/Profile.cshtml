@@ -5,12 +5,18 @@
     <div class="text-center">
         <h1 class="display-6">Meu perfil</h1>
     </div>
+    @if (TempData["successMessageUpdate"] != null)
+    {
+        <div class="alert alert-warning">
+            @TempData["successMessageUpdate"]
+        </div>
+    }
     @using (Html.BeginForm("UploadFile", "MyProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="row">
             <div class="col-3 mt-5">
                 <div class="wrap">
-                    <img src="@Model.userModel.photo_uri" class="main-profile-img" />
+                    <img src="@(Model.userModel.photo_uri ?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")" class="main-profile-img" />
                     <button class="edit-button" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"><i class="bi bi-pen"></i></button>
                 </div>
             </div>
@@ -111,7 +117,7 @@
     <div class="text-center">
         <h1 class="display-6">Instituições associadas a você</h1>
     </div>
-    @if (true)
+    @if (Model.associations.Count() == 0)
     {
         <div class="alert alert-secondary text-center">
             <h5>Ops... Parece que você não tem associação a nenhuma instituição...</h5>
@@ -124,33 +130,31 @@
     }
     else
     {
+       
+
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Institutição</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Desassociar</th>
+
                 </tr>
             </thead>
             <tbody>
+                @foreach (var result in Model.associations )
+                {
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>mdo</td>
+                    <th scope="row">@result.UserModel.Name</th>
+                    <td>@result.InstitutionModel.InstitutionName</td>
+                    <td>@(result.Status == "P" ? "Pendente" : "Aceito") </td>
+                    <td><button class="btn btn-danger">Desassociar</button></td>
+
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>twitter</td>
-                </tr>
+                }
+               
+               
             </tbody>
         </table>
     }

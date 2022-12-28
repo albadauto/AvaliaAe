@@ -34,8 +34,13 @@ namespace AvaliaAe.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            UserPhotoViewModel result = _repository.GetUser(id);
-            return View(result);
+			UserPhotoViewModel userModel = new UserPhotoViewModel()
+            {
+                userModel = _repository.GetUser(id),
+                associations = _associationRepository.GetUserAndInstitution(id)
+		    };
+
+            return View(userModel);
         }
 
         public IActionResult InstitutionProfile(int id)
@@ -73,26 +78,44 @@ namespace AvaliaAe.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadFile(UserPhotoViewModel User)
         {
-            string pathImage = pathServer + "\\img\\profile_photos\\";
-            /*if(Path.GetExtension(User.File.FileName).ToLower() != "jpg")
+            try
             {
-                return RedirectToAction("Index");
-            }*/
-            string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName;
-            if (!Directory.Exists(pathImage))
+                string pathImage = pathServer + "\\img\\profile_photos\\";
+
+                /*if(Path.GetExtension(User.File.FileName).ToLower() != "jpg")
+                {
+                    return RedirectToAction("Index");
+                }*/
+                if(User.File != null)
+                {
+                    string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName;
+
+                    if (!Directory.Exists(pathImage))
+                    {
+                        Directory.CreateDirectory(pathImage);
+                    }
+
+
+                    using (var stream = System.IO.File.Create(pathImage + newName))
+                    {
+                        await User.File.CopyToAsync(stream);
+                    }
+                    _repository.UpdateUser(User.userModel, $"/img/profile_photos/{newName}");
+                }
+                else
+                {
+                    _repository.UpdateUser(User.userModel, $"/img/profile_photos/CoLocarNome");
+                }
+
+                TempData["successMessageUpdate"] = "Informações atualizadas com sucesso!";
+                return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id")});
+            }
+            catch(Exception e)
             {
-                Directory.CreateDirectory(pathImage);
+                throw new Exception(e.Message);
+                //return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
             }
             
-
-            using (var stream = System.IO.File.Create(pathImage + newName))
-            {
-                await User.File.CopyToAsync(stream);
-            }
-            _repository.UpdateUser(User.userModel, $"/img/profile_photos/{newName}");
-
-
-            return RedirectToAction("Index");
         }
     }
 }
