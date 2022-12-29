@@ -47,8 +47,9 @@ namespace AvaliaAe.Repository
             return listDocumentation;
         }
 
-        public DocumentationModel InsertNewDocumenation(DocumentationModel model)
+        public DocumentationModel InsertNewDocumenation(DocumentationModel model, string docUri)
         {
+            model.doc_uri = docUri;
             _context.Documentations.Add(model);
             _context.SaveChanges();
             return model;

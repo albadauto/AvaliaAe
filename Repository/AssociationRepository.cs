@@ -32,5 +32,12 @@ namespace AvaliaAe.Repository
 			}
 			return associations;
 		}
-	}
+
+        public AssociationsModel InsertNewAssociation(AssociationsModel association)
+        {
+            _context.Associations.Add(association);
+			_context.SaveChanges();
+			return association;
+        }
+    }
 }
