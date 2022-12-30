@@ -52,26 +52,36 @@ namespace AvaliaAe.Controllers
                 {
                     await model.File.CopyToAsync(stream);
                 }
+
+                _repository.InsertNewDocumenation(new DocumentationModel()
+                {
+                    Associations = new AssociationsModel()
+                    {
+                        UserModelId = Convert.ToInt32(HttpContext.Session.GetInt32("Id")),
+                        Status = "P",
+                        InstitutionModelId = model.Associations.InstitutionModel.Id
+                    },
+                    FileName = newName
+                }, $"/wwwroot/docs/{newName}");
+
+                TempData["successAssociation"] = "Associação enviada para analise manual. Favor, aguardar a aprovação de um administrador";
             }
             else
             {
                 Console.WriteLine("é nulo");
             }
-            _repository.InsertNewDocumenation(new DocumentationModel()
-            {
-                Associations = new AssociationsModel()
-                {
-                    UserModelId = Convert.ToInt32(HttpContext.Session.GetInt32("Id")),
-                    Status = "P",
-                    InstitutionModelId = model.Associations.InstitutionModel.Id
-                }
-            }, $"/wwwroot/docs/{newName}");
 
-            TempData["successAssociation"] = "Associação enviada para analise manual. Favor, aguardar a aprovação de um administrador";
             return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
         }
 
-
+        public IActionResult ShowFile(string filename)
+        {
+            if (filename == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return File($"docs/{filename}", "application/pdf");
+        }
     }
 
 }

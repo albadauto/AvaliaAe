@@ -79,7 +79,10 @@ namespace AvaliaAe.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DocName")
+                    b.Property<int?>("AssociationsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -87,6 +90,8 @@ namespace AvaliaAe.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssociationsId");
 
                     b.ToTable("Documentations");
                 });
@@ -228,6 +233,15 @@ namespace AvaliaAe.Migrations
                         .IsRequired();
 
                     b.Navigation("UserModel");
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.DocumentationModel", b =>
+                {
+                    b.HasOne("AvaliaAe.Models.AssociationsModel", "Associations")
+                        .WithMany()
+                        .HasForeignKey("AssociationsId");
+
+                    b.Navigation("Associations");
                 });
 #pragma warning restore 612, 618
         }
