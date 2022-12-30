@@ -44,6 +44,12 @@ namespace AvaliaAe.Controllers
                 return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
             }
 
+            if (Path.GetExtension(model.File.FileName).ToLower() != ".pdf")
+            {
+                TempData["errorAssociation"] = "Por favor, selecione um arquivo PDF";
+                return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
+            }
+
             if (model.File != null)
             {
                 string newName = Guid.NewGuid() + "_" + model.File.FileName;

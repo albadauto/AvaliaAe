@@ -150,7 +150,8 @@
                 <input type="hidden" value=@context.HttpContext.Session.GetInt32("Id") asp-for="Associations.UserModelId"/>
                 <input type="hidden" asp-for="Associations.InstitutionModel.Id"/>
                 <div class="modal-body">
-                    Faça o upload de um arquivo que comprove sua associação a instituição: <br /><br />
+                    Faça o upload de um arquivo que comprove sua associação a instituição <br /><br />
+                    OBS: Somente arquivos com extensão .PDF! <br /><br />
                     <input type="file" multiple="multiple" asp-for="File"/>
                 </div>
                 <div class="modal-footer">
