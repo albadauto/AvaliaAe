@@ -26,6 +26,14 @@
                 @TempData["successAssociation"]
             </div>
         }
+
+        @if (TempData["errorAssociation"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["errorAssociation"]
+            </div>
+        }
+        
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">

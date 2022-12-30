@@ -8,10 +8,8 @@ namespace AvaliaAe.Controllers
     {
         private readonly IDocumentationRepository _repository;
         private readonly IInstitutionRepository _institutionRepository;
-        private readonly IAssociationRepository _associationRepository;
-        private readonly IUserRepository _userRepository;
         private string pathServer;
-        public ToAssociateController(IDocumentationRepository repository, IInstitutionRepository institutionRepository, IWebHostEnvironment environment, IAssociationRepository associationRepository, IUserRepository userRepository)
+        public ToAssociateController(IDocumentationRepository repository, IInstitutionRepository institutionRepository, IWebHostEnvironment environment)
         {
             pathServer = environment.WebRootPath;
             _repository = repository;
@@ -40,9 +38,16 @@ namespace AvaliaAe.Controllers
         public async Task<IActionResult> UploadDoc(DocumentationModel model)
         {
             string path = pathServer + "\\docs\\";
-            string newName = Guid.NewGuid() + "_" + model.File.FileName;
+
+            if(model == null)
+            {
+                return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
+            }
+
             if (model.File != null)
             {
+                string newName = Guid.NewGuid() + "_" + model.File.FileName;
+
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -68,7 +73,8 @@ namespace AvaliaAe.Controllers
             }
             else
             {
-                Console.WriteLine("é nulo");
+                TempData["errorAssociation"] = "Por favor, selecione um arquivo para a associação a esta instituição";
+                return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
             }
 
             return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
