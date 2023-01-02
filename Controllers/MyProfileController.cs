@@ -34,11 +34,11 @@ namespace AvaliaAe.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-			UserPhotoViewModel userModel = new UserPhotoViewModel()
+            UserPhotoViewModel userModel = new UserPhotoViewModel()
             {
                 userModel = _repository.GetUser(id),
                 associations = _associationRepository.GetUserAndInstitution(id)
-		    };
+            };
 
             return View(userModel);
         }
@@ -63,16 +63,16 @@ namespace AvaliaAe.Controllers
         public IActionResult ForTest()
         {
             var result = _associationRepository.GetUserAndInstitution(1002);
-            foreach(var value in result)
+            foreach (var value in result)
             {
                 Console.WriteLine(value.UserModel.Name);
                 Console.WriteLine(value.InstitutionModel.InstitutionName);
-				Console.WriteLine(value.Status);
+                Console.WriteLine(value.Status);
 
-			}
-			Console.WriteLine("Opa");
+            }
+            Console.WriteLine("Opa");
 
-			return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -82,11 +82,11 @@ namespace AvaliaAe.Controllers
             {
                 string pathImage = pathServer + "\\img\\profile_photos\\";
 
-                /*if(Path.GetExtension(User.File.FileName).ToLower() != "jpg")
+                if (Path.GetExtension(User.File.FileName).ToLower() != ".jpg" || Path.GetExtension(User.File.FileName).ToLower() != ".png" || Path.GetExtension(User.File.FileName).ToLower() != ".jpeg")
                 {
                     return RedirectToAction("Index");
-                }*/
-                if(User.File != null)
+                }
+                if (User.File != null)
                 {
                     string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName;
 
@@ -107,15 +107,34 @@ namespace AvaliaAe.Controllers
                     _repository.UpdateUser(User.userModel, $"/img/profile_photos/CoLocarNome");
                 }
 
-                TempData["successMessageUpdate"] = "Informações atualizadas com sucesso!";
-                return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id")});
+                TempData["successProfile"] = "Informações atualizadas com sucesso!";
+                return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.Message);
                 //return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
             }
-            
+
+        }
+
+        public IActionResult RemoveInstutionFromUser(int idInst)
+        {
+            try
+            {
+                _associationRepository.RemoveInstitution(idInst);
+                TempData["successProfile"] = "Instituição desassociada com sucesso";
+                return RedirectToAction("Profile", new { id = HttpContext.Session.GetInt32("Id") });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(idInst);
+
+                TempData["errorProfile"] = $"Erro ao tentar desassociar este usuário a instituição selecionada, erro original: {e.Message}";
+                return RedirectToAction("Profile", new { id = HttpContext.Session.GetInt32("Id") });
+            }
+
+
         }
     }
 }

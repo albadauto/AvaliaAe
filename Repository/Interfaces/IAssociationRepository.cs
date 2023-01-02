@@ -7,5 +7,7 @@ namespace AvaliaAe.Repository.Interfaces
 		public List<AssociationsModel> GetUserAndInstitution(int UserId);
 
 		public AssociationsModel InsertNewAssociation(AssociationsModel association);
+
+		public bool RemoveInstitution(int idInst);
 	}
 }
