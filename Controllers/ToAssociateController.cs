@@ -89,8 +89,9 @@ namespace AvaliaAe.Controllers
 
         public IActionResult ShowFile()
         {
-            var file = RouteData.Values["filename"];
-            return File($"/docs/{file}", "application/pdf");
+            string filename = Request.Path.Value.Split('/').LastOrDefault();
+            if (Path.GetExtension(filename) != ".pdf") return RedirectToAction("Index", "Home");
+            return File($"/docs/{filename}", "application/pdf");
         }
     }
 
