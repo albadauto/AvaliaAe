@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model UserPhotoViewModel
+
+@using (Html.BeginForm("DeleteAccountFromAll", "MyProfile", FormMethod.Post))
+{
+    <div class="container">
+        <div class="text-center mt-5">
+            <h3 class="display-6">Exclusão de conta</h3>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <p class="text-muted">Digite o código enviado no email: @Model.userModel.Email</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput" asp-for="codeModel.Code">
+                    <label for="floatingInput">Digite o código enviado no email</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-outline-danger" type="submit">Excluir conta</button>
+        </div>
+
+    </div>
+}

@@ -10,5 +10,6 @@ namespace AvaliaAe.Repository.Interfaces
         public List<ForgotPasswordViewModel> VerifyIfEmailIsValid(string mail);
         public UserModel ResetPassword(UserModel user);
         public UserModel UpdateUser(UserModel user, string photo_uri);
+        public bool DeleteUser(int id);
     }
 }

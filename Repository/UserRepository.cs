@@ -83,5 +83,13 @@ namespace AvaliaAe.Repository
             _context.SaveChanges();
             return result;
         }
+
+        public bool DeleteUser(int id)
+        {
+            var result = _context.User.FirstOrDefault(x => x.Id == id);
+            _context.User.Remove(result);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

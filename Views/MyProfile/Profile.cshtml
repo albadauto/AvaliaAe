@@ -90,7 +90,7 @@
             <div class="col text-center">
                 <button class="btn btn-warning mt-2" style="margin-left: 60px" id="sendImage" type="submit">Atualizar informações</button>
             </div>
-            
+
         </div>
 
         @*-----------------MODAL--------------------*@
@@ -165,14 +165,20 @@
             </tbody>
         </table>
     }
-    <div class="row mt-5 text-center">
-        <div class="col">
-            <button class="btn btn-outline-danger">Excluir Conta</button>
+    @using (Html.BeginForm("DeleteAccount", "MyProfile", FormMethod.Post))
+    {
+        <div class="row mt-5 text-center">
+            <div class="col">
+                <input type="hidden" asp-for="userModel.Email">
+                <button class="btn btn-outline-danger" type="submit">Excluir Conta</button>
+            </div>
         </div>
-    </div>
+    }
+    
 
 
 </div>
+
 
 
 
@@ -216,8 +222,8 @@
 
     }
 
-    function UnAssociation(url){
-        if(confirm("Deseja realmente se desassociar a esta instituição?")){
+    function UnAssociation(url) {
+        if (confirm("Deseja realmente se desassociar a esta instituição?")) {
             window.location.href = url
         }
     }

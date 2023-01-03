@@ -1,5 +1,6 @@
 ﻿using AvaliaAe.Models;
 using AvaliaAe.Repository.Interfaces;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AvaliaAe.Controllers
@@ -86,13 +87,10 @@ namespace AvaliaAe.Controllers
             return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
         }
 
-        public IActionResult ShowFile(string filename)
+        public IActionResult ShowFile()
         {
-            if (filename == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            return File($"docs/{filename}", "application/pdf");
+            var file = RouteData.Values["filename"];
+            return File($"/docs/{file}", "application/pdf");
         }
     }
 
