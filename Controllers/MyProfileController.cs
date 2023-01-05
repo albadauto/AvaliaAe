@@ -165,6 +165,10 @@ namespace AvaliaAe.Controllers
                 HttpContext.Session.Remove("email");
                 return RedirectToAction("Index", "Home");
             }
+            else
+            {
+                TempData["errorDelete"] = "Código inválido";
+            }
             return RedirectToAction("Index");
         }
     }
