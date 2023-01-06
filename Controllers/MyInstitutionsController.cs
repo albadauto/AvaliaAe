@@ -12,7 +12,8 @@ namespace AvaliaAe.Controllers
         }
         public IActionResult Index(int Id)
         {
-            if(Id == null || Id == 0)
+            int idUser = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
+            if(Id == null || Id == 0 || idUser != Id )
             {
                 return RedirectToAction("Index", "Home");
             }
