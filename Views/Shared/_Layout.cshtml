@@ -57,7 +57,7 @@
                                 <a class="btn btn-light border" asp-area="" asp-controller="MyProfile" asp-action=@(context.HttpContext.Session.GetString("type") == "user" ? "Profile" : "InstitutionProfile") asp-route-id=@context.HttpContext.Session.GetInt32("Id")> <i class="bi bi-person-circle"></i> <b>Meu Perfil</b></a>
                             </li>
                             <li class="nav-item ">
-                                <a class="btn btn-primary ml-3 me-3" asp-controller="MyInstitutions" asp-action="Index"> <i class="bi bi-bookmark-star"></i> <b>Avaliar instituições</b> </a>
+                                <a class="btn btn-primary ml-3 me-3" asp-controller="MyInstitutions" asp-action="Index" asp-route-id=@Convert.ToInt32(context.HttpContext.Session.GetInt32("Id"))> <i class="bi bi-bookmark-star"></i> <b>Avaliar instituições</b> </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="btn btn-danger ml-3 " asp-controller="Login" asp-action="Logout"> <b><i class="bi bi-box-arrow-in-right"></i></b> </a>

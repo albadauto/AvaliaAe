@@ -1,12 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AvaliaAe.Repository.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AvaliaAe.Controllers
 {
     public class MyInstitutionsController : Controller
     {
-        public IActionResult Index()
+        private readonly IAssociationRepository _associationRepository;
+        public MyInstitutionsController(IAssociationRepository associationRepository)
         {
-            return View();
+            _associationRepository = associationRepository;
+        }
+        public IActionResult Index(int Id)
+        {
+            if(Id == null || Id == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+           var result = _associationRepository.GetUserAndInstitution(Id);
+            return View(result);
         }
     }
 }
