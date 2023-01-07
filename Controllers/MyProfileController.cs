@@ -147,8 +147,6 @@ namespace AvaliaAe.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(idInst);
-
                 TempData["errorProfile"] = $"Erro ao tentar desassociar este usuário a instituição selecionada, erro original: {e.Message}";
                 return RedirectToAction("Profile", new { id = HttpContext.Session.GetInt32("Id") });
             }

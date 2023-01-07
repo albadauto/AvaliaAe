@@ -20,5 +20,11 @@ namespace AvaliaAe.Controllers
            var result = _associationRepository.GetUserAndInstitution(Id);
             return View(result);
         }
+
+        public IActionResult ToAvaliate(int Id)
+        {
+
+            return View();
+        }
     }
 }
