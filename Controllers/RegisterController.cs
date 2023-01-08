@@ -39,6 +39,11 @@ namespace AvaliaAe.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(_repository.GetUserByEmail(user.Email) != null)
+                {
+                    TempData["error"] = "Erro: Usuário já existente com este email";
+                    return RedirectToAction("Index");
+                }
                 CryptographyHelper crypto = new CryptographyHelper(SHA256.Create());
                 user.Password = crypto.hashPassword(user.Password);
                 _repository.InsertUser(user);
@@ -53,6 +58,11 @@ namespace AvaliaAe.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(_instituionRepository.GetInstitutionByEmailAndCnpj(model.Email, model.Cnpj) != null)
+                {
+					TempData["errorInstitution"] = "Erro: Email ou Cnpj já existente na plataforma";
+					return RedirectToAction("Index");
+				}
                 CryptographyHelper crypto = new CryptographyHelper(SHA256.Create());
                 model.Password = crypto.hashPassword(model.Password);
                 _instituionRepository.InsertNewInstitution(model);

@@ -26,6 +26,13 @@ namespace AvaliaAe.Repository
             return user;
         }
 
+        public UserModel GetUserByEmail(string email) 
+        {
+            var result = _context.User.FirstOrDefault(x => x.Email.Equals(email));
+            return result;
+        
+        }
+
         public UserModel UpdateUser(UserModel user, string photo_uri)
         {
             var result = _context.User.FirstOrDefault(o => o.Id == user.Id);

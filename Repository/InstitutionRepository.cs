@@ -19,6 +19,12 @@ namespace AvaliaAe.Repository
             return result;
         }
 
+		public InstitutionModel GetInstitutionByEmailAndCnpj(string email, string cnpj)
+		{
+            var result = _context.Institution.FirstOrDefault(x => x.Email == email || x.Cnpj == cnpj);
+            return result;
+		}
+
 		public InstitutionModel GetInstitutionByEmailAndPassword(string cnpj, string password)
 		{
            var result = _context.Institution.FirstOrDefault(x => x.Cnpj == cnpj && x.Password == password);

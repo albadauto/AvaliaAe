@@ -12,6 +12,12 @@
 			@TempData["success"]
 		</div>
 	}
+	@if(TempData["error"] != null)
+	{
+		<div class="alert alert-danger">
+			@TempData["error"]
+		</div>
+	}
 	<h1 class="display-6 mt-5">Registro de usuário</h1>
 	@using (Html.BeginForm("CreateNewUser", "Register", FormMethod.Post))
 	{

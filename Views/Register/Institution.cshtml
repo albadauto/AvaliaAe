@@ -9,6 +9,12 @@
 			@TempData["successInstitution"]
 		</div>
 	}
+	@if(TempData["errorInstitution"] != null)
+	{
+		<div class="alert alert-danger">
+			@TempData["errorInstitution"]
+		</div>
+	}
 	@using (Html.BeginForm("CreateNewInstitution", "Register", FormMethod.Post))
 	{
 		<div class="row">
