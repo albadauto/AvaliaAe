@@ -15,7 +15,7 @@ namespace AvaliaAe.Controllers
             int idUser = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
             if(Id == null || Id == 0 || idUser != Id )
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Login");
             }
            var result = _associationRepository.GetUserAndInstitution(Id);
             return View(result);

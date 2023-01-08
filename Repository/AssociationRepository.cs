@@ -20,13 +20,13 @@ namespace AvaliaAe.Repository
                           join i in _context.Institution
                             on a.InstitutionModel.Id equals i.Id
                           where a.UserModelId == UserId && a.Status != "P"
-                          select new { u.Name, i.InstitutionName, a.Status, a.Id }
+                          select new { u.Name, i.InstitutionName, a.Status, a.Id, institutionId = i.Id }
                           );
             foreach (var a in result)
             {
                 associations.Add(new AssociationsModel
                 {
-                    InstitutionModel = new InstitutionModel { InstitutionName = a.InstitutionName },
+                    InstitutionModel = new InstitutionModel { InstitutionName = a.InstitutionName, Id = a.institutionId },
                     UserModel = new UserModel { Name = a.Name },
                     Status = a.Status,
                     Id = a.Id
