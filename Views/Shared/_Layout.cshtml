@@ -87,9 +87,13 @@
                 <li class="nav-item me-5">
                     <a class="nav-link" asp-controller="Doubt" asp-action="Index">Dúvidas</a>
                 </li>
-                <li class="nav-item me-5">
-                    <a class="nav-link" asp-controller="Register" asp-action="Institution">Cadastrar instituição</a>
-                </li>
+                @if(context.HttpContext.Session.GetString("Id") == null)
+                {
+                    <li class="nav-item me-5">
+                        <a class="nav-link" asp-controller="Register" asp-action="Institution">Cadastrar instituição</a>
+                    </li>
+                }
+                
                 <li class="nav-item me-5">
                     <a class="nav-link" asp-controller="WeAre" asp-action="Index">Quem somos?</a>
                 </li>

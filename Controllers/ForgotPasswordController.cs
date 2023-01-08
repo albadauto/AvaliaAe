@@ -38,7 +38,6 @@ namespace AvaliaAe.Controllers
             {
 				viewModel.Email = value.Email;
 				viewModel.Id = value.Id;
-				Console.WriteLine(value.Id);
             }
 
 
