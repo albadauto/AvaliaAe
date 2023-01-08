@@ -1,4 +1,5 @@
 ﻿using AvaliaAe.Helpers;
+using AvaliaAe.Helpers.Interfaces;
 using AvaliaAe.Models;
 using AvaliaAe.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace AvaliaAe.Controllers
     {
         private readonly IUserRepository _repository;
         private readonly IInstitutionRepository _institutionRepository;
-        public LoginController(IUserRepository repository, IInstitutionRepository institution)
+        private readonly IFormatHelper _formatHelper;
+        public LoginController(IUserRepository repository, IInstitutionRepository institution, IFormatHelper format)
         {
-            _repository = repository;    
+            _repository = repository;
             _institutionRepository = institution;
+            _formatHelper = format;
         }
         public IActionResult Index()
         {
@@ -39,9 +42,9 @@ namespace AvaliaAe.Controllers
 
             user.Password = helper.hashPassword(user.Password);
             var result = _repository.VerifyLogin(user);
-            if(result != null)
+            if (result != null)
             {
-				HttpContext.Session.SetString("email", user.Email);
+                HttpContext.Session.SetString("email", user.Email);
                 HttpContext.Session.SetInt32("Id", result.Id);
                 HttpContext.Session.SetString("type", "user");
                 return RedirectToAction("Index", "Home");
@@ -52,40 +55,37 @@ namespace AvaliaAe.Controllers
                 return RedirectToAction("Index");
             }
 
-		}
+        }
 
         [HttpPost]
         public IActionResult VerifyInstitution(InstitutionModel institution)
         {
             CryptographyHelper helper = new CryptographyHelper(SHA256.Create());
-            FormatHelper format = new FormatHelper();
-            if(institution.Password == null)
+            if (institution.Password == null)
             {
                 return RedirectToAction("Index");
             }
             institution.Password = helper.hashPassword(institution.Password);
-            var result = _institutionRepository.GetInstitutionByEmailAndPassword(format.FormatCPF(institution.Cnpj), institution.Password);
-            if(result != null ) {
-				HttpContext.Session.SetString("email", result.Email);
-				HttpContext.Session.SetInt32("Id", result.Id);
+            var result = _institutionRepository.GetInstitutionByEmailAndPassword(_formatHelper.FormatCPF(institution.Cnpj), institution.Password);
+            if (result != null)
+            {
+                HttpContext.Session.SetString("email", result.Email);
+                HttpContext.Session.SetInt32("Id", result.Id);
                 HttpContext.Session.SetString("type", "inst");
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-				TempData["error"] = "Erro: Instituição com senha ou CNPJ inválidos";
-				return RedirectToAction("Index");
-			}
+                TempData["error"] = "Erro: Instituição com senha ou CNPJ inválidos";
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("Id");
             HttpContext.Session.Remove("email");
-            if (HttpContext.Session.GetString("Type") != null)
-            {
-                HttpContext.Session.Remove("Type");
-            }
+            HttpContext.Session.Remove("type");
             return RedirectToAction("Index", "Home");
         }
     }

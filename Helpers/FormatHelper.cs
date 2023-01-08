@@ -1,6 +1,8 @@
-﻿namespace AvaliaAe.Helpers
+﻿using AvaliaAe.Helpers.Interfaces;
+
+namespace AvaliaAe.Helpers
 {
-	public class FormatHelper
+	public class FormatHelper : IFormatHelper
 	{
 		public string FormatCPF(string format)
 		{

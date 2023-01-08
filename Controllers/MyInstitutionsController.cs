@@ -17,6 +17,7 @@ namespace AvaliaAe.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+            if (HttpContext.Session.GetString("type") == "inst") return RedirectToAction("Index", "Home");
            var result = _associationRepository.GetUserAndInstitution(Id);
             return View(result);
         }
