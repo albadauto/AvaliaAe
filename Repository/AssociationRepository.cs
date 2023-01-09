@@ -19,7 +19,7 @@ namespace AvaliaAe.Repository
                             on u.Id equals a.UserModel.Id
                           join i in _context.Institution
                             on a.InstitutionModel.Id equals i.Id
-                          where a.UserModelId == UserId && a.Status != "P"
+                          where a.UserModelId == UserId && a.Status !=  "P"
                           select new { u.Name, i.InstitutionName, a.Status, a.Id, institutionId = i.Id }
                           );
             foreach (var a in result)

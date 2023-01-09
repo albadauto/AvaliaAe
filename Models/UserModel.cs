@@ -33,6 +33,9 @@ namespace AvaliaAe.Models
 		[Required(ErrorMessage = "Digite um CEP")]
 		public string Cep { get; set; }
 
+		[Required(ErrorMessage = "Obrigatório a escolha do tipo de usuário")]
+		public string Type { get; set; }
+
 		[Required(ErrorMessage = "Digite um Endereço")]
 		public string Address { get; set; }
 
