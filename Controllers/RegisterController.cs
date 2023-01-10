@@ -41,7 +41,7 @@ namespace AvaliaAe.Controllers
         [HttpPost]
         public IActionResult CreateNewUser(UserTypesAndUserViewModel user)
         {
-            if (ModelState.IsValid) //Arrumar
+            if (ModelState.IsValid)
             {
 			
 				if (_repository.GetUserByEmail(user.UserModel.Email) != null)

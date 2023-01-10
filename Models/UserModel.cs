@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
@@ -36,8 +37,8 @@ namespace AvaliaAe.Models
 
 		[Required(ErrorMessage = "Necessário tipo de usuário" )]
 		public int UserTypeId { get; set; }
-
-
+		[ValidateNever]
+		public UserTypeModel UserType { get; set; }
 
 
 
