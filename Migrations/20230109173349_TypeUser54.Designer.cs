@@ -4,6 +4,7 @@ using AvaliaAe.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AvaliaAe.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230109173349_TypeUser54")]
+    partial class TypeUser54
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,15 +225,10 @@ namespace AvaliaAe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("photo_uri")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserTypeId");
 
                     b.ToTable("User");
                 });
@@ -301,17 +298,6 @@ namespace AvaliaAe.Migrations
                         .HasForeignKey("AssociationsId");
 
                     b.Navigation("Associations");
-                });
-
-            modelBuilder.Entity("AvaliaAe.Models.UserModel", b =>
-                {
-                    b.HasOne("AvaliaAe.Models.UserTypeModel", "UserType")
-                        .WithMany()
-                        .HasForeignKey("UserTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserType");
                 });
 #pragma warning restore 612, 618
         }

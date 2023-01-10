@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AvaliaAe.Controllers
 {
@@ -20,7 +21,10 @@ namespace AvaliaAe.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            UserTypesAndUserViewModel userTypes = new UserTypesAndUserViewModel();
+            userTypes.UserTypes = _repository.GetAllTypes();
+            userTypes.UserModel = new UserModel();
+            return View(userTypes);
         }
 
         public IActionResult Institution()
@@ -35,21 +39,29 @@ namespace AvaliaAe.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateNewUser(UserModel user)
+        public IActionResult CreateNewUser(UserTypesAndUserViewModel user)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Arrumar
             {
-                if(_repository.GetUserByEmail(user.Email) != null)
+			
+				if (_repository.GetUserByEmail(user.UserModel.Email) != null)
                 {
                     TempData["error"] = "Erro: Usuário já existente com este email";
                     return RedirectToAction("Index");
                 }
                 CryptographyHelper crypto = new CryptographyHelper(SHA256.Create());
-                user.Password = crypto.hashPassword(user.Password);
-                _repository.InsertUser(user);
+                user.UserModel.Password = crypto.hashPassword(user.UserModel.Password);
+                _repository.InsertUser(user.UserModel);
                 TempData["success"] = "Cadastrado com sucesso!";
-                return RedirectToAction("Index");
             }
+            else
+            {
+                var errors = ModelState.SelectMany(x => x.Value.Errors.Select(z => z.Exception));
+
+                Console.WriteLine(errors);
+            }
+           
+            user.UserTypes = _repository.GetAllTypes();
             return View("Index", user);
         }
 

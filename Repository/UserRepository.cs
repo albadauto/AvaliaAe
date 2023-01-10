@@ -98,5 +98,12 @@ namespace AvaliaAe.Repository
             _context.SaveChanges();
             return true;
         }
+
+		public List<UserTypeModel> GetAllTypes()
+		{
+            var result = _context.UserType.ToList();
+            return result;
+		}
+
     }
 }

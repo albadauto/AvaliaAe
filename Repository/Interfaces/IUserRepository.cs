@@ -11,6 +11,7 @@ namespace AvaliaAe.Repository.Interfaces
         public UserModel ResetPassword(UserModel user);
         public UserModel UpdateUser(UserModel user, string photo_uri);
         public UserModel GetUserByEmail(string email);
+        public List<UserTypeModel> GetAllTypes();
         public bool DeleteUser(int id);
     }
 }

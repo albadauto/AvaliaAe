@@ -20,8 +20,8 @@ namespace AvaliaAe.Models
 		public string Email { get; set; }
 
 		[Required(ErrorMessage = "Digite uma senha válida")]
-		public string Password { get; set; }
-		public string? photo_uri { get; set; }
+		public string Password { get; set;}
+        public string? photo_uri { get; set; }
 		public bool? Is_allowed { get; set; }
 
 		[Required(ErrorMessage = "Digite um Bairro")]
@@ -29,16 +29,18 @@ namespace AvaliaAe.Models
 
 		[Required(ErrorMessage = "Digite um número")]
         public int Number { get; set; }
-
 		[Required(ErrorMessage = "Digite um CEP")]
 		public string Cep { get; set; }
-
-		[Required(ErrorMessage = "Obrigatório a escolha do tipo de usuário")]
-		public string Type { get; set; }
-
 		[Required(ErrorMessage = "Digite um Endereço")]
 		public string Address { get; set; }
 
+		[Required(ErrorMessage = "Necessário tipo de usuário" )]
+		public int UserTypeId { get; set; }
 
-    }
+
+
+
+
+
+	}
 }
