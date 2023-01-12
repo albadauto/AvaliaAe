@@ -37,6 +37,7 @@ namespace AvaliaAe.Models
 
 		[Required(ErrorMessage = "Necessário tipo de usuário" )]
 		public int UserTypeId { get; set; }
+		[NotMapped]
 		[ValidateNever]
 		public UserTypeModel UserType { get; set; }
 

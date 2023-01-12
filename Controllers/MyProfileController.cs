@@ -81,19 +81,41 @@ namespace AvaliaAe.Controllers
             return View(inst);
         }
 
-        public IActionResult ForTest()
+        private async Task<bool> FileUploadToFolder(IFormFile file, string name)
         {
-            var result = _associationRepository.GetUserAndInstitution(1002);
-            foreach (var value in result)
+            try
             {
-                Console.WriteLine(value.UserModel.Name);
-                Console.WriteLine(value.InstitutionModel.InstitutionName);
-                Console.WriteLine(value.Status);
+                string pathImage = pathServer + "\\img\\profile_photos\\";
+                if (!Directory.Exists(pathImage))
+                {
+                    Directory.CreateDirectory(pathImage);
+                }
 
+
+                using (var stream = System.IO.File.Create(pathImage + name))
+                {
+                    Console.WriteLine("Foi");
+                    await file.CopyToAsync(stream);
+                }
+                return true;
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
             }
-            Console.WriteLine("Opa");
+            
 
-            return RedirectToAction("Index");
+        }
+
+        private bool verifyExtension(IFormFile file)
+        {
+            if (Path.GetExtension(file.FileName).ToLower() != ".jpg" && Path.GetExtension(file.FileName).ToLower() != ".png" && Path.GetExtension(file.FileName).ToLower() != ".jpeg")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         [HttpPost]
@@ -101,42 +123,35 @@ namespace AvaliaAe.Controllers
         {
             try
             {
-                string pathImage = pathServer + "\\img\\profile_photos\\";
-                /*if (Path.GetExtension(User.File.FileName).ToLower() != ".jpg" || Path.GetExtension(User.File.FileName).ToLower() != ".png" || Path.GetExtension(User.File.FileName).ToLower() != ".jpeg")
+                string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName;
+                if (!verifyExtension(User.File))
                 {
+                    TempData["errorProfile"] = "Erro: Arquivo invalido";
                     return RedirectToAction("Index");
-                }*/
+                }
                 if (User.File != null)
                 {
-                    string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName;
-                    if (!Directory.Exists(pathImage))
-                    {
-                        Directory.CreateDirectory(pathImage);
-                    }
-
-
-                    using (var stream = System.IO.File.Create(pathImage + newName))
-                    {
-                        await User.File.CopyToAsync(stream);
-                    }
-                    _repository.UpdateUser(User.userModel, $"/img/profile_photos/{newName}");
+                    await FileUploadToFolder(User.File, newName); //Upload da foto
+                    _repository.UpdateUser(User.userModel, $"/img/profile_photos/{newName}"); //Update na tabela de usuário
+                    TempData["successProfile"] = "Informações atualizadas com sucesso!";
+                    return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
                 }
                 else
                 {
-                    _repository.UpdateUser(User.userModel, $"/img/profile_photos/CoLocarNome");
+                    _repository.UpdateUser(User.userModel, $"/img/profile_photos/CoLocarNome"); //Arrumar isso
+                    return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
                 }
-
-                TempData["successProfile"] = "Informações atualizadas com sucesso!";
-                return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
+               
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
-                //return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
+                TempData["errorProfile"] = "Erro: Contatar um administrador. Erro original: " + e.Message;
+                return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
             }
 
         }
 
+      
         public IActionResult RemoveInstutionFromUser(int idInst)
         {
             try
