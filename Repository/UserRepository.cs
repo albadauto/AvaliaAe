@@ -33,7 +33,7 @@ namespace AvaliaAe.Repository
         
         }
 
-        public UserModel UpdateUser(UserModel user, string photo_uri)
+        public UserModel UpdateUser(UserModel user, string? photo_uri)
         {
             var result = _context.User.FirstOrDefault(o => o.Id == user.Id);
             if(result != null)
@@ -46,7 +46,10 @@ namespace AvaliaAe.Repository
                 result.District = user.District;
                 result.Cpf = user.Cpf;
                 result.Number = user.Number;
-                result.photo_uri = photo_uri;
+                if(photo_uri != "")
+                {
+                    result.photo_uri = photo_uri;
+                }
                 _context.SaveChanges();
             }
             else

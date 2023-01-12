@@ -123,30 +123,31 @@ namespace AvaliaAe.Controllers
         {
             try
             {
-                string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName;
-                if (!verifyExtension(User.File))
-                {
-                    TempData["errorProfile"] = "Erro: Arquivo invalido";
-                    return RedirectToAction("Index");
-                }
                 if (User.File != null)
                 {
+                    if (!verifyExtension(User.File))
+                    {
+                        TempData["errorProfile"] = "Erro: Arquivo invalido";
+                        return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
+                    }
+                    string newName = Guid.NewGuid().ToString() + "_" + User.File.FileName;
                     await FileUploadToFolder(User.File, newName); //Upload da foto
                     _repository.UpdateUser(User.userModel, $"/img/profile_photos/{newName}"); //Update na tabela de usuário
-                    TempData["successProfile"] = "Informações atualizadas com sucesso!";
-                    return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
                 }
                 else
                 {
-                    _repository.UpdateUser(User.userModel, $"/img/profile_photos/CoLocarNome"); //Arrumar isso
-                    return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
+                    _repository.UpdateUser(User.userModel, ""); //Arrumar isso
                 }
-               
+                TempData["successProfile"] = "Informações atualizadas com sucesso!";
+                return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
+
+
             }
             catch (Exception e)
             {
                 TempData["errorProfile"] = "Erro: Contatar um administrador. Erro original: " + e.Message;
-                return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
+                throw new Exception(e.Message);
+                //return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
             }
 
         }
