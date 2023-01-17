@@ -1,3 +1,170 @@
-﻿<div class="text-center">
-    <h1>Desenvolver essa pagina com o grupo</h1>
+﻿<div class="container">
+    <div class="text-center">
+        <h1 class="display-6">Nome da instituição</h1>
+        @foreach (var stars in Enumerable.Range(1, 5))
+        {
+            <i class="bi bi-star"></i>
+        }
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Adicionar uma avaliação</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Filtrar por...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div class="col">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Meus comentários...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+    </div>
+    <div class="border border-dark">
+        <div class="row mt-2">
+            <div class="col mx-3">
+                <h4 class="text-muted">Comentários</h4>
+            </div>
+        </div>
+        @foreach (var count in Enumerable.Range(1, 5))
+        {
+            <div class="comment mx-3">
+                <div class="row mt-3 mb-3">
+                    <div class="col me-4 d-flex flex-row">
+                        <div class="wrap me-3">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="main-profile-img" />
+                        </div>
+                        <p>
+                            <b>
+                                José Adauto (@foreach (var star in Enumerable.Range(1, count))
+                                {
+                                    <i class="bi bi-star"></i>
+                                }):
+                            </b>
+                        </p> <br />
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-dark mx-1">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia id quam nec posuere. Sed nunc lectus, laoreet quis posuere ac, rhoncus id sapien. Proin non ligula mattis, ultricies purus non, egestas tortor. Donec rutrum ex ut eros rhoncus consequat.
+                            Sed nec nisi in magna ultrices vulputate quis at nulla. Nulla sapien massa, efficitur vel leo vel, consequat viverra nunc.
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+        }
+
+
+    </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Avaliação de instituição</h5>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("", "", FormMethod.Post))
+                {
+
+                    <div class="text-center">
+                        <h5 class="text-dark">Adicione uma nota para instituição:</h5>
+                        <h6 class="text-muted">Atenção: Seja justo com a nota escolhida</h6>
+                    </div>
+
+
+                    <div class="rating text-center mt-2">
+                        <i class="ratings_stars fa fa-star" data-rating="1"></i>
+                        <i class="ratings_stars fa fa-star" data-rating="2"></i>
+                        <i class="ratings_stars fa fa-star" data-rating="3"></i>
+                        <i class="ratings_stars fa fa-star" data-rating="4"></i>
+                        <i class="ratings_stars fa fa-star" data-rating="5"></i>
+                    </div>
+
+                    <div class="form-floating mt-5">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Comentários</label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Avaliar</button>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .main-profile-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border-style: solid;
+        border-color: #FFFFFF;
+        box-shadow: 0 0 8px 3px #B8B8B8;
+        position: relative;
+    }
+
+    .wrap {
+        position: relative;
+    }
+
+    .edit-button {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid grey;
+        top: 0;
+        left: 113px;
+        background: white;
+        color: blue;
+    }
+
+    .avaliate {
+        margin-right: 100px !important;
+    }
+
+    .ratings_stars {
+        font-size: 25px !important;
+    }
+</style>
+
+<script>
+
+    const stars = document.querySelectorAll('.ratings_stars');
+
+    document.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('ratings_stars')) {
+            let clicktargetReached = false;
+            for (const star of stars) {
+                star.classList[clicktargetReached ? 'remove' : 'add']('selected');
+                if (star === evt.target) {
+                    clicktargetReached = true;
+                }
+            }
+        }
+    });
+</script>

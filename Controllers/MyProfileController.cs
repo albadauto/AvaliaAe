@@ -94,7 +94,6 @@ namespace AvaliaAe.Controllers
 
                 using (var stream = System.IO.File.Create(pathImage + name))
                 {
-                    Console.WriteLine("Foi");
                     await file.CopyToAsync(stream);
                 }
                 return true;

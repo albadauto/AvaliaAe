@@ -28,8 +28,14 @@ namespace AvaliaAe.Controllers
 
             return View();
 		}
+        private string VerificationCodeGenerate()
+        {
+            Random rand = new Random();
+            return rand.Next().ToString().Substring(0, 5);
 
-		[HttpPost]
+        }
+
+        [HttpPost]
 		public IActionResult VerifyEmail(UserModel model) 
 		{
 			var result = _repository.VerifyIfEmailIsValid(model.Email);
@@ -40,18 +46,15 @@ namespace AvaliaAe.Controllers
 				viewModel.Id = value.Id;
             }
 
-
 			if (viewModel.Email != null)
 			{
-				Random rand = new Random();
-				var cod = rand.Next().ToString().Substring(0, 5);
+				var cod = VerificationCodeGenerate();
 				_mail.SendMail(model.Email, "(Não compartilhe com ninguém!) Recuperação de senha - Avalia Aê!", $"Utilize o código: {cod} para recuperar a senha");
 				_codeRepository.InsertNewCode(new CodeModel { Code = cod, UserModelId = viewModel.Id });
 				HttpContext.Session.SetInt32("idUser", viewModel.Id);
 				return RedirectToAction("CompleteVerification");
 
-			}
-			else {
+			} else {
 				TempData["errorMail"] = "Email inexistente";
 				return RedirectToAction("Index");
 			
