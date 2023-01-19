@@ -47,6 +47,8 @@ namespace AvaliaAe.Controllers
                 HttpContext.Session.SetString("email", user.Email);
                 HttpContext.Session.SetInt32("Id", result.Id);
                 HttpContext.Session.SetString("type", "user");
+                Console.WriteLine("Está aqui");
+
                 return RedirectToAction("Index", "Home");
             }
             else

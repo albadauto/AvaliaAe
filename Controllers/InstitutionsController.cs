@@ -25,7 +25,6 @@ namespace AvaliaAe.Controllers
         [HttpPost]
        public IActionResult UploadFile(IFormFile file)
         {
-            Console.WriteLine(file.FileName);
             return RedirectToAction("Index");
         }
 

@@ -7,8 +7,10 @@ namespace AvaliaAe.Models
         public int Id { get; set; }
         public string Comment { get; set; }
         public string Note { get; set; }
-        public AssociationsModel associationsModel { get; set; }
-        [NotMapped]
-        public int AssociationId { get; set; }
+        public UserModel User { get; set; }
+        public InstitutionModel Institution { get; set; }
+        public int UserId { get; set; }
+        public int InstitutionId { get; set; }
+
     }
 }

@@ -54,7 +54,6 @@ namespace AvaliaAe.Controllers
             if (model.File != null)
             {
                 string newName = Guid.NewGuid() + "_" + model.File.FileName;
-
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -75,7 +74,6 @@ namespace AvaliaAe.Controllers
                     },
                     FileName = newName
                 }, $"/wwwroot/docs/{newName}");
-
                 TempData["successAssociation"] = "Associação enviada para analise manual. Favor, aguardar a aprovação de um administrador";
             }
             else

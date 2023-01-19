@@ -145,8 +145,7 @@ namespace AvaliaAe.Controllers
             catch (Exception e)
             {
                 TempData["errorProfile"] = "Erro: Contatar um administrador. Erro original: " + e.Message;
-                throw new Exception(e.Message);
-                //return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
+                return RedirectToAction("Profile", new { Id = HttpContext.Session.GetInt32("Id") });
             }
 
         }

@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@model AvaliationModel
+
+<div class="container">
     <div class="text-center">
         <h1 class="display-6">Nome da instituição</h1>
         @foreach (var stars in Enumerable.Range(1, 5))
@@ -81,7 +83,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Avaliação de instituição</h5>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("", "", FormMethod.Post))
+                @using (Html.BeginForm("RegisterAvaliation", "MyInstitutions", FormMethod.Post))
                 {
 
                     <div class="text-center">
@@ -97,15 +99,16 @@
                         <i class="ratings_stars fa fa-star" data-rating="4"></i>
                         <i class="ratings_stars fa fa-star" data-rating="5"></i>
                     </div>
+                    <input type="hidden" id="rating-value" asp-for="Note"/>
 
                     <div class="form-floating mt-5">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" asp-for="Comment"></textarea>
                         <label for="floatingTextarea2">Comentários</label>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Avaliar</button>
+                        <button type="submit" class="btn btn-primary">Avaliar</button>
                     </div>
                 }
             </div>
@@ -155,13 +158,15 @@
 <script>
 
     const stars = document.querySelectorAll('.ratings_stars');
-
+    const boxRating = document.getElementById('rating-value');
     document.addEventListener('click', (evt) => {
         if (evt.target.classList.contains('ratings_stars')) {
             let clicktargetReached = false;
             for (const star of stars) {
                 star.classList[clicktargetReached ? 'remove' : 'add']('selected');
                 if (star === evt.target) {
+                    boxRating.value = star.getAttribute('data-rating')
+
                     clicktargetReached = true;
                 }
             }
