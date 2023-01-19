@@ -38,13 +38,26 @@ namespace AvaliaAe.Controllers
 
 
         [HttpPost]
-        public IActionResult RegisterAvaliation(AvaliationModel model)
+        public IActionResult RegisterAvaliation(AvaliateViewModel model)
         {
-
-            model.UserId = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
-            model.InstitutionId = 1;
-            _avaliationRepository.InsertAvaliation(model);
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                if(model.AvaliationModel.Comment == null || model.AvaliationModel.Note == null)
+                {
+                    TempData["errorAvaliation"] = "Insira todas as informações necessárias para a avaliação.";
+                    return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
+                }
+                model.AvaliationModel.UserId = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
+                _avaliationRepository.InsertAvaliation(model.AvaliationModel);
+                TempData["successAvaliation"] = "Avaliação feita com sucesso, agradecemos a contribuição";
+                return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
+            }
+            catch(Exception e)
+            {
+                TempData["errorAvaliation"] = "Erro: Contate um administrador. Erro original: " + e.Message;
+                return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
+            }
+          
 
         }
 

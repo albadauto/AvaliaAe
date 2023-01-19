@@ -1,4 +1,4 @@
-﻿@model AvaliationModel
+﻿@model AvaliateViewModel
 
 <div class="container">
     <div class="text-center">
@@ -8,6 +8,19 @@
             <i class="bi bi-star"></i>
         }
     </div>
+
+    @if(TempData["errorAvaliation"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["errorAvaliation"]
+        </div>
+    }
+    @if (TempData["successAvaliation"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["successAvaliation"]
+        </div>
+    }
 
     <div class="row mb-2">
         <div class="col">
@@ -99,10 +112,12 @@
                         <i class="ratings_stars fa fa-star" data-rating="4"></i>
                         <i class="ratings_stars fa fa-star" data-rating="5"></i>
                     </div>
-                    <input type="hidden" id="rating-value" asp-for="Note"/>
+                    <input type="hidden" id="rating-value" asp-for="AvaliationModel.Note"/>
+                    <input type="hidden" id="id-institution" asp-for="AvaliationModel.InstitutionId" />
+
 
                     <div class="form-floating mt-5">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" asp-for="Comment"></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" asp-for="AvaliationModel.Comment"></textarea>
                         <label for="floatingTextarea2">Comentários</label>
                     </div>
 
@@ -172,4 +187,8 @@
             }
         }
     });
+
+
+    const idInst = window.location.href.split('/')[5]
+    document.getElementById('id-institution').value = idInst
 </script>
