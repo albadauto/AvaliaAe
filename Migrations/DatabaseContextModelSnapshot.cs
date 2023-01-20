@@ -46,7 +46,7 @@ namespace AvaliaAe.Migrations
 
                     b.HasIndex("UserModelId");
 
-                    b.ToTable("Associations");
+                    b.ToTable("Associations", (string)null);
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.AvaliationModel", b =>
@@ -67,7 +67,7 @@ namespace AvaliaAe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Avaliations");
+                    b.ToTable("Avaliations", (string)null);
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.CodeModel", b =>
@@ -89,7 +89,7 @@ namespace AvaliaAe.Migrations
 
                     b.HasIndex("UserModelId");
 
-                    b.ToTable("Code");
+                    b.ToTable("Code", (string)null);
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.DocumentationModel", b =>
@@ -114,7 +114,7 @@ namespace AvaliaAe.Migrations
 
                     b.HasIndex("AssociationsId");
 
-                    b.ToTable("Documentations");
+                    b.ToTable("Documentations", (string)null);
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.InstitutionModel", b =>
@@ -169,7 +169,7 @@ namespace AvaliaAe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Institution");
+                    b.ToTable("Institution", (string)null);
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.UserModel", b =>
@@ -226,7 +226,7 @@ namespace AvaliaAe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.UserTypeModel", b =>
@@ -243,7 +243,7 @@ namespace AvaliaAe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserType");
+                    b.ToTable("UserType", (string)null);
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.AssociationsModel", b =>

@@ -9,10 +9,12 @@ namespace AvaliaAe.Controllers
     {
         private readonly IAssociationRepository _associationRepository;
         private readonly IAvaliationRepository _avaliationRepository;
-        public MyInstitutionsController(IAssociationRepository associationRepository, IAvaliationRepository avaliationRepository)
+        private readonly IInstitutionRepository _institutionRepository;
+        public MyInstitutionsController(IAssociationRepository associationRepository, IAvaliationRepository avaliationRepository, IInstitutionRepository institutionRepository)
         {
             _associationRepository = associationRepository;
             _avaliationRepository = avaliationRepository;
+            _institutionRepository = institutionRepository;
         }
         public IActionResult Index(int Id)
         {
@@ -28,12 +30,17 @@ namespace AvaliaAe.Controllers
 
         public IActionResult ToAvaliate(int Id)
         {
+            AvaliateViewModel avaliate = new AvaliateViewModel();
             int? idUser = HttpContext.Session.GetInt32("Id");
             if (idUser == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            var allInstitutionById = _avaliationRepository.GetAllComments(Id);
+            var institutionName = _institutionRepository.GetInstitutionById(Id);
+            avaliate.Avaliations = allInstitutionById;
+            avaliate.InstitutionName = institutionName.InstitutionName;
+            return View(avaliate);
         }
 
 
