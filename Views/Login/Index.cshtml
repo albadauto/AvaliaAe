@@ -62,7 +62,7 @@
             </div>
 
             @using (Html.BeginForm("VerifyInstitution", "Login", FormMethod.Post))
-        {
+            {
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <a asp-controller="ForgotPassword" asp-action="Index">Esqueci minha senha</a>
+                <a asp-controller="ForgotPassword" asp-action="InstitutionRecuperation">Esqueci minha senha</a>
 
                 <div class="row mt-3 mb-5">
                     <div class="col">
@@ -91,7 +91,7 @@
 
                 </div>
 
-        }
+            }
         </div>
 
         @if(TempData["error"] != null)

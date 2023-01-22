@@ -1,0 +1,38 @@
+﻿@model InstitutionModel
+<div class="container">
+    <div class="text-center mt-5">
+        <h1 class="display-6">Recuperação de senha instituição</h1>
+        <h5 class="text-muted">Insira as informações necessárias para a recuperação da senha</h5>
+        @if (TempData["errorRecuperationInstitution"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["errorRecuperationInstitution"]
+            </div>
+        }
+    </div>
+    @using (Html.BeginForm("VerifyEmailAndCnpjInstitution", "ForgotPassword", FormMethod.Post))
+    {
+        <div class="row mt-5">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Cnpj">
+                    <label for="floatingInput">CNPJ da instituição</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" asp-for="Email">
+                    <label for="floatingInput">Email da instituição</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Prosseguir</button>
+        </div>
+    }
+    
+</div>
