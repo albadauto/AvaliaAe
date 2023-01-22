@@ -12,5 +12,7 @@ namespace AvaliaAe.Repository.Interfaces
 
         public InstitutionModel GetInstitutionByEmailAndCnpj(string email, string cnpj);
         public InstitutionModel GetInstitutionById(int id);
+
+        public void ResetPassword(int id, string password);
     }
 }

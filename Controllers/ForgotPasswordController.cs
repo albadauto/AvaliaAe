@@ -108,8 +108,9 @@ namespace AvaliaAe.Controllers
             if (result != null)
             {
                 var cod = VerificationCodeGenerate();
-                _codeInstitutionRepository.InsertNewCode(new CodeInstitutionModel() { Code = VerificationCodeGenerate(), InstitutionId = result.Id });
+                _codeInstitutionRepository.InsertNewCode(new CodeInstitutionModel() { Code = cod, InstitutionId = result.Id });
                 _mail.SendMail(inst.Email, "NÃO COMPARTILHE ESSE CÓDIGO", $"(RECUPERAÇÃO DE SENHA AVALIA AÊ!) Não compartilhe esse código: {cod}");
+                HttpContext.Session.SetInt32("idInst", result.Id);
                 return RedirectToAction("CompleteVerificationInstitution");
             }
             else
@@ -117,8 +118,25 @@ namespace AvaliaAe.Controllers
                 TempData["errorRecuperationInstitution"] = "Erro: CNPJ ou Email inválido";
                 return RedirectToAction("CompleteVerificationInstitution");
             }
+        }
 
 
+        [HttpPost]
+        public IActionResult CreateNewPasswordInstitution(CreateNewPasswordInstitutionViewModel createViewModel)
+        {
+            CryptographyHelper cryptography = new CryptographyHelper(SHA256.Create());
+            var result = _codeInstitutionRepository.FindCode(createViewModel.CodeInstitutionModel.Code);
+            if(result != null)
+            {
+                _institutionRepository.ResetPassword(Convert.ToInt32(HttpContext.Session.GetInt32("idInst")), cryptography.hashPassword(createViewModel.InstitutionModel.Password));
+                TempData["successEdit"] = "Senha alterada com sucesso";
+                return RedirectToAction("CompleteVerificationInstitution");
+            }
+            else
+            {
+                TempData["errorEdit"] = "Erro: código inválido";
+                return RedirectToAction("CompleteVerificationInstitution");
+            }
         }
 
 

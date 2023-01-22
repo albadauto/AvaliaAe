@@ -11,11 +11,20 @@ namespace AvaliaAe.Repository
         {
             _context = context;
         }
+
+        public CodeInstitutionModel FindCode(string code)
+        {
+            var result = _context.CodeInstitutions.FirstOrDefault(x => x.Code == code);
+            return result;
+        }
+
         public CodeInstitutionModel InsertNewCode(CodeInstitutionModel code)
         {
             _context.CodeInstitutions.Add(code);
             _context.SaveChanges();
             return code;
         }
+
+
     }
 }

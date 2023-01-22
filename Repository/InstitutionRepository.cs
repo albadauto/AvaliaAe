@@ -37,6 +37,8 @@ namespace AvaliaAe.Repository
             return result;
         }
 
+     
+
         public InstitutionModel InsertNewInstitution(InstitutionModel institution)
         {
             _context.Institution.Add(institution);
@@ -44,6 +46,19 @@ namespace AvaliaAe.Repository
             return institution;
         }
 
-       
+        public void ResetPassword(int Id, string newPassword)
+        {
+            var result = GetInstitutionById(Id);
+            if(result != null)
+            {
+                result.Password = newPassword;
+                _context.Institution.Update(result);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
+        }
     }
 }
