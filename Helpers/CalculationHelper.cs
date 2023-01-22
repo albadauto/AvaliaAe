@@ -4,9 +4,9 @@ namespace AvaliaAe.Helpers
 {
     public class CalculationHelper : ICalculationHelper
     {
-        public float CalculateAverage(object notes)
+        public float CalculateAverage(List<float> notes)
         {
-            throw new NotImplementedException();
+            return notes.Average();
         }
     }
 }
