@@ -91,12 +91,12 @@ namespace AvaliaAe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InstitutionModelId")
+                    b.Property<int>("InstitutionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InstitutionModelId");
+                    b.HasIndex("InstitutionId");
 
                     b.ToTable("CodeInstitutions");
                 });
@@ -116,12 +116,9 @@ namespace AvaliaAe.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserModelId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserModelId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Code");
                 });
@@ -342,24 +339,24 @@ namespace AvaliaAe.Migrations
 
             modelBuilder.Entity("AvaliaAe.Models.CodeInstitutionModel", b =>
                 {
-                    b.HasOne("AvaliaAe.Models.InstitutionModel", "InstitutionModel")
+                    b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
                         .WithMany()
-                        .HasForeignKey("InstitutionModelId")
+                        .HasForeignKey("InstitutionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("InstitutionModel");
+                    b.Navigation("Institution");
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.CodeModel", b =>
                 {
-                    b.HasOne("AvaliaAe.Models.UserModel", "UserModel")
+                    b.HasOne("AvaliaAe.Models.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserModelId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserModel");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.DocumentationModel", b =>

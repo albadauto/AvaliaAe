@@ -6,7 +6,7 @@ namespace AvaliaAe.Models
     {
         public int Id { get; set; }
         public string Code { get; set; }
-        public InstitutionModel InstitutionModel { get; set; }
+        public InstitutionModel Institution { get; set; }
         public int InstitutionId { get; set; }
     }
 }
