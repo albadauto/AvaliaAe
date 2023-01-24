@@ -16,18 +16,18 @@ namespace AvaliaAe.Repository
             List<AssociationsModel> associations = new List<AssociationsModel>();
             var result = (from u in _context.User
                           join a in _context.Associations
-                            on u.Id equals a.UserModel.Id
+                            on u.Id equals a.User.Id
                           join i in _context.Institution
-                            on a.InstitutionModel.Id equals i.Id
-                          where a.UserModelId == UserId && a.Status !=  "P"
+                            on a.Institution.Id equals i.Id
+                          where a.UserId == UserId && a.Status !=  "P"
                           select new { u.Name, i.InstitutionName, a.Status, a.Id, institutionId = i.Id }
                           );
             foreach (var a in result)
             {
                 associations.Add(new AssociationsModel
                 {
-                    InstitutionModel = new InstitutionModel { InstitutionName = a.InstitutionName, Id = a.institutionId },
-                    UserModel = new UserModel { Name = a.Name },
+                    Institution = new InstitutionModel { InstitutionName = a.InstitutionName, Id = a.institutionId },
+                    User = new UserModel { Name = a.Name },
                     Status = a.Status,
                     Id = a.Id
                 });

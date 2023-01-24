@@ -6,7 +6,6 @@ namespace AvaliaAe.Models
     {
         public int Id { get; set; }
         public string Code { get; set; }
-        [NotMapped]
         public InstitutionModel InstitutionModel { get; set; }
         public int InstitutionId { get; set; }
     }

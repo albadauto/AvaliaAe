@@ -19,11 +19,11 @@ namespace AvaliaAe.Repository
                           join a in _context.Associations
                              on d.AssociationsId equals a.Id
                           join u in _context.User
-                             on a.UserModelId equals u.Id
+                             on a.UserId equals u.Id    
                           join i in _context.Institution
-                             on a.InstitutionModelId equals i.Id
-                          where u.Id == model.Associations.UserModel.Id
-                          select new { u.Name, i.InstitutionName, d.doc_uri}
+                             on a.InstitutionId equals i.Id
+                          where u.Id == model.Associations.User.Id
+                          select new { u.Name, i.InstitutionName, d.doc_uri }
                           );
             foreach(var i in result)
             {
@@ -31,11 +31,11 @@ namespace AvaliaAe.Repository
                 {
                     Associations = new AssociationsModel()
                     {
-                        UserModel = new UserModel()
+                        User = new UserModel()
                         {
                             Name = i.Name,
                         },
-                        InstitutionModel = new InstitutionModel()
+                        Institution = new InstitutionModel()
                         {
                             InstitutionName = i.InstitutionName,
                         }

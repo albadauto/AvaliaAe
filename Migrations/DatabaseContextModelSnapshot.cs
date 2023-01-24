@@ -30,21 +30,21 @@ namespace AvaliaAe.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("InstitutionModelId")
+                    b.Property<int>("InstitutionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserModelId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InstitutionModelId");
+                    b.HasIndex("InstitutionId");
 
-                    b.HasIndex("UserModelId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Associations");
                 });
@@ -91,9 +91,6 @@ namespace AvaliaAe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InstitutionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("InstitutionModelId")
                         .HasColumnType("int");
 
@@ -116,6 +113,9 @@ namespace AvaliaAe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserModelId")
                         .HasColumnType("int");
 
@@ -134,7 +134,7 @@ namespace AvaliaAe.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AssociationsId")
+                    b.Property<int>("AssociationsId")
                         .HasColumnType("int");
 
                     b.Property<string>("FileName")
@@ -183,6 +183,9 @@ namespace AvaliaAe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("InstitutionTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Number")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -203,7 +206,26 @@ namespace AvaliaAe.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("InstitutionTypeId");
+
                     b.ToTable("Institution");
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.InstitutionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InstitutionType");
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.UserModel", b =>
@@ -282,21 +304,21 @@ namespace AvaliaAe.Migrations
 
             modelBuilder.Entity("AvaliaAe.Models.AssociationsModel", b =>
                 {
-                    b.HasOne("AvaliaAe.Models.InstitutionModel", "InstitutionModel")
+                    b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
                         .WithMany()
-                        .HasForeignKey("InstitutionModelId")
+                        .HasForeignKey("InstitutionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AvaliaAe.Models.UserModel", "UserModel")
+                    b.HasOne("AvaliaAe.Models.UserModel", "User")
                         .WithMany()
-                        .HasForeignKey("UserModelId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("InstitutionModel");
+                    b.Navigation("Institution");
 
-                    b.Navigation("UserModel");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.AvaliationModel", b =>
@@ -344,9 +366,22 @@ namespace AvaliaAe.Migrations
                 {
                     b.HasOne("AvaliaAe.Models.AssociationsModel", "Associations")
                         .WithMany()
-                        .HasForeignKey("AssociationsId");
+                        .HasForeignKey("AssociationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Associations");
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.InstitutionModel", b =>
+                {
+                    b.HasOne("AvaliaAe.Models.InstitutionType", "InstitutionType")
+                        .WithMany()
+                        .HasForeignKey("InstitutionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InstitutionType");
                 });
 #pragma warning restore 612, 618
         }

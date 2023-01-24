@@ -155,8 +155,8 @@
                 @foreach (var result in Model.associations)
                 {
                     <tr>
-                        <th scope="row">@result.UserModel.Name</th>
-                        <td>@result.InstitutionModel.InstitutionName</td>
+                        <th scope="row">@result.User.Name</th>
+                        <td>@result.Institution.InstitutionName</td>
                         <td>@(result.Status == "P" ? "Pendente" : "Aceito") </td>
                         <td><a class="btn btn-danger" onclick="UnAssociation('@Url.Action("RemoveInstutionFromUser", "MyProfile", new { idInst = result.Id })')">Desassociar</a></td>
                     </tr>

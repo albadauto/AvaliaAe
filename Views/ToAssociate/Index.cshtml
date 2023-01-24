@@ -37,13 +37,13 @@
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Associations.InstitutionModel.InstitutionName">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Associations.Institution.InstitutionName">
                     <label for="floatingInput">Nome da instituição</label>
                 </div>
             </div>
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Associations.InstitutionModel.OwnerName">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Associations.Institution.OwnerName">
                     <label for="floatingInput">Diretor vigente</label>
                 </div>
             </div>
@@ -51,13 +51,13 @@
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Associations.InstitutionModel.Address">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Associations.Institution.Address">
                     <label for="floatingInput">Localização</label>
                 </div>
             </div>
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Associations.InstitutionModel.Number">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Associations.Institution.Number">
                     <label for="floatingInput">Número</label>
                 </div>
             </div>
@@ -149,8 +149,8 @@
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <input type="hidden" value=@context.HttpContext.Session.GetInt32("Id") asp-for="Associations.UserModelId"/>
-                <input type="hidden" asp-for="Associations.InstitutionModel.Id"/>
+                <input type="hidden" value=@context.HttpContext.Session.GetInt32("Id") asp-for="Associations.UserId"/>
+                <input type="hidden" asp-for="Associations.Institution.Id" />
                 <div class="modal-body">
                     Faça o upload de um arquivo que comprove sua associação a instituição <br /><br />
                     OBS: Somente arquivos com extensão .PDF! <br /><br />

@@ -41,7 +41,7 @@ namespace AvaliaAe.Controllers
             Random rand = new Random();
             var cod = rand.Next().ToString().Substring(0, 5);
             _mail.SendMail(user.userModel.Email, "Exclusão de conta no Avalia Ae!", $"Digite o código: {cod} para excluir a conta");
-            _code.InsertNewCode(new CodeModel { Code = cod, UserModelId = Convert.ToInt32(HttpContext.Session.GetInt32("Id")) });
+            _code.InsertNewCode(new CodeModel { Code = cod, UserId = Convert.ToInt32(HttpContext.Session.GetInt32("Id")) });
             return View(user);
         }
 

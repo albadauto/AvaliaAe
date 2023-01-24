@@ -23,7 +23,7 @@ namespace AvaliaAe.Controllers
             {
                 Associations = new AssociationsModel()
                 {
-                    InstitutionModel = result,
+                    Institution = result,
                 },
 
 
@@ -42,17 +42,18 @@ namespace AvaliaAe.Controllers
 
             if(model == null)
             {
-                return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
+                return RedirectToAction("Index", new { id = model.Associations.Institution.Id });
             }
 
             if (Path.GetExtension(model.File.FileName).ToLower() != ".pdf")
             {
                 TempData["errorAssociation"] = "Por favor, selecione um arquivo PDF";
-                return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
+                return RedirectToAction("Index", new { id = model.Associations.Institution.Id });
             }
 
             if (model.File != null)
             {
+
                 string newName = Guid.NewGuid() + "_" + model.File.FileName;
                 if (!Directory.Exists(path))
                 {
@@ -68,21 +69,22 @@ namespace AvaliaAe.Controllers
                 {
                     Associations = new AssociationsModel()
                     {
-                        UserModelId = Convert.ToInt32(HttpContext.Session.GetInt32("Id")),
+                        UserId = Convert.ToInt32(HttpContext.Session.GetInt32("Id")),
                         Status = "P",
-                        InstitutionModelId = model.Associations.InstitutionModel.Id
+                        InstitutionId = model.Associations.Institution.Id
                     },
                     FileName = newName
                 }, $"/wwwroot/docs/{newName}");
+                Console.WriteLine(model.Associations.Institution.Id);
                 TempData["successAssociation"] = "Associação enviada para analise manual. Favor, aguardar a aprovação de um administrador";
             }
             else
             {
                 TempData["errorAssociation"] = "Por favor, selecione um arquivo para a associação a esta instituição";
-                return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
+                return RedirectToAction("Index", new { id = model.Associations.Institution.Id });
             }
 
-            return RedirectToAction("Index", new { id = model.Associations.InstitutionModel.Id });
+            return RedirectToAction("Index", new { id = model.Associations.Institution.Id });
         }
 
         public IActionResult ShowFile()
