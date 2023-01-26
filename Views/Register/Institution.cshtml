@@ -1,4 +1,4 @@
-﻿@model InstitutionModel
+﻿@model RegisterInstitutionViewModel
 
 
 <div class="container text-center bg-light mt-5">
@@ -19,34 +19,46 @@
 	{
 		<div class="row">
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.InstitutionName, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.InstitutionName, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Nome da instituição" asp-for="InstitutionName">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Nome da instituição" asp-for="institutionModel.InstitutionName">
 					<label for="floatingPassword">Nome da instituição</label>
 				</div>
 			</div>
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.Cnpj, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.Cnpj, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="number" class="form-control" id="floatingPassword" placeholder="CNPJ" asp-for="Cnpj" onblur="if(!validarCNPJ(this.value)) return alert('CNPJ Inválido') ">
+					<input type="number" class="form-control" id="floatingPassword" placeholder="CNPJ" asp-for="institutionModel.Cnpj" onblur="if(!validarCNPJ(this.value)) return alert('CNPJ Inválido') ">
 					<label for="floatingPassword">CNPJ</label>
 				</div>
 			</div>
-
+			<div class="col">
+				@Html.ValidationMessageFor(x => x.institutionModel.InstitutionTypeId, "", new {style = "color: red"})
+				<div class="form-floating">
+					<select class="form-select" id="floatingSelect" aria-label="Floating label select example" asp-for="institutionModel.InstitutionTypeId">
+						@foreach(var types in Model.institutionType)
+						{
+							<option value=@types.Id>@types.Name</option>
+						}
+					</select>
+					<label for="floatingSelect">Tipo de instituição</label>
+				</div>
+			</div>
+		
 		</div>
 
 		<div class="row mt-3">
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.Phone, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.Phone, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Telefone" asp-for="Phone">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Telefone" asp-for="institutionModel.Phone">
 					<label for="floatingPassword">Telefone</label>
 				</div>
 			</div>
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.Email, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.Email, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Email" asp-for="Email">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Email" asp-for="institutionModel.Email">
 					<label for="floatingPassword">Email</label>
 				</div>
 			</div>
@@ -54,14 +66,14 @@
 
 		<div class="row mt-3">
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.Password, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.Password, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="password" class="form-control" id="floatingPassword" placeholder="Senha" asp-for="Password">
+					<input type="password" class="form-control" id="floatingPassword" placeholder="Senha" asp-for="institutionModel.Password">
 					<label for="floatingPassword">Senha</label>
 				</div>
 			</div>
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.Cnpj, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.Cnpj, "", new {style = "color: red"})
 
 				<div class="form-floating">
 					<input type="password" class="form-control" id="floatingPassword" placeholder="Repita a senha">
@@ -73,30 +85,30 @@
 		<h1 class="display-6 mt-3">Informações de localidade</h1>
 		<div class="row mt-3">
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.Address, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.Address, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço" asp-for="Address">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço" asp-for="institutionModel.Address">
 					<label for="floatingPassword">Endereço</label>
 				</div>
 			</div>
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.Number, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.Number, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="number" class="form-control" id="floatingPassword" placeholder="Número" asp-for="Number">
+					<input type="number" class="form-control" id="floatingPassword" placeholder="Número" asp-for="institutionModel.Number">
 					<label for="floatingPassword">Número</label>
 				</div>
 			</div>
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.District, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.District, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço" asp-for="District">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço" asp-for="institutionModel.District">
 					<label for="floatingPassword">Bairro</label>
 				</div>
 			</div>
 			<div class="col">
-				@Html.ValidationMessageFor(x => x.Cep, "", new {style = "color: red"})
+				@Html.ValidationMessageFor(x => x.institutionModel.Cep, "", new {style = "color: red"})
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço" asp-for="Cep">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Endereço" asp-for="institutionModel.Cep">
 					<label for="floatingPassword">CEP</label>
 				</div>
 			</div>
@@ -106,13 +118,13 @@
 		<div class="row mt-3">
 			<div class="col">
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="Nome do diretor da unidade" asp-for="OwnerName">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="Nome do diretor da unidade" asp-for="institutionModel.OwnerName">
 					<label for="floatingPassword">Nome do diretor da unidade</label>
 				</div>
 			</div>
 			<div class="col">
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingPassword" placeholder="CPF" asp-for="OwnerCpf">
+					<input type="text" class="form-control" id="floatingPassword" placeholder="CPF" asp-for="institutionModel.OwnerCpf">
 					<label for="floatingPassword">CPF</label>
 				</div>
 			</div>

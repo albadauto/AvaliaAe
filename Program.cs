@@ -19,6 +19,7 @@ builder.Services.AddScoped<IInstitutionRepository, InstitutionRepository>();
 builder.Services.AddScoped<IAssociationRepository, AssociationRepository>();
 builder.Services.AddScoped<IDocumentationRepository, DocumentationRepository>();
 builder.Services.AddScoped<ICodeInstitutionRepository, CodeInstitutionRepository>();
+builder.Services.AddScoped<IInstitutionTypeRepository, InstitutionTypeRepository>();
 builder.Services.AddScoped<IAvaliationRepository, AvaliationRepository>();
 builder.Services.AddScoped<IFormatHelper, FormatHelper>();  
 builder.Services.AddSession(o =>

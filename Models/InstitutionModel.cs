@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AvaliaAe.Models
 {
@@ -24,7 +25,9 @@ namespace AvaliaAe.Models
         public string Number { get; set; }
         [Required(ErrorMessage = "Cep é obrigatório")]
         public string Cep { get; set; }
-        public InstitutionType InstitutionType { get; set; }
+        public InstitutionTypeModel InstitutionType { get; set; }
+		[Required(ErrorMessage = "Tipo é obrigatório")]
+		public int InstitutionTypeId { get; set; }
         public string? OwnerName { get; set; }
         public string? OwnerCpf { get; set; }
 
