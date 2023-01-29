@@ -70,8 +70,6 @@ namespace AvaliaAe.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
-
             InstitutionModel inst = _institutionRepository.GetInstitutionById(id);
             if (inst == null)
             {
@@ -90,8 +88,6 @@ namespace AvaliaAe.Controllers
                 {
                     Directory.CreateDirectory(pathImage);
                 }
-
-
                 using (var stream = System.IO.File.Create(pathImage + name))
                 {
                     await file.CopyToAsync(stream);

@@ -27,11 +27,12 @@ namespace AvaliaAe.Repository
                           join i in _context.Institution
                           on c.InstitutionId equals i.Id
                           where i.Id == idInst
-                          select new { l.Name, c.Comment, c.Note, i.InstitutionName, l.photo_uri, idAvaliation = c.Id}).OrderByDescending(x => x.idAvaliation);
+                          select new { l.Name, c.Comment, c.Note, i.InstitutionName, l.photo_uri, idAvaliation = c.Id, institutionId = i.Id}).OrderByDescending(x => x.idAvaliation);
            foreach(var avaliation in result)
             {
                 avList.Add(new AvaliationModel()
                 {
+                    Id = avaliation.idAvaliation,
                     User = new UserModel()
                     {
                         Name = avaliation.Name,
@@ -39,7 +40,8 @@ namespace AvaliaAe.Repository
                     },
                     Institution = new InstitutionModel()
                     {
-                        InstitutionName = avaliation.InstitutionName
+                        InstitutionName = avaliation.InstitutionName,
+                        Id = avaliation.institutionId
                     },
                     Comment = avaliation.Comment,
                     Note = avaliation.Note

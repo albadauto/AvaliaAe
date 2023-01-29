@@ -15,6 +15,7 @@ namespace AvaliaAe.Context
         public DbSet<DocumentationModel> Documentations { get; set; }
         public DbSet<AvaliationModel> Avaliations { get; set; }
 		public DbSet<UserTypeModel> UserType { get; set; }
+        public DbSet<DenouncesModel> Denounces { get; set; }
         public DbSet<InstitutionTypeModel> InstitutionType { get; set; }
         public DbSet<CodeInstitutionModel> CodeInstitutions { get; set; }
 

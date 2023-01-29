@@ -69,14 +69,5 @@ namespace AvaliaAe.Controllers
         }
 
 
-
-        /*    private IActionResult VerifySession(string route)
-    {
-        int idUser = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
-        if (idUser == null)
-        {
-            return RedirectToAction(route);
-        }
-    }*/
     }
 }
