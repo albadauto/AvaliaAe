@@ -23,8 +23,9 @@
         </div>
     }
 
+
     <div class="row mb-2">
-        @if (context.HttpContext.Session.GetString("type") == null)
+        @if (context.HttpContext.Session.GetString("type") != "inst")
         {
             <div class="col">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Adicionar uma avaliação</button>
