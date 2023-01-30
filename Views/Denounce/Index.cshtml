@@ -1,7 +1,28 @@
-﻿<div class="container">
+﻿@model DenouncesModel
+<div class="container">
     <div class="text-center">
         <h1 class="display-6">
             Denunciar comentário
         </h1>
     </div>
+
+    @using (Html.BeginForm("DoDenounce", "Denounce", FormMethod.Post))
+    {
+        <div class="row mt-5">
+            <div class="col ">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" asp-for="Comment"></textarea>
+                    <label for="floatingTextarea2">Conte-nos o que aconteceu?</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center mt-5">
+                <button class="btn btn-danger">Denúnciar</button>
+            </div>
+        </div>
+
+        <input type="hidden" asp-for="AvaliationId">
+    }
 </div>

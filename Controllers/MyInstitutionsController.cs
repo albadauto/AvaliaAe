@@ -30,16 +30,23 @@ namespace AvaliaAe.Controllers
 
         public IActionResult ToAvaliate(int Id)
         {
-            AvaliateViewModel avaliate = new AvaliateViewModel();
             int? idUser = HttpContext.Session.GetInt32("Id");
             if (idUser == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+            AvaliateViewModel avaliate = new AvaliateViewModel();
             var allInstitutionById = _avaliationRepository.GetAllComments(Id);
             var institutionName = _institutionRepository.GetInstitutionById(Id);
             avaliate.Avaliations = allInstitutionById;
-            avaliate.InstitutionName = institutionName.InstitutionName;
+            if(avaliate.InstitutionName == null)
+            {
+                avaliate.InstitutionName = "Minha instituição";
+            }
+            else
+            {
+                avaliate.InstitutionName = institutionName.InstitutionName;
+            }
             return View(avaliate);
         }
 
