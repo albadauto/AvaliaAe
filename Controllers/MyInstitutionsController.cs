@@ -45,18 +45,33 @@ namespace AvaliaAe.Controllers
             var institution = _institutionRepository.GetInstitutionById(Id);
             avaliate.Avaliations = comments;
 
+            if (avaliate.AvaliationModel == null)
+            {
+                avaliate.AvaliationModel = new AvaliationModel();
+            }
+
             foreach (var i in comments)
             {
                 notes.Add(i.Note);
 
             }
-  
-            if(notes.Count > 0) { 
-            double average = _calculationHelper.CalculateAverage(notes);
-                Console.WriteLine("media:" + average);
 
+            if (notes.Count > 0)
+            {
+                double average = _calculationHelper.CalculateAverage(notes);
+                avaliate.AvaliationModel.Average = 20;
+                if (avaliate.AvaliationModel.Average != null)
+                {
+                    Console.WriteLine("Não é nulo");
+                }
+                else
+                {
+                    Console.WriteLine("é nulo");
 
+                }
             }
+
+
             avaliate.InstitutionName = institution?.InstitutionName ?? "Minha instituição";
             return View(avaliate);
         }
