@@ -1,7 +1,9 @@
-﻿namespace AvaliaAe.Helpers.Interfaces
+﻿using AvaliaAe.Models;
+
+namespace AvaliaAe.Helpers.Interfaces
 {
     public interface ICalculationHelper
     {
-        public float CalculateAverage(List<float> notes);
+        public double CalculateAverage(List<int> notes);
     }
 }

@@ -18,6 +18,7 @@ builder.Services.AddScoped<ICodeRepository, CodeRepository>();
 builder.Services.AddScoped<IInstitutionRepository, InstitutionRepository>();
 builder.Services.AddScoped<IAssociationRepository, AssociationRepository>();
 builder.Services.AddScoped<IDocumentationRepository, DocumentationRepository>();
+builder.Services.AddScoped<ICalculationHelper, CalculationHelper>();
 builder.Services.AddScoped<IDenounceRepository, DenounceRepository>();
 builder.Services.AddScoped<ICodeInstitutionRepository, CodeInstitutionRepository>();
 builder.Services.AddScoped<IInstitutionTypeRepository, InstitutionTypeRepository>();

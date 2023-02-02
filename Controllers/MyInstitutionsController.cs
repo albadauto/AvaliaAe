@@ -1,4 +1,5 @@
-﻿using AvaliaAe.Models;
+﻿using AvaliaAe.Helpers.Interfaces;
+using AvaliaAe.Models;
 using AvaliaAe.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -10,11 +11,15 @@ namespace AvaliaAe.Controllers
         private readonly IAssociationRepository _associationRepository;
         private readonly IAvaliationRepository _avaliationRepository;
         private readonly IInstitutionRepository _institutionRepository;
-        public MyInstitutionsController(IAssociationRepository associationRepository, IAvaliationRepository avaliationRepository, IInstitutionRepository institutionRepository)
+        private readonly ICalculationHelper _calculationHelper;
+        private int sum = 0;
+        private int Average = 0;
+        public MyInstitutionsController(IAssociationRepository associationRepository, IAvaliationRepository avaliationRepository, IInstitutionRepository institutionRepository, ICalculationHelper calculation)
         {
             _associationRepository = associationRepository;
             _avaliationRepository = avaliationRepository;
             _institutionRepository = institutionRepository;
+            _calculationHelper = calculation;
         }
         public IActionResult Index(int Id)
         {
@@ -30,23 +35,29 @@ namespace AvaliaAe.Controllers
 
         public IActionResult ToAvaliate(int Id)
         {
-            int? idUser = HttpContext.Session.GetInt32("Id");
-            if (idUser == null)
+            if (HttpContext.Session.GetInt32("Id") == null)
             {
                 return RedirectToAction("Index", "Home");
             }
             AvaliateViewModel avaliate = new AvaliateViewModel();
-            var allInstitutionById = _avaliationRepository.GetAllComments(Id);
-            var institutionName = _institutionRepository.GetInstitutionById(Id);
-            avaliate.Avaliations = allInstitutionById;
-            if(avaliate.InstitutionName == null)
+            List<int> notes = new List<int>();
+            var comments = _avaliationRepository.GetAllComments(Id);
+            var institution = _institutionRepository.GetInstitutionById(Id);
+            avaliate.Avaliations = comments;
+
+            foreach (var i in comments)
             {
-                avaliate.InstitutionName = "Minha instituição";
+                notes.Add(i.Note);
+
             }
-            else
-            {
-                avaliate.InstitutionName = institutionName.InstitutionName;
+  
+            if(notes.Count > 0) { 
+            double average = _calculationHelper.CalculateAverage(notes);
+                Console.WriteLine("media:" + average);
+
+
             }
+            avaliate.InstitutionName = institution?.InstitutionName ?? "Minha instituição";
             return View(avaliate);
         }
 
@@ -56,7 +67,7 @@ namespace AvaliaAe.Controllers
         {
             try
             {
-                if(model.AvaliationModel.Comment == null || model.AvaliationModel.Note == null)
+                if (model.AvaliationModel.Comment == null || model.AvaliationModel.Note == null)
                 {
                     TempData["errorAvaliation"] = "Insira todas as informações necessárias para a avaliação.";
                     return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
@@ -66,12 +77,12 @@ namespace AvaliaAe.Controllers
                 TempData["successAvaliation"] = "Avaliação feita com sucesso, agradecemos a contribuição";
                 return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 TempData["errorAvaliation"] = "Erro: Contate um administrador. Erro original: " + e.Message;
                 return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
             }
-          
+
 
         }
 
