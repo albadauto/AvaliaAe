@@ -51,5 +51,25 @@ namespace AvaliaAe.Repository
             return avList;
         }
 
+        public List<AvaliationModel> allAvaliations()
+        {
+            List<AvaliationModel> avaliationModel = new List<AvaliationModel>();
+            var result = (from i in _context.Avaliations
+                          join c in _context.Institution
+                          on i.InstitutionId equals c.Id
+                          select new { i.Note, c.InstitutionName });
+            foreach(var i in result)
+            {
+                avaliationModel.Add(new AvaliationModel()
+                {
+                    Note = i.Note,
+                    Institution = new InstitutionModel()
+                    {
+                        InstitutionName = i.InstitutionName,
+                    }
+                });
+            }
+            return avaliationModel;
+        }
     }
 }

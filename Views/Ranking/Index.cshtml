@@ -1,9 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<AvaliationModel>
 @{
+    List<AvaliationModel> ordered = Model.OrderBy(x => x.Note).ThenByDescending(x => ((x.Note += x.Note) / Model.Count)).ToList();
 }
-
 <div class="text-center m-5">
     <h1 class="display-6">Rankings</h1>
     <h5 class="text-muted">Confira aqui os rankings de instituições por categoria</h5>
@@ -14,6 +12,10 @@
         <option value="3">Three</option>
     </select>
 </div>
+@foreach(var instution in ordered)
+{
+    @instution.Institution.InstitutionName
+}
 
 <div class="container">
     <div class="row">

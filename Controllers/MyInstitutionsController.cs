@@ -59,16 +59,8 @@ namespace AvaliaAe.Controllers
             if (notes.Count > 0)
             {
                 double average = _calculationHelper.CalculateAverage(notes);
-                avaliate.AvaliationModel.Average = 20;
-                if (avaliate.AvaliationModel.Average != null)
-                {
-                    Console.WriteLine("Não é nulo");
-                }
-                else
-                {
-                    Console.WriteLine("é nulo");
+                avaliate.AvaliationModel.Average = average;
 
-                }
             }
 
 

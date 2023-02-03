@@ -6,6 +6,7 @@ namespace AvaliaAe.Repository.Interfaces
     {
         public AvaliationModel InsertAvaliation(AvaliationModel avaliation);
         public List<AvaliationModel> GetAllComments(int idInst);
+        public List<AvaliationModel> allAvaliations();
 
     }
 }

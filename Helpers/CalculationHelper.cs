@@ -10,7 +10,7 @@ namespace AvaliaAe.Helpers
         {
             if (notes.Any())
             {
-                return notes.Average();
+                return (Math.Truncate(notes.Average() * 1000) / 1000);
             }
             else
             {
