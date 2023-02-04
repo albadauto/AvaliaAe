@@ -93,6 +93,7 @@ namespace AvaliaAe.Controllers
                 }
             }
         }
+
         [HttpPost]
         public IActionResult RegisterAvaliation(AvaliateViewModel model)
         {
