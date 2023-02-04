@@ -1,4 +1,5 @@
-﻿--Procedure para deixar todos as associações aprovadas
+﻿USE avaliae;
+--Procedure para deixar todos as associações aprovadas
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.SETALLASSOCIATIONSINAPROVED'))
 BEGIN 
 	DROP PROCEDURE dbo.SETALLASSOCIATIONSINAPROVED;
@@ -36,16 +37,16 @@ BEGIN
 	DROP PROCEDURE dbo.SETASSOCIATIONOFUSER
 END
 GO
+
 CREATE PROCEDURE SETASSOCIATIONOFUSER(@UserId int, @Status varchar(1))
 AS
 BEGIN
 	IF EXISTS(SELECT * FROM [User] WHERE Id = @UserId)
 	BEGIN
-		UPDATE [Associations] SET STATUS = @Status WHERE UserModelId = @UserId
+		UPDATE [Associations] SET STATUS = @Status WHERE UserId = @UserId
 	END
-	SELECT * FROM [Associations] WHERE UserModelId = @UserId;
+	SELECT * FROM [Associations] WHERE UserId = @UserId;
 END
 GO
 
-EXEC SETASSOCIATIONOFUSER 2006, 'P'
 

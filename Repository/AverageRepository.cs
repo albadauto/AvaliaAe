@@ -34,7 +34,7 @@ namespace AvaliaAe.Repository
 
         public AverageModel getAverageByIdInstitution(int idInst)
         {
-            var result = _context.Average.FirstOrDefault(x => x.Institution.Id == idInst);
+            var result = _context.Average.FirstOrDefault(x => x.InstitutionId == idInst);
             return result;
         }
 
@@ -47,10 +47,12 @@ namespace AvaliaAe.Repository
 
         public AverageModel updateAverage(AverageModel average)
         {
-            var result = getAverageByIdInstitution(average.Institution.Id);
+            var result = getAverageByIdInstitution(average.InstitutionId);
             if(result != null)
             {
                 result.Average = average.Average;
+                _context.Average.Update(result);
+                _context.SaveChanges();
             }
             return result;
         }

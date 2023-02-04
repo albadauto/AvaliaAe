@@ -4,30 +4,38 @@
     <p class="text-muted">Avalie instituições que você se associou!</p>
 </div>
 <div class="container">
-    @if (Model.Count > 0)
-    {
-        @foreach(var i in Model)
-        {
+    <div class="row">
 
-            <div class="card text-center" style="width: 18rem;">
-                <img src="https://www.saopaulo.sp.gov.br/wp-content/uploads/2017/03/album-3-8.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><b>@i.Institution.InstitutionName</b></h5>
-                    <p class="card-text"></p>
-                    <a class="btn btn-info" asp-action="ToAvaliate" asp-route-id=@i.Institution.Id>Avaliar Já!</a>
+        @if (Model.Count > 0)
+        {
+            @foreach (var i in Model)
+            {
+                <div class="col">
+
+                    <div class="card text-center" style="width: 18rem;">
+                        <img src="https://www.saopaulo.sp.gov.br/wp-content/uploads/2017/03/album-3-8.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><b>@i.Institution.InstitutionName</b></h5>
+                            <p class="card-text"></p>
+                            <a class="btn btn-info" asp-action="ToAvaliate" asp-route-id=@i.Institution.Id>Avaliar Já!</a>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
+
+
+            }
 
         }
+        else
+        {
+            <div class="alert alert-danger text-center mt-5">
+                <h5>Você não está associado a nenhuma instituição :(</h5><br />
+                <h5><a asp-action="Index" asp-controller="Institutions">Clique aqui</a> para procurar sua escola ou faculdade para poder avaliar!</h5>
+            </div>
+        }
+    </div>
 
-    }
-    else
-    {
-        <div class="alert alert-danger text-center mt-5">
-            <h5>Você não está associado a nenhuma instituição :(</h5><br />
-            <h5><a asp-action="Index" asp-controller="Institutions">Clique aqui</a> para procurar sua escola ou faculdade para poder avaliar!</h5>
-        </div>
-    }
 </div>
 
 
