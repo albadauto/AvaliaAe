@@ -5,14 +5,14 @@ namespace AvaliaAe.Controllers
 {
     public class RankingController : Controller
     {
-        private readonly IAvaliationRepository _avaliationRepository;
-        public RankingController(IAvaliationRepository avaliationRepository)
+        private readonly IAverageRepository _averageRepository;
+        public RankingController(IAverageRepository averageRepository)
         {
-            _avaliationRepository = avaliationRepository;
+            _averageRepository = averageRepository;
         }
         public IActionResult Index()
         {
-            var result = _avaliationRepository.allAvaliations();
+            var result = _averageRepository.getAllAverage();
             return View(result);
         }
     }

@@ -1,21 +1,22 @@
-﻿@model List<AvaliationModel>
+﻿@model List<AverageModel>
 @{
-    List<AvaliationModel> ordered = Model.OrderBy(x => x.Note).ThenByDescending(x => ((x.Note += x.Note) / Model.Count)).ToList();
+    int count = 0;
+    List<AverageModel> bestByAverage = Model.OrderByDescending(x => x.Average).Take(10).ToList();
+    List<AverageModel> bestPublicSchoolByAverage = Model.Where(x => x.Institution.InstitutionType.Name == "Escola Pública").OrderByDescending(x => x.Average).Take(10).ToList();
+    List<AverageModel> bestFacultyByAverage = Model.Where(x => x.Institution.InstitutionType.Name == "Faculdade").OrderByDescending(x => x.Average).Take(10).ToList();
+
 }
 <div class="text-center m-5">
     <h1 class="display-6">Rankings</h1>
     <h5 class="text-muted">Confira aqui os rankings de instituições por categoria</h5>
     <select class="form-select col-sm-5" aria-label="Default select example">
         <option selected>Todos</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+
     </select>
 </div>
-@foreach(var instution in ordered)
-{
-    @instution.Institution.InstitutionName
-}
+
+
+
 
 <div class="container">
     <div class="row">
@@ -24,10 +25,17 @@
                 <div class="card-body">
                     <h5 class="card-title">As melhores instituições por média</h5>
                     <p class="card-text">29/10/2022</p>
-                    @for (int c = 1; c <= 10; c++)
-                    {
-                        <p>Instituição numero: @c</p>
+                    @{
+                        int contador = 1;
+                        foreach (var institution in bestByAverage)
+                        {
+                            <p> @contador - @institution.Institution.InstitutionName </p>
+                            contador++;
+
+                        }
+                      
                     }
+                   
                 </div>
             </div>
         </div>
@@ -36,9 +44,15 @@
                 <div class="card-body">
                     <h5 class="card-title">As melhores faculdades por média</h5>
                     <p class="card-text">29/10/2022</p>
-                    @for (int c = 1; c <= 10; c++)
-                    {
-                        <p>Instituição numero: @c</p>
+                    @{
+                        int contadorFaculdade = 1;
+                        foreach (var institution in bestFacultyByAverage)
+                        {
+                            <p> @contadorFaculdade - @institution.Institution.InstitutionName </p>
+                            contadorFaculdade++;
+
+                        }
+
                     }
                 </div>
             </div>
@@ -46,11 +60,17 @@
         <div class="col">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">As melhores escolas por média</h5>
+                    <h5 class="card-title">As melhores escolas públicas por média</h5>
                     <p class="card-text">29/10/2022</p>
-                    @for (int c = 1; c <= 10; c++)
-                    {
-                        <p>Instituição numero: @c</p>
+                    @{
+                        int contadorEscolaPublica = 1;
+                        foreach (var institution in bestFacultyByAverage)
+                        {
+                            <p> @contadorEscolaPublica - @institution.Institution.InstitutionName </p>
+                            contadorEscolaPublica++;
+
+                        }
+
                     }
                 </div>
             </div>

@@ -75,7 +75,6 @@ namespace AvaliaAe.Controllers
                     },
                     FileName = newName
                 }, $"/wwwroot/docs/{newName}");
-                Console.WriteLine(model.Associations.Institution.Id);
                 TempData["successAssociation"] = "Associação enviada para analise manual. Favor, aguardar a aprovação de um administrador";
             }
             else

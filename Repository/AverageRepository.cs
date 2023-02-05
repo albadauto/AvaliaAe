@@ -17,7 +17,9 @@ namespace AvaliaAe.Repository
             var result = (from a in _context.Average
                           join i in _context.Institution
                           on a.Institution.Id equals i.Id 
-                          select new { a.Average, i.InstitutionName});
+                          join t in _context.InstitutionType
+                          on i.InstitutionTypeId equals t.Id
+                          select new { a.Average, i.InstitutionName, t.Name});
             foreach(var i in result)
             {
                 averageModel.Add(new AverageModel()
@@ -25,7 +27,11 @@ namespace AvaliaAe.Repository
                     Average = i.Average,
                     Institution = new InstitutionModel()
                     {
-                        InstitutionName = i.InstitutionName
+                        InstitutionName = i.InstitutionName,
+                        InstitutionType = new InstitutionTypeModel()
+                        {
+                            Name = i.Name
+                        }
                     }
                 });
             }
