@@ -1,4 +1,4 @@
-﻿@model List<InstitutionModel>
+﻿@model List<InstitutionsViewModel>
 
 <div class="container">
     <div class="text-center mt-5">
@@ -13,18 +13,16 @@
                     <div class="card card-institution" style="width: 18rem;">
                         <img src="https://i.ytimg.com/vi/pegY6Uxg2UI/maxresdefault.jpg" class="card-img-top" alt="Institution image">
                         <div class="card-body">
-                            <h5 class="card-title"><b class="institutionName">@i.InstitutionName</b></h5>
-                            <p class="card-text"><i class="bi bi-geo-alt"></i> @i.Address</p>
+                            <h5 class="card-title"><b class="institutionName">@i.Institution.InstitutionName</b></h5>
+                            <p class="card-text"><i class="bi bi-geo-alt"></i> @i.Institution.Address</p>
                             <div class="row">
                                 <div class="col mb-3">
-                                    @foreach (int star in Enumerable.Range(1, 5))
-                                    {
-                                        <i class="bi bi-star-fill"></i>
-                                    }
+
+                                    <p><i class="bi bi-star-fill"></i> @(i.Average.Average == null ? "Sem nota" : i.Average.Average)</p>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <a class="btn btn-primary" asp-controller="ToAssociate" asp-action="Index" asp-route-id=@i.Id>Associar-se</a>
+                                <a class="btn btn-primary" asp-controller="ToAssociate" asp-action="Index" asp-route-id=@i.Institution.Id>Associar-se</a>
                             </div>
                         </div>
                     </div>

@@ -13,7 +13,7 @@ namespace AvaliaAe.Controllers
         }
         public IActionResult Index()
         {
-            var result = _repository.GetAllInstitutions();
+            var result = _repository.getAllInstitutionsAndAverage();
             return View(result);
         }
 
@@ -22,7 +22,7 @@ namespace AvaliaAe.Controllers
             return View();
         }
 
-        [HttpPost]
+       [HttpPost]
        public IActionResult UploadFile(IFormFile file)
         {
             return RedirectToAction("Index");

@@ -13,13 +13,40 @@ namespace AvaliaAe.Repository
             _context = context;
         }
 
+
         public List<InstitutionModel> GetAllInstitutions()
         {
             var result = _context.Institution.ToList();
             return result;
         }
 
-		public InstitutionModel GetInstitutionByEmailAndCnpj(string email, string cnpj)
+        public List<InstitutionsViewModel> getAllInstitutionsAndAverage()
+        {
+            List<InstitutionsViewModel> viewModel = new List<InstitutionsViewModel>();
+            var result = (from i in _context.Institution
+                          join a in _context.Average on i.Id equals a.InstitutionId into leftJoin
+                          from lj in leftJoin.DefaultIfEmpty()
+                          select new { i.InstitutionName, Average = lj != null ? lj.Average : (double?)null, i.Address, i.Id });
+            foreach(var i in result)
+            {
+                viewModel.Add(new InstitutionsViewModel()
+                {
+                   Institution = new InstitutionModel()
+                   {
+                       Id = i.Id,
+                       InstitutionName = i.InstitutionName,
+                       Address = i.Address, 
+                   },
+                   Average = new AverageModel()
+                   {
+                       Average = i.Average, 
+                   }
+                });
+            }
+            return viewModel;
+        }
+
+        public InstitutionModel GetInstitutionByEmailAndCnpj(string email, string cnpj)
 		{
             var result = _context.Institution.FirstOrDefault(x => x.Email == email || x.Cnpj == cnpj);
             return result;
