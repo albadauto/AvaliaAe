@@ -25,6 +25,8 @@ namespace AvaliaAe.Models
         public string Number { get; set; }
         [Required(ErrorMessage = "Cep é obrigatório")]
         public string Cep { get; set; }
+        [Required(ErrorMessage = "Descrição é obrigatório")]
+        public string Description { get; set; }
         public InstitutionTypeModel InstitutionType { get; set; }
 		[Required(ErrorMessage = "Tipo é obrigatório")]
 		public int InstitutionTypeId { get; set; }
