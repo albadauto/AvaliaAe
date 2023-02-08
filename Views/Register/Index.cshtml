@@ -19,7 +19,7 @@
         </div>
     }
     <h1 class="display-6 mt-5">Registro de usuário</h1>
-    @using (Html.BeginForm("CreateNewUser", "Register", FormMethod.Post))
+    @using (Html.BeginForm("CreateNewUser", "Register", FormMethod.Post, new { onsubmit = "return verifyPrivacity()" }))
     {
         <div class="row">
             <div class="col">
@@ -127,7 +127,7 @@
         </div>
         <div class="row mt-3">
             <div class="col">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <input class="form-check-input" type="checkbox" value="" id="privacyCheck">
                 <label class="form-check-label" for="flexCheckChecked">
                     Concordo e aceito os Termos de <a asp-controller="Register" asp-action="Privacy">privacidade de dados</a>
                 </label>
@@ -155,6 +155,15 @@
 
         }
     })
+
+    function verifyPrivacity() {
+        if (!$("#privacyCheck").is(":checked")) {
+            alert("Por favor leia e aceite os termos de privacidade")
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 </script>
 
