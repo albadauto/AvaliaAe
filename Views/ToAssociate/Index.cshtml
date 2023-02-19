@@ -9,8 +9,6 @@
 </style>
 
 
-
-
 <div class="bg-light mt-3 p-5">
     <div class="container">
         <div class="row">
@@ -122,11 +120,14 @@
     {
         <div class="comments">
             <div class="row mt-5">
-                <div class="col">
-                    <img src="https://pbs.twimg.com/media/FiRRfNfXEAMCwmk.jpg" width="50px" style="border-radius: 50px 50px" />
-                    <a href=""> Neymar Júnior (Aluno):</a>
+                <div class="col  me-4 d-flex flex-row">
+                    <div class="wrap me-3">
+                        <img src=@("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png") class="main-profile-img" />
+                    </div>
+                    <a href=""> José Adauto (Aluno):</a>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col mt-3">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ultrices dolor. Aliquam consectetur diam eget nulla tincidunt, sed vehicula ante congue.
@@ -135,6 +136,8 @@
                 </div>
             </div>
         </div>
+                <hr />
+
     }
    
 
@@ -183,3 +186,40 @@
         }
     });
 </script>*@
+
+<style>
+
+    .main-profile-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border-style: solid;
+        border-color: #FFFFFF;
+        box-shadow: 0 0 8px 3px #B8B8B8;
+        position: relative;
+    }
+
+    .wrap {
+        position: relative;
+    }
+
+    .edit-button {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid grey;
+        top: 0;
+        left: 113px;
+        background: white;
+        color: blue;
+    }
+
+    .avaliate {
+        margin-right: 100px !important;
+    }
+
+    .ratings_stars {
+        font-size: 25px !important;
+    }
+</style>
