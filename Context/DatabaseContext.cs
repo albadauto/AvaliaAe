@@ -18,6 +18,7 @@ namespace AvaliaAe.Context
         public DbSet<DenouncesModel> Denounces { get; set; }
         public DbSet<InstitutionTypeModel> InstitutionType { get; set; }
         public DbSet<CodeInstitutionModel> CodeInstitutions { get; set; }
+        public DbSet<CertificationModel> Certification { get; set; }
         public DbSet<AverageModel> Average { get; set; }
 
 
