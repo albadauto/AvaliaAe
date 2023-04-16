@@ -12,6 +12,7 @@ namespace AvaliaAe.Controllers
         private readonly IAssociationRepository _associationRepository;
         private readonly IEmail _mail;
         private readonly ICodeRepository _code;
+        private readonly ICertificationRepository _certification;
         private string pathServer;
 
         public MyProfileController(IUserRepository repository,
@@ -19,7 +20,8 @@ namespace AvaliaAe.Controllers
             IWebHostEnvironment webHost,
             IAssociationRepository associationRepository,
             IEmail mail,
-            ICodeRepository code)
+            ICodeRepository code,
+            ICertificationRepository certification)
         {
             _repository = repository;
             _institutionRepository = institutionRepository;
@@ -27,6 +29,7 @@ namespace AvaliaAe.Controllers
             _associationRepository = associationRepository;
             _mail = mail;
             _code = code;
+            _certification = certification; 
         }
 
         public IActionResult Index()
@@ -178,6 +181,32 @@ namespace AvaliaAe.Controllers
                 TempData["errorDelete"] = "Código inválido";
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult GenerateNewCertification(int id)
+        {
+            try
+            {
+                if(_certification.GetCertificationById(id) != null)
+                {
+                    TempData["errorCertification"] = "Erro: esta instituição já tem um certificado";
+                    return RedirectToAction("InstitutionProfile", new { Id = id });
+
+                }
+                _certification.insertNewCertification(new CertificationModel()
+                {
+                    InstitutionId = id,
+                    CodeCertification = Guid.NewGuid().ToString()
+                });
+                TempData["successCertification"] = "Certificação gerada com sucesso!";
+                return RedirectToAction("InstitutionProfile", new { Id = id });   
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

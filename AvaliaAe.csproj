@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Compiled\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Tests\SQL\" />
   </ItemGroup>
 

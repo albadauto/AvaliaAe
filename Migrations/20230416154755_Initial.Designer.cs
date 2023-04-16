@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AvaliaAe.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230130012614_FixingModelDenounce")]
-    partial class FixingModelDenounce
+    [Migration("20230416154755_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,6 +79,49 @@ namespace AvaliaAe.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Avaliations");
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.AverageModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double?>("Average")
+                        .HasColumnType("float");
+
+                    b.Property<int>("InstitutionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("Average");
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.CertificationModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CodeCertification")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InstitutionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstitutionId");
+
+                    b.ToTable("Certification");
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.CodeInstitutionModel", b =>
@@ -189,6 +232,10 @@ namespace AvaliaAe.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cnpj")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -359,6 +406,28 @@ namespace AvaliaAe.Migrations
                     b.Navigation("Institution");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.AverageModel", b =>
+                {
+                    b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
+                        .WithMany()
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Institution");
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.CertificationModel", b =>
+                {
+                    b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
+                        .WithMany()
+                        .HasForeignKey("InstitutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Institution");
                 });
 
             modelBuilder.Entity("AvaliaAe.Models.CodeInstitutionModel", b =>

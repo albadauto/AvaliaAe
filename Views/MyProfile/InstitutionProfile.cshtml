@@ -90,9 +90,22 @@
                 </div>
             </div>
         </div>
+        
 
         <div class="text-center">
-            <button class="btn btn-success">Gerar certificado</button>
+            @if(TempData["successCertification"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["successCertification"]
+                </div>
+            }
+            @if (TempData["errorCertification"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["errorCertification"]
+                </div>
+            }
+            <a class="btn btn-success" asp-route-id=@Model.Id asp-action="GenerateNewCertification" asp-controller="MyProfile">Gerar certificado</a>
         </div>
 
 
