@@ -49,7 +49,7 @@ BEGIN
 END
 GO
 
---Procedure para deixar todos as associações aprovadas
+--Procedure para criar tipos de instituições
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.ADDINSTITUTIONSTYPE'))
 BEGIN 
 	DROP PROCEDURE dbo.ADDINSTITUTIONSTYPE;
@@ -73,4 +73,26 @@ BEGIN
 END
 GO
 
+--Procedure para criar tipos de pessoas físicas
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.ADDFISICPEOPLESTYPES'))
+BEGIN 
+	DROP PROCEDURE dbo.ADDFISICPEOPLESTYPES;
+END
+GO
+
+CREATE PROCEDURE ADDFISICPEOPLESTYPES
+AS 
+BEGIN
+	INSERT INTO 
+		 USERTYPE
+	VALUES 
+	('ALUNO(A)'), 
+	('PROFESSOR(A)'), 
+	('GESTOR ADMINISTRATIVO(A)'), 
+	('PAIS RESPONSÁVEIS'), 
+	('OUTROS')
+
+		
+END
+GO
 

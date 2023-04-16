@@ -13,6 +13,7 @@ namespace AvaliaAe.Controllers
         private readonly IEmail _mail;
         private readonly ICodeRepository _code;
         private readonly ICertificationRepository _certification;
+        private readonly IAverageRepository _average;
         private string pathServer;
 
         public MyProfileController(IUserRepository repository,
@@ -21,7 +22,8 @@ namespace AvaliaAe.Controllers
             IAssociationRepository associationRepository,
             IEmail mail,
             ICodeRepository code,
-            ICertificationRepository certification)
+            ICertificationRepository certification,
+            IAverageRepository average)
         {
             _repository = repository;
             _institutionRepository = institutionRepository;
@@ -29,7 +31,8 @@ namespace AvaliaAe.Controllers
             _associationRepository = associationRepository;
             _mail = mail;
             _code = code;
-            _certification = certification; 
+            _certification = certification;
+            _average = average;
         }
 
         public IActionResult Index()
@@ -188,9 +191,16 @@ namespace AvaliaAe.Controllers
         {
             try
             {
-                if(_certification.GetCertificationById(id) != null)
+                if (_certification.GetCertificationById(id) != null)
                 {
                     TempData["errorCertification"] = "Erro: esta instituição já tem um certificado";
+                    return RedirectToAction("InstitutionProfile", new { Id = id });
+
+                }
+                var average = _average.getAverageByIdInstitution(id) ?? null;
+                if (average == null || average.Average < 4.7)
+                {
+                    TempData["errorCertification"] = "A média dessa instituição não corresponde ao mínimo (4.7) para gerar um certificado";
                     return RedirectToAction("InstitutionProfile", new { Id = id });
 
                 }
