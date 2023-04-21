@@ -1,4 +1,5 @@
-﻿@model List<InstitutionsViewModel>
+﻿@inject IHttpContextAccessor context
+@model List<InstitutionsViewModel>
 
 <div class="container">
     <div class="text-center mt-5">
@@ -21,9 +22,13 @@
                                     <p><i class="bi bi-star-fill"></i> @(i.Average.Average == null ? "Sem nota" : i.Average.Average)</p>
                                 </div>
                             </div>
-                            <div class="text-center">
+                            @if(context.HttpContext.Session.GetString("type") != "inst")
+                            {
+                               <div class="text-center">
                                 <a class="btn btn-primary" asp-controller="ToAssociate" asp-action="Index" asp-route-id=@i.Institution.Id>Associar-se</a>
-                            </div>
+                            </div> 
+                            }
+                            
                         </div>
                     </div>
                 </div>
