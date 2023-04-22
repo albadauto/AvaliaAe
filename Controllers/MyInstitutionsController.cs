@@ -19,7 +19,7 @@ namespace AvaliaAe.Controllers
             _avaliationRepository = avaliationRepository;
             _institutionRepository = institutionRepository;
             _calculationHelper = calculation;
-            _averageRepository = averageRepository; 
+            _averageRepository = averageRepository;
         }
         public IActionResult Index(int Id)
         {
@@ -104,8 +104,8 @@ namespace AvaliaAe.Controllers
                     TempData["errorAvaliation"] = "Insira todas as informações necessárias para a avaliação.";
                     return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
                 }
-               
-              
+
+
                 model.AvaliationModel.UserId = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
                 _avaliationRepository.InsertAvaliation(model.AvaliationModel);
 

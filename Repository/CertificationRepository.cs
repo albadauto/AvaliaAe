@@ -12,6 +12,12 @@ namespace AvaliaAe.Repository
             _context = context; 
         }
 
+        public CertificationModel GetCertificationByCode(string code)
+        {
+            var finded = _context.Certification.FirstOrDefault(x => x.CodeCertification == code);
+            return finded;
+        }
+
         public CertificationModel GetCertificationById(int idInst)
         {
             var finded = _context.Certification.FirstOrDefault(x => x.InstitutionId == idInst);
@@ -25,6 +31,8 @@ namespace AvaliaAe.Repository
             return certification;
         }
 
+
+      
        
     }
 }

@@ -1,17 +1,20 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model CertificationModel
 
 <div class="container bg-light text-center mt-5 p-5">
     <h4 class="display-6 ">Pesquise o código de uma certificação</h4>
-    @using (Html.BeginForm("", "", FormMethod.Post))
+    @if(TempData["errorSearch"] != null)
+    {
+        <div class="alert alert-danger">
+            <label>@TempData["errorSearch"]</label>
+        </div>
+       
+    }
+    @using (Html.BeginForm("Certificate", "SearchCertification", FormMethod.Get))
     {
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" min="10" max="10">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" min="10" max="10" asp-for="CodeCertification">
                     <label for="floatingInput">Código de certificação</label>
                 </div>
             </div>
