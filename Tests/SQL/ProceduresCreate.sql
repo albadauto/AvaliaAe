@@ -96,3 +96,44 @@ BEGIN
 END
 GO
 
+--Procedure para criar tipos de pessoas físicas
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.MASSADEDADOS'))
+BEGIN 
+	DROP PROCEDURE dbo.MASSADEDADOS;
+END
+GO
+
+CREATE PROCEDURE MASSADEDADOS
+AS 
+BEGIN
+	DECLARE @COUNT INT;
+	SET @COUNT = 1;
+	WHILE @COUNT <= (SELECT MAX(ID) FROM InstitutionType)
+	BEGIN
+		INSERT INTO 
+			INSTITUTION
+		VALUES
+			(CONCAT('INSTITUIÇÃO', @COUNT), 
+			 CONCAT('111111111', @COUNT), 
+			CONCAT('9423194', @COUNT, @COUNT + 1), 
+			CONCAT('inst', @COUNT, '@avaliae.com'),
+			'SBNJTRN+FjG7owHVrKtue7eqdM4RhdRWVl71HXN2d7I=',
+			'rua sla',
+			'SP',
+			12,
+			12,
+			'lorem ipsum',
+			@COUNT,
+			NULL,
+			NULL
+			);
+		SET @COUNT = @COUNT + 1
+	END
+
+		
+END
+GO
+
+
+
+SELECT * FROM INSTITUTION
