@@ -27,7 +27,7 @@ namespace AvaliaAe.Repository
                           join i in _context.Institution
                           on c.InstitutionId equals i.Id
                           where i.Id == idInst
-                          select new { l.Name, c.Comment, c.Note, i.InstitutionName, l.photo_uri, idAvaliation = c.Id, institutionId = i.Id}).OrderByDescending(x => x.idAvaliation);
+                          select new { l.Name, c.Comment, c.Note, i.InstitutionName, l.photo_uri, idAvaliation = c.Id, institutionId = i.Id, userIdentity = l.Id }).OrderByDescending(x => x.idAvaliation);
            foreach(var avaliation in result)
             {
                 avList.Add(new AvaliationModel()
@@ -35,6 +35,7 @@ namespace AvaliaAe.Repository
                     Id = avaliation.idAvaliation,
                     User = new UserModel()
                     {
+                        Id = avaliation.userIdentity,
                         Name = avaliation.Name,
                         photo_uri = avaliation.photo_uri
                     },
@@ -70,6 +71,30 @@ namespace AvaliaAe.Repository
                 });
             }
             return avaliationModel;
+        }
+
+        public AvaliationModel GetAvaliationByUserId(int userId, int idInst)
+        {
+            var result = (from i in _context.Avaliations
+                          join c in _context.User
+                          on i.UserId equals c.Id
+                          where i.InstitutionId == idInst
+                          select i).FirstOrDefault();
+            return result;
+
+        }
+
+        public bool RemoveAvaliationAverage(int idInst)
+        {
+            var result = _context.Avaliations.FirstOrDefault(x => x.InstitutionId == idInst);
+            var average = _context.Average.FirstOrDefault(x => x.InstitutionId == idInst);
+
+            if (result == null || average == null) return false;
+
+            _context.Avaliations.Remove(result);
+            _context.Average.Remove(average);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

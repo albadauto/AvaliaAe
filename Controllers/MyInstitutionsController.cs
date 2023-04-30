@@ -39,6 +39,8 @@ namespace AvaliaAe.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+
+
             AvaliateViewModel avaliate = new AvaliateViewModel();
             List<int> notes = new List<int>();
             var comments = _avaliationRepository.GetAllComments(Id);
@@ -105,8 +107,13 @@ namespace AvaliaAe.Controllers
                     return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
                 }
 
+                if (_avaliationRepository.GetAvaliationByUserId(model.AvaliationModel.UserId, model.AvaliationModel.InstitutionId) != null)
+                {
+                    TempData["errorAvaliation"] = "Você já avaliou esta instituição";
+                    return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
+                }
 
-                model.AvaliationModel.UserId = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
+                    model.AvaliationModel.UserId = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
                 _avaliationRepository.InsertAvaliation(model.AvaliationModel);
 
                 var allnotes = _avaliationRepository.GetAllComments(model.AvaliationModel.InstitutionId);
@@ -135,6 +142,30 @@ namespace AvaliaAe.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult RemoveAvaliation(int Id)
+        {
+            try
+            {
+                var result = _avaliationRepository.RemoveAvaliationAverage(Id);
+                if (result)
+                {
+                    TempData["successAvaliation"] = "Comentário removido com sucesso";
+
+                }
+                else
+                {
+                    TempData["errorAvaliation"] = "Erro: Contatar um administrador";
+                }
+                return RedirectToAction("ToAvaliate", new { Id = Id });
+
+            }
+            catch (Exception err)
+            {
+
+                throw new Exception(err.Message);
+            }
+        }
 
     }
 }

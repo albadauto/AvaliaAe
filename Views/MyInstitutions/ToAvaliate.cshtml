@@ -104,6 +104,15 @@
                             </div>
                         }
 
+                        @if (comment.User.Id == context.HttpContext.Session.GetInt32("Id") && context.HttpContext.Session.GetString("type") == "user")
+                        {
+                            <div class="col-2">
+                                <div class="text-dark mx-1">
+                                    <a style="color: #ff2c2c" asp-controller="MyInstitutions" asp-action="RemoveAvaliation" asp-route-id=@comment.Institution.Id><b><i class="bi bi-exclamation-circle-fill"></i>Deletar</b></a>
+                                </div>
+                            </div>
+                        }
+
                     </div>
                     <hr />
                 </div>

@@ -8,5 +8,9 @@ namespace AvaliaAe.Repository.Interfaces
         public List<AvaliationModel> GetAllComments(int idInst);
         public List<AvaliationModel> allAvaliations();
 
+        public AvaliationModel GetAvaliationByUserId(int userId, int idInst);
+
+        public bool RemoveAvaliationAverage(int idInst);
+
     }
 }
