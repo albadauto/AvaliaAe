@@ -26,7 +26,9 @@ namespace AvaliaAe.Repository
             var result = (from i in _context.Institution
                           join a in _context.Average on i.Id equals a.InstitutionId into leftJoin
                           from lj in leftJoin.DefaultIfEmpty()
-                          select new { i.InstitutionName, Average = lj != null ? lj.Average : (double?)null, i.Address, i.Id });
+                          join t in _context.InstitutionType
+                          on i.InstitutionTypeId equals t.Id
+                          select new { i.InstitutionName, Average = lj != null ? lj.Average : (double?)null, i.Address, i.Id, t.Name });
             foreach(var i in result)
             {
                 viewModel.Add(new InstitutionsViewModel()
@@ -36,11 +38,16 @@ namespace AvaliaAe.Repository
                        Id = i.Id,
                        InstitutionName = i.InstitutionName,
                        Address = i.Address, 
+                       InstitutionType = new InstitutionTypeModel
+                       {
+                           Name = i.Name
+                       }
                    },
                    Average = new AverageModel()
                    {
                        Average = i.Average, 
-                   }
+                   },
+                   
                 });
             }
             return viewModel;

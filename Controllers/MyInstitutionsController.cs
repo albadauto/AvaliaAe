@@ -40,7 +40,6 @@ namespace AvaliaAe.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-
             AvaliateViewModel avaliate = new AvaliateViewModel();
             List<int> notes = new List<int>();
             var comments = _avaliationRepository.GetAllComments(Id);
