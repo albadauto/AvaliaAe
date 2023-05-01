@@ -1,5 +1,20 @@
 ﻿@model CertificationModel
 
-<label>@Model.CodeCertification</label> <br />
-<label>@Model.Institution.InstitutionName</label> <br />
-<label>@Model.Institution.InstitutionType.Name</label>
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <h3 class="display-5">Certificado</h3>
+        </div>
+       
+    </div>
+
+    <div class="text-muted mt-5">
+        <h3>Certificamos que a instituição @Model.Institution.InstitutionName (@Model.Institution.InstitutionType.Name)<br/>
+            possui uma média de nota superior ou mais que 4.7 no Avalia Aê! garantindo a qualidade da mesma.
+
+        </h3>
+        <h5>Código da certificação:  <label>@Model.CodeCertification</label> <br /></h5> <br/>
+    </div>
+
+    <img class="mt-5"src="~/img/logos/logo.png" />
+</div>
