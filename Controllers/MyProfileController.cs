@@ -109,14 +109,7 @@ namespace AvaliaAe.Controllers
 
         private bool verifyExtension(IFormFile file)
         {
-            if (Path.GetExtension(file.FileName).ToLower() != ".jpg" && Path.GetExtension(file.FileName).ToLower() != ".png" && Path.GetExtension(file.FileName).ToLower() != ".jpeg")
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return (Path.GetExtension(file.FileName).ToLower() != ".jpg" && Path.GetExtension(file.FileName).ToLower() != ".png" && Path.GetExtension(file.FileName).ToLower() != ".jpeg") ? false : true;
         }
 
         [HttpPost]
@@ -212,10 +205,10 @@ namespace AvaliaAe.Controllers
                 TempData["successCertification"] = "Certificação gerada com sucesso!";
                 return RedirectToAction("InstitutionProfile", new { Id = id });   
             }
-            catch (Exception)
+            catch (Exception err)
             {
 
-                throw;
+                throw new Exception(err.Message);
             }
         }
     }

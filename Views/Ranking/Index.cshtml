@@ -3,7 +3,7 @@
     int count = 0;
     List<AverageModel> bestByAverage = Model.OrderByDescending(x => x.Average).Take(10).ToList();
     List<AverageModel> bestPublicSchoolByAverage = Model.Where(x => x.Institution.InstitutionType.Id == 2).OrderByDescending(x => x.Average).Take(10).ToList();
-    List<AverageModel> bestFacultyByAverage = Model.Where(x => x.Institution.InstitutionType.Id == 3).OrderByDescending(x => x.Average).Take(10).ToList();
+    List<AverageModel> bestFacultyByAverage = Model.Where(x => x.Institution.InstitutionType.Id == 4 || x.Institution.InstitutionType.Id == 5).OrderByDescending(x => x.Average).Take(10).ToList();
 
 }
 <div class="text-center m-5">
