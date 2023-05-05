@@ -106,8 +106,9 @@ namespace AvaliaAe.Controllers
                     return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
                 }
 
-                if (_avaliationRepository.GetAvaliationByUserId(model.AvaliationModel.UserId, model.AvaliationModel.InstitutionId) != null)
+                if (_avaliationRepository.GetAvaliationByUserId((int)HttpContext.Session.GetInt32("Id"), model.AvaliationModel.InstitutionId) != null)
                 {
+                    Console.WriteLine(model.AvaliationModel.InstitutionId); 
                     TempData["errorAvaliation"] = "Você já avaliou esta instituição";
                     return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
                 }

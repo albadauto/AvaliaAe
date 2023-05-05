@@ -11,6 +11,13 @@ namespace AvaliaAe.Repository
         {
             _context = context;
         }
+
+        public AssociationsModel GetAssociationWithP(int userId)
+        {
+            var result = _context.Associations.FirstOrDefault(x => x.UserId == userId && x.Status == "P");
+            return result;
+        }
+
         public List<AssociationsModel> GetUserAndInstitution(int UserId)
         {
             List<AssociationsModel> associations = new List<AssociationsModel>();

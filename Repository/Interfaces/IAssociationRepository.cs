@@ -9,5 +9,8 @@ namespace AvaliaAe.Repository.Interfaces
 		public AssociationsModel InsertNewAssociation(AssociationsModel association);
 
 		public bool RemoveInstitution(int idInst);
-	}
+
+        public AssociationsModel GetAssociationWithP(int userId);
+
+    }
 }

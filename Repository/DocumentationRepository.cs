@@ -22,7 +22,7 @@ namespace AvaliaAe.Repository
                              on a.UserId equals u.Id    
                           join i in _context.Institution
                              on a.InstitutionId equals i.Id
-                          where u.Id == model.Associations.User.Id
+                          where a.UserId == model.Associations.User.Id && model.Associations.Status == "P"
                           select new { u.Name, i.InstitutionName, d.doc_uri }
                           );
             foreach(var i in result)
@@ -46,6 +46,8 @@ namespace AvaliaAe.Repository
 
             return listDocumentation;
         }
+
+     
 
         public DocumentationModel InsertNewDocumenation(DocumentationModel model, string docUri)
         {

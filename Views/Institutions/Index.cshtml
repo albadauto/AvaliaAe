@@ -26,7 +26,7 @@
                             @if(context.HttpContext.Session.GetString("type") != "inst")
                             {
                                <div class="text-center">
-                                <a class="btn btn-primary" asp-controller="ToAssociate" asp-action="Index" asp-route-id=@i.Institution.Id>Associar-se</a>
+                                <a class="btn btn-success" asp-controller="ToAssociate" asp-action="Index" asp-route-id=@i.Institution.Id>Verificar</a>
                             </div> 
                             }
                             

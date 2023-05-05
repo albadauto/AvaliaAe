@@ -9,12 +9,14 @@ namespace AvaliaAe.Controllers
     {
         private readonly IDocumentationRepository _repository;
         private readonly IInstitutionRepository _institutionRepository;
+        private readonly IAssociationRepository _associationRepository;
         private string pathServer;
-        public ToAssociateController(IDocumentationRepository repository, IInstitutionRepository institutionRepository, IWebHostEnvironment environment)
+        public ToAssociateController(IDocumentationRepository repository, IInstitutionRepository institutionRepository, IWebHostEnvironment environment, IAssociationRepository associationRepository)
         {
             pathServer = environment.WebRootPath;
             _repository = repository;
             _institutionRepository = institutionRepository;
+            _associationRepository = associationRepository;
         }
         public IActionResult Index(int id)
         {
@@ -39,9 +41,15 @@ namespace AvaliaAe.Controllers
         public async Task<IActionResult> UploadDoc(DocumentationModel model)
         {
             string path = pathServer + "\\docs\\";
-
-            if(model == null)
+            var getAssociation = _associationRepository.GetAssociationWithP((int)HttpContext.Session.GetInt32("Id"));
+            if (model == null)
             {
+                return RedirectToAction("Index", new { id = model.Associations.Institution.Id });
+            }
+
+            if (getAssociation != null )
+            {
+                TempData["errorAssociation"] = $"Erro: Você já se associou a uma instituição, favor aguardar a resposta de um administrador.";
                 return RedirectToAction("Index", new { id = model.Associations.Institution.Id });
             }
 
@@ -50,6 +58,8 @@ namespace AvaliaAe.Controllers
                 TempData["errorAssociation"] = "Por favor, selecione um arquivo PDF";
                 return RedirectToAction("Index", new { id = model.Associations.Institution.Id });
             }
+
+           
 
             if (model.File != null)
             {

@@ -78,7 +78,7 @@ namespace AvaliaAe.Repository
             var result = (from i in _context.Avaliations
                           join c in _context.User
                           on i.UserId equals c.Id
-                          where i.InstitutionId == idInst
+                          where i.InstitutionId == idInst && i.UserId == userId
                           select i).FirstOrDefault();
             return result;
 

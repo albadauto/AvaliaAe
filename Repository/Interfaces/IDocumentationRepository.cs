@@ -7,7 +7,8 @@ namespace AvaliaAe.Repository.Interfaces
     {
         public List<DocumentationModel> GetDocumentation(DocumentationModel model);
 
-        public DocumentationModel InsertNewDocumenation(DocumentationModel model, string docUri);  
+        public DocumentationModel InsertNewDocumenation(DocumentationModel model, string docUri);
+
       
     }
 }
