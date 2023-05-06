@@ -7,6 +7,28 @@
         font-size: 30px !important;
     }
 </style>
+<div class="container">
+    <div class="row">
+        <div class="col border border-dark border-1 m-5 rounded-3">
+            <div class="text-center">
+
+            <h5 class="text-muted">Fatec Santana de Parnaíba</h5>
+            </div>
+
+
+        </div>
+        <div class="col-7 border border-dark m-5 rounded-3">
+            <div class="text-center">
+
+                <h5 class="text-muted">Comentários</h5>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--
 
 
 <div class="bg-light mt-3 p-5">
@@ -18,20 +40,20 @@
     </div>
 
     <div class="container">
-        @if (TempData["successAssociation"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["successAssociation"]
-            </div>
-        }
+@if (TempData["successAssociation"] != null)
+{
+                    <div class="alert alert-success">
+        @TempData["successAssociation"]
+                    </div>
+}
 
-        @if (TempData["errorAssociation"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["errorAssociation"]
-            </div>
-        }
-        
+@if (TempData["errorAssociation"] != null)
+{
+                    <div class="alert alert-danger">
+        @TempData["errorAssociation"]
+                    </div>
+}
+
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
@@ -64,13 +86,13 @@
         <div class="row">
             <div class="col">
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px" disabled asp-for="Associations.Institution.Description"> 
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px" disabled asp-for="Associations.Institution.Description">
                         </textarea>
                     <label for="floatingTextarea2">Descrição da instituição</label>
                 </div>
             </div>
         </div>
-       @* <div class="rating text-center mt-5">
+@* <div class="rating text-center mt-5">
             <i class="ratings_stars fa fa-star" data-rating="1"></i>
             <i class="ratings_stars fa fa-star" data-rating="2"></i>
             <i class="ratings_stars fa fa-star" data-rating="3"></i>
@@ -116,56 +138,56 @@
     <div class="text-center">
         <h3 class="display-6">Comentários</h3>
     </div>
-    @foreach(var i in Enumerable.Range(1, 5))
-    {
-        <div class="comments">
-            <div class="row mt-5">
-                <div class="col  me-4 d-flex flex-row">
-                    <div class="wrap me-3">
-                        <img src=@("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png") class="main-profile-img" />
+@foreach (var i in Enumerable.Range(1, 5))
+{
+                <div class="comments">
+                    <div class="row mt-5">
+                        <div class="col  me-4 d-flex flex-row">
+                            <div class="wrap me-3">
+                                <img src=@("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png") class="main-profile-img" />
+                            </div>
+                            <a href=""> José Adauto (Aluno):</a>
+                        </div>
                     </div>
-                    <a href=""> José Adauto (Aluno):</a>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col mt-3">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ultrices dolor. Aliquam consectetur diam eget nulla tincidunt, sed vehicula ante congue.
-                    Fusce lectus erat, vulputate ac tincidunt nec, maximus nec augue. Quisque sapien lectus, fringilla ac dapibus non, fermentum dignissim ipsum. Cras gravida mi sit amet tortor finibus fermentum. 
-                    Mauris finibus mauris sed lectus dignissim, id aliquet ex aliquam. Nulla aliquet, enim ac mollis interdum, leo ante porttitor urna, sed vehicula nisl dolor vel nisl
+                    <div class="row">
+                        <div class="col mt-3">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in ultrices dolor. Aliquam consectetur diam eget nulla tincidunt, sed vehicula ante congue.
+                            Fusce lectus erat, vulputate ac tincidunt nec, maximus nec augue. Quisque sapien lectus, fringilla ac dapibus non, fermentum dignissim ipsum. Cras gravida mi sit amet tortor finibus fermentum.
+                            Mauris finibus mauris sed lectus dignissim, id aliquet ex aliquam. Nulla aliquet, enim ac mollis interdum, leo ante porttitor urna, sed vehicula nisl dolor vel nisl
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-                <hr />
+                        <hr />
 
-    }
-   
+}
+
 
 
 </div>
 
 @using (Html.BeginForm("UploadDoc", "ToAssociate", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <input type="hidden" value=@context.HttpContext.Session.GetInt32("Id") asp-for="Associations.UserId"/>
-                <input type="hidden" asp-for="Associations.Institution.Id" />
-                <div class="modal-body">
-                    Faça o upload de um arquivo que comprove sua associação a instituição <br /><br />
-                    OBS: Somente arquivos com extensão .PDF! <br /><br />
-                    <input type="file" multiple="multiple" asp-for="File"/>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary" >Enviar </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <input type="hidden" value=@context.HttpContext.Session.GetInt32("Id") asp-for="Associations.UserId"/>
+                        <input type="hidden" asp-for="Associations.Institution.Id" />
+                        <div class="modal-body">
+                            Faça o upload de um arquivo que comprove sua associação a instituição <br /><br />
+                            OBS: Somente arquivos com extensão .PDF! <br /><br />
+                            <input type="file" multiple="multiple" asp-for="File"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary" >Enviar </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 }
 
 
@@ -223,3 +245,4 @@
         font-size: 25px !important;
     }
 </style>
+-->

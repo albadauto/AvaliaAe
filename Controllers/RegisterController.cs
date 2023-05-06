@@ -83,7 +83,7 @@ namespace AvaliaAe.Controllers
 				return RedirectToAction("Institution");
 
 			}
-			catch (Exception e)
+			catch
 			{
 				return RedirectToAction("Institution");
 			}
