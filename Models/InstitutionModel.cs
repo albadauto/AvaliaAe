@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AvaliaAe.Models
@@ -9,18 +10,18 @@ namespace AvaliaAe.Models
 
         [Required(ErrorMessage = "Nome da instituição obrigatório!")]
         public string InstitutionName { get; set; }
-		[Required(ErrorMessage = "CNPJ obrigatório!")]
-		public string Cnpj { get; set; }
-		[Required(ErrorMessage = "Telefone obrigatório!")]
-		public string Phone { get; set; }
-		[Required(ErrorMessage = "Email obrigatório!")]
-		public string Email { get; set; }
-		[Required(ErrorMessage = "Senha obrigatório!")]
-		public string Password { get; set; }
-		[Required(ErrorMessage = "Endereço obrigatório!")]
-		public string Address { get; set; }
-		[Required(ErrorMessage = "Bairro é obrigatório")]
-		public string District { get; set; }
+        [Required(ErrorMessage = "CNPJ obrigatório!")]
+        public string Cnpj { get; set; }
+        [Required(ErrorMessage = "Telefone obrigatório!")]
+        public string Phone { get; set; }
+        [Required(ErrorMessage = "Email obrigatório!")]
+        public string Email { get; set; }
+        [Required(ErrorMessage = "Senha obrigatório!")]
+        public string Password { get; set; }
+        [Required(ErrorMessage = "Endereço obrigatório!")]
+        public string Address { get; set; }
+        [Required(ErrorMessage = "Bairro é obrigatório")]
+        public string District { get; set; }
         [Required(ErrorMessage = "Número obrigatório!")]
         public string Number { get; set; }
         [Required(ErrorMessage = "Cep é obrigatório")]
@@ -28,10 +29,17 @@ namespace AvaliaAe.Models
         [Required(ErrorMessage = "Descrição é obrigatório")]
         public string Description { get; set; }
         public InstitutionTypeModel InstitutionType { get; set; }
-		[Required(ErrorMessage = "Tipo é obrigatório")]
-		public int InstitutionTypeId { get; set; }
+        [Required(ErrorMessage = "Tipo é obrigatório")]
+        public int InstitutionTypeId { get; set; }
         public string? OwnerName { get; set; }
         public string? OwnerCpf { get; set; }
 
+        [ValidateNever]
+        [NotMapped]
+        public AvaliationModel Avaliation { get; set; }
+
+        [ValidateNever]
+        [NotMapped]
+        public AverageModel Average { get; set; }
     }
 }

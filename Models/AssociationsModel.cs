@@ -10,5 +10,6 @@ namespace AvaliaAe.Models
         public string Status { get; set; } //A => Aprovado | P => Pendente para aceite
         public int UserId { get; set; }
         public int InstitutionId { get; set; }
+
     }
 }

@@ -56,13 +56,14 @@ namespace AvaliaAe.Controllers
                 notes.Add(i.Note);
 
             }
-
+            /*
             if (notes.Count > 0)
             {
                 double average = _calculationHelper.CalculateAverage(notes);
                 avaliate.AvaliationModel.Average = average;
 
             }
+            */
 
 
             avaliate.InstitutionName = institution?.InstitutionName ?? "Minha instituição";

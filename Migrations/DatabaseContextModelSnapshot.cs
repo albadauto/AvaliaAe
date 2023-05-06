@@ -57,6 +57,9 @@ namespace AvaliaAe.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("AverageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -87,6 +90,9 @@ namespace AvaliaAe.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("AvaliationId")
+                        .HasColumnType("int");
+
                     b.Property<double?>("Average")
                         .HasColumnType("float");
 
@@ -95,7 +101,11 @@ namespace AvaliaAe.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InstitutionId");
+                    b.HasIndex("AvaliationId")
+                        .IsUnique();
+
+                    b.HasIndex("InstitutionId")
+                        .IsUnique();
 
                     b.ToTable("Average");
                 });
@@ -377,9 +387,9 @@ namespace AvaliaAe.Migrations
                         .IsRequired();
 
                     b.HasOne("AvaliaAe.Models.UserModel", "User")
-                        .WithMany()
+                        .WithMany("Associations")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Institution");
@@ -392,13 +402,13 @@ namespace AvaliaAe.Migrations
                     b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
                         .WithMany()
                         .HasForeignKey("InstitutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("AvaliaAe.Models.UserModel", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Institution");
@@ -408,11 +418,19 @@ namespace AvaliaAe.Migrations
 
             modelBuilder.Entity("AvaliaAe.Models.AverageModel", b =>
                 {
-                    b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
-                        .WithMany()
-                        .HasForeignKey("InstitutionId")
+                    b.HasOne("AvaliaAe.Models.AvaliationModel", "Avaliation")
+                        .WithOne("Average")
+                        .HasForeignKey("AvaliaAe.Models.AverageModel", "AvaliationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
+                        .WithOne("Average")
+                        .HasForeignKey("AvaliaAe.Models.AverageModel", "InstitutionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Avaliation");
 
                     b.Navigation("Institution");
                 });
@@ -481,6 +499,23 @@ namespace AvaliaAe.Migrations
                         .IsRequired();
 
                     b.Navigation("InstitutionType");
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.AvaliationModel", b =>
+                {
+                    b.Navigation("Average")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.InstitutionModel", b =>
+                {
+                    b.Navigation("Average")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AvaliaAe.Models.UserModel", b =>
+                {
+                    b.Navigation("Associations");
                 });
 #pragma warning restore 612, 618
         }

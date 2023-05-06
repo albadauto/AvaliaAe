@@ -40,6 +40,13 @@ namespace AvaliaAe.Models
 		[NotMapped]
 		[ValidateNever]
 		public UserTypeModel UserType { get; set; }
+        [NotMapped]
+        [ValidateNever]
+        public AvaliationModel Avaliation { get; set; }
+        [NotMapped]
+        [ValidateNever]
+        public List<AssociationsModel> Associations { get; set; }
+
 
 
 

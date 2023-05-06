@@ -11,8 +11,13 @@ namespace AvaliaAe.Models
         public InstitutionModel Institution { get; set; }
         public int UserId { get; set; }
         public int InstitutionId { get; set; }
-        [NotMapped]
-        public double? Average { get; set; } 
+
+        [ForeignKey("AverageId")]
+        public virtual AverageModel Average { get; set; }
+
+        public int AverageId { get; set; }  
+
+
 
     }
 }
