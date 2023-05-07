@@ -75,6 +75,9 @@ namespace AvaliaAe.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AverageId")
+                        .IsUnique();
+
                     b.HasIndex("InstitutionId");
 
                     b.HasIndex("UserId");
@@ -90,9 +93,6 @@ namespace AvaliaAe.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AvaliationId")
-                        .HasColumnType("int");
-
                     b.Property<double?>("Average")
                         .HasColumnType("float");
 
@@ -100,9 +100,6 @@ namespace AvaliaAe.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AvaliationId")
-                        .IsUnique();
 
                     b.HasIndex("InstitutionId")
                         .IsUnique();
@@ -399,6 +396,12 @@ namespace AvaliaAe.Migrations
 
             modelBuilder.Entity("AvaliaAe.Models.AvaliationModel", b =>
                 {
+                    b.HasOne("AvaliaAe.Models.AverageModel", "Average")
+                        .WithOne("Avaliation")
+                        .HasForeignKey("AvaliaAe.Models.AvaliationModel", "AverageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
                         .WithMany()
                         .HasForeignKey("InstitutionId")
@@ -411,6 +414,8 @@ namespace AvaliaAe.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.Navigation("Average");
+
                     b.Navigation("Institution");
 
                     b.Navigation("User");
@@ -418,19 +423,11 @@ namespace AvaliaAe.Migrations
 
             modelBuilder.Entity("AvaliaAe.Models.AverageModel", b =>
                 {
-                    b.HasOne("AvaliaAe.Models.AvaliationModel", "Avaliation")
-                        .WithOne("Average")
-                        .HasForeignKey("AvaliaAe.Models.AverageModel", "AvaliationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
                         .WithOne("Average")
                         .HasForeignKey("AvaliaAe.Models.AverageModel", "InstitutionId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Avaliation");
 
                     b.Navigation("Institution");
                 });
@@ -501,9 +498,9 @@ namespace AvaliaAe.Migrations
                     b.Navigation("InstitutionType");
                 });
 
-            modelBuilder.Entity("AvaliaAe.Models.AvaliationModel", b =>
+            modelBuilder.Entity("AvaliaAe.Models.AverageModel", b =>
                 {
-                    b.Navigation("Average")
+                    b.Navigation("Avaliation")
                         .IsRequired();
                 });
 

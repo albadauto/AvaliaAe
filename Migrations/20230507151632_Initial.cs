@@ -4,7 +4,7 @@
 
 namespace AvaliaAe.Migrations
 {
-    public partial class InitialTest : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -136,29 +136,21 @@ namespace AvaliaAe.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Avaliations",
+                name: "Average",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Note = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    InstitutionId = table.Column<int>(type: "int", nullable: false),
-                    AverageId = table.Column<int>(type: "int", nullable: false)
+                    Average = table.Column<double>(type: "float", nullable: true),
+                    InstitutionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Avaliations", x => x.Id);
+                    table.PrimaryKey("PK_Average", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Avaliations_Institution_InstitutionId",
+                        name: "FK_Average_Institution_InstitutionId",
                         column: x => x.InstitutionId,
                         principalTable: "Institution",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Avaliations_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
                         principalColumn: "Id");
                 });
 
@@ -224,28 +216,35 @@ namespace AvaliaAe.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Average",
+                name: "Avaliations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Average = table.Column<double>(type: "float", nullable: true),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Note = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     InstitutionId = table.Column<int>(type: "int", nullable: false),
-                    AvaliationId = table.Column<int>(type: "int", nullable: false)
+                    AverageId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Average", x => x.Id);
+                    table.PrimaryKey("PK_Avaliations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Average_Avaliations_AvaliationId",
-                        column: x => x.AvaliationId,
-                        principalTable: "Avaliations",
+                        name: "FK_Avaliations_Average_AverageId",
+                        column: x => x.AverageId,
+                        principalTable: "Average",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Average_Institution_InstitutionId",
+                        name: "FK_Avaliations_Institution_InstitutionId",
                         column: x => x.InstitutionId,
                         principalTable: "Institution",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Avaliations_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
                         principalColumn: "Id");
                 });
 
@@ -280,6 +279,12 @@ namespace AvaliaAe.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Avaliations_AverageId",
+                table: "Avaliations",
+                column: "AverageId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Avaliations_InstitutionId",
                 table: "Avaliations",
                 column: "InstitutionId");
@@ -288,12 +293,6 @@ namespace AvaliaAe.Migrations
                 name: "IX_Avaliations_UserId",
                 table: "Avaliations",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Average_AvaliationId",
-                table: "Average",
-                column: "AvaliationId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Average_InstitutionId",
@@ -335,9 +334,6 @@ namespace AvaliaAe.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Average");
-
-            migrationBuilder.DropTable(
                 name: "Certification");
 
             migrationBuilder.DropTable(
@@ -362,10 +358,13 @@ namespace AvaliaAe.Migrations
                 name: "Associations");
 
             migrationBuilder.DropTable(
-                name: "Institution");
+                name: "Average");
 
             migrationBuilder.DropTable(
                 name: "User");
+
+            migrationBuilder.DropTable(
+                name: "Institution");
 
             migrationBuilder.DropTable(
                 name: "InstitutionType");

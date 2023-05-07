@@ -1,5 +1,6 @@
 ﻿using AvaliaAe.Helpers.Interfaces;
 using AvaliaAe.Models;
+using AvaliaAe.Repository;
 using AvaliaAe.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -51,19 +52,15 @@ namespace AvaliaAe.Controllers
                 avaliate.AvaliationModel = new AvaliationModel();
             }
 
-            foreach (var i in comments)
+            if (avaliate.AvaliationModel.Average == null)
             {
-                notes.Add(i.Note);
-
+                avaliate.AvaliationModel.Average = new AverageModel();
             }
-            /*
-            if (notes.Count > 0)
-            {
-                double average = _calculationHelper.CalculateAverage(notes);
-                avaliate.AvaliationModel.Average = average;
 
-            }
-            */
+            var average = (_averageRepository.getAverageByIdInstitution(Id) == null) ? (double?)0.0 : _averageRepository.getAverageByIdInstitution(Id).Average;
+
+            avaliate.AvaliationModel.Average.Average = average;
+            
 
 
             avaliate.InstitutionName = institution?.InstitutionName ?? "Minha instituição";
@@ -71,29 +68,27 @@ namespace AvaliaAe.Controllers
         }
 
         //Função para inserir ou dar update em uma média
-        private void insertOrUpdateAverage(List<int> notesList, AvaliateViewModel model)
+        private void insertOrUpdateAverage(List<int> notesList, int InstitutionId)
         {
-            if (notesList.Count > 0)
+            double average = _calculationHelper.CalculateAverage(notesList);
+            var averagesearch = _averageRepository.getAverageByIdInstitution(InstitutionId);
+            if (averagesearch != null) //Caso aja registro de média fazer um update
             {
-                double average = _calculationHelper.CalculateAverage(notesList);
-                var averagesearch = _averageRepository.getAverageByIdInstitution(model.AvaliationModel.InstitutionId);
-                if (averagesearch != null) //Caso aja registro de média fazer um update
+                _averageRepository.updateAverage(new AverageModel()
                 {
-                    _averageRepository.updateAverage(new AverageModel()
-                    {
-                        Average = average,
-                        InstitutionId = model.AvaliationModel.InstitutionId
-                    });
-                }
-                else //Se não, inserir do zero.
-                {
-                    _averageRepository.insertAverage(new AverageModel()
-                    {
-                        Average = average,
-                        InstitutionId = model.AvaliationModel.InstitutionId
-                    });
-                }
+                    Average = average,
+                    InstitutionId = InstitutionId,
+                });
             }
+            else //Se não, inserir do zero.
+            {
+                _averageRepository.insertAverage(new AverageModel()
+                {
+                    Average = average,
+                    InstitutionId = InstitutionId,
+                });
+            }
+
         }
 
         [HttpPost]
@@ -107,30 +102,45 @@ namespace AvaliaAe.Controllers
                     return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
                 }
 
+                var averageByIdInst = _averageRepository.getAverageByIdInstitution(model.AvaliationModel.InstitutionId);
+
                 if (_avaliationRepository.GetAvaliationByUserId((int)HttpContext.Session.GetInt32("Id"), model.AvaliationModel.InstitutionId) != null)
                 {
-                    Console.WriteLine(model.AvaliationModel.InstitutionId); 
+                    Console.WriteLine(model.AvaliationModel.InstitutionId);
                     TempData["errorAvaliation"] = "Você já avaliou esta instituição";
                     return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });
                 }
 
-                    model.AvaliationModel.UserId = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
+                //------------------------------------------------------------------
+                model.AvaliationModel.UserId = Convert.ToInt32(HttpContext.Session.GetInt32("Id"));
+                var allnotes = _avaliationRepository.GetAllComments(model.AvaliationModel.InstitutionId);
+                List<int> notesList = new List<int>(); //Cria nova lista de notas
+
+                if (allnotes.Count > 0)
+                {
+                    foreach (var i in allnotes)
+                    {
+
+                       notesList.Add(i.Note); //Adiciona as notas no objeto criado
+                    }
+                }
+                else
+                {
+                    notesList.Add(model.AvaliationModel.Note);
+                }
+                
+                insertOrUpdateAverage(notesList, model.AvaliationModel.InstitutionId);
+                var averageIdSearched = _averageRepository.getAverageByIdInstitution(model.AvaliationModel.InstitutionId);
+
+                model.AvaliationModel.AverageId = averageIdSearched.Id;
+
                 _avaliationRepository.InsertAvaliation(model.AvaliationModel);
 
-                var allnotes = _avaliationRepository.GetAllComments(model.AvaliationModel.InstitutionId);
-
-                //Verifica se o objeto está nulo
+                //Verifica se o objeto está nulos
                 if (model.AvaliationModel != null)
                 {
                     model.AvaliationModel = new AvaliationModel() { InstitutionId = model.AvaliationModel.InstitutionId }; //INSERE o ID da instituição no novo objeto 
                 }
-                List<int> notesList = new List<int>(); //Cria nova lista de notas
-                foreach (var i in allnotes)
-                {
-                    notesList.Add(i.Note); //Adiciona as notas no objeto criado
-                }
-
-                insertOrUpdateAverage(notesList, model); //Adiciona a média no banco de dados
 
                 TempData["successAvaliation"] = "Avaliação feita com sucesso, agradecemos a contribuição";
                 return RedirectToAction("ToAvaliate", new { Id = model.AvaliationModel.InstitutionId });

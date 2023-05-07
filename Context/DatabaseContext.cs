@@ -26,8 +26,8 @@ namespace AvaliaAe.Context
         {
             modelBuilder.Entity<AvaliationModel>()
                 .HasOne(a => a.Average)
-                .WithOne(a => a.Avaliation)
-                .HasForeignKey<AverageModel>(a => a.AvaliationId)
+                .WithOne(x => x.Avaliation)
+                .HasForeignKey<AvaliationModel>(a => a.AverageId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<AvaliationModel>()
