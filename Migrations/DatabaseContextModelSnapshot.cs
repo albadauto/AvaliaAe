@@ -75,8 +75,7 @@ namespace AvaliaAe.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AverageId")
-                        .IsUnique();
+                    b.HasIndex("AverageId");
 
                     b.HasIndex("InstitutionId");
 
@@ -384,9 +383,9 @@ namespace AvaliaAe.Migrations
                         .IsRequired();
 
                     b.HasOne("AvaliaAe.Models.UserModel", "User")
-                        .WithMany("Associations")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Institution");
@@ -397,15 +396,15 @@ namespace AvaliaAe.Migrations
             modelBuilder.Entity("AvaliaAe.Models.AvaliationModel", b =>
                 {
                     b.HasOne("AvaliaAe.Models.AverageModel", "Average")
-                        .WithOne("Avaliation")
-                        .HasForeignKey("AvaliaAe.Models.AvaliationModel", "AverageId")
+                        .WithMany()
+                        .HasForeignKey("AverageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
                         .WithMany()
                         .HasForeignKey("InstitutionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AvaliaAe.Models.UserModel", "User")
@@ -426,7 +425,7 @@ namespace AvaliaAe.Migrations
                     b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
                         .WithOne("Average")
                         .HasForeignKey("AvaliaAe.Models.AverageModel", "InstitutionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Institution");
@@ -498,21 +497,10 @@ namespace AvaliaAe.Migrations
                     b.Navigation("InstitutionType");
                 });
 
-            modelBuilder.Entity("AvaliaAe.Models.AverageModel", b =>
-                {
-                    b.Navigation("Avaliation")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("AvaliaAe.Models.InstitutionModel", b =>
                 {
                     b.Navigation("Average")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("AvaliaAe.Models.UserModel", b =>
-                {
-                    b.Navigation("Associations");
                 });
 #pragma warning restore 612, 618
         }

@@ -132,7 +132,8 @@ namespace AvaliaAe.Migrations
                         name: "FK_Associations_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -151,7 +152,8 @@ namespace AvaliaAe.Migrations
                         name: "FK_Average_Institution_InstitutionId",
                         column: x => x.InstitutionId,
                         principalTable: "Institution",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -240,7 +242,8 @@ namespace AvaliaAe.Migrations
                         name: "FK_Avaliations_Institution_InstitutionId",
                         column: x => x.InstitutionId,
                         principalTable: "Institution",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Avaliations_User_UserId",
                         column: x => x.UserId,
@@ -281,8 +284,7 @@ namespace AvaliaAe.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Avaliations_AverageId",
                 table: "Avaliations",
-                column: "AverageId",
-                unique: true);
+                column: "AverageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Avaliations_InstitutionId",

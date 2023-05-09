@@ -1,6 +1,7 @@
 ﻿using AvaliaAe.Context;
 using AvaliaAe.Models;
 using AvaliaAe.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AvaliaAe.Repository
 {
@@ -84,16 +85,19 @@ namespace AvaliaAe.Repository
 
         }
 
-        public bool RemoveAvaliationAverage(int idInst)
+        public bool RemoveAvaliationAverage(int idInst, int idUser)
         {
-            var result = _context.Avaliations.FirstOrDefault(x => x.InstitutionId == idInst);
-            var average = _context.Average.FirstOrDefault(x => x.InstitutionId == idInst);
+            var result = _context.Avaliations
+                .FirstOrDefault(x => x.InstitutionId == idInst && x.UserId == idUser);
 
-            if (result == null || average == null) return false;
-
+            if (result == null)
+            {
+                return false;
+            }
             _context.Avaliations.Remove(result);
-            _context.Average.Remove(average);
+
             _context.SaveChanges();
+
             return true;
         }
     }

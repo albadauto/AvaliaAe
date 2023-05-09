@@ -13,7 +13,7 @@ namespace AvaliaAe.Models
         public int InstitutionId { get; set; }
 
         [NotMapped]
-        public AvaliationModel Avaliation { get; set; }
+        public List<AvaliationModel> Avaliation { get; set; }
 
 
 

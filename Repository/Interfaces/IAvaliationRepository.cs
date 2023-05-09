@@ -10,7 +10,7 @@ namespace AvaliaAe.Repository.Interfaces
 
         public AvaliationModel GetAvaliationByUserId(int userId, int idInst);
 
-        public bool RemoveAvaliationAverage(int idInst);
+        public bool RemoveAvaliationAverage(int idInst, int idUser);
 
     }
 }

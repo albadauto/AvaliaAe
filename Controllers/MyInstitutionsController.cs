@@ -120,8 +120,8 @@ namespace AvaliaAe.Controllers
                 {
                     foreach (var i in allnotes)
                     {
-
-                       notesList.Add(i.Note); //Adiciona as notas no objeto criado
+                        notesList.Add(model.AvaliationModel.Note);
+                        notesList.Add(i.Note); //Adiciona as notas no objeto criado
                     }
                 }
                 else
@@ -154,11 +154,18 @@ namespace AvaliaAe.Controllers
         }
 
         [HttpGet]
-        public IActionResult RemoveAvaliation(int Id)
+        public IActionResult RemoveAvaliation(int idInst, int userId)
         {
             try
             {
-                var result = _avaliationRepository.RemoveAvaliationAverage(Id);
+                var result = _avaliationRepository.RemoveAvaliationAverage(idInst, userId);
+                var allRates = _avaliationRepository.GetAllComments(idInst); 
+                List<int> notes = new();
+                foreach (var rate in allRates)
+                {
+                    notes.Add(rate.Note);
+                }
+                insertOrUpdateAverage(notes, idInst);
                 if (result)
                 {
                     TempData["successAvaliation"] = "Comentário removido com sucesso";
@@ -168,7 +175,7 @@ namespace AvaliaAe.Controllers
                 {
                     TempData["errorAvaliation"] = "Erro: Contatar um administrador";
                 }
-                return RedirectToAction("ToAvaliate", new { Id = Id });
+                return RedirectToAction("ToAvaliate", new { Id = idInst });
 
             }
             catch (Exception err)

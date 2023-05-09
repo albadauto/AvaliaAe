@@ -26,8 +26,8 @@ namespace AvaliaAe.Context
         {
             modelBuilder.Entity<AvaliationModel>()
                 .HasOne(a => a.Average)
-                .WithOne(x => x.Avaliation)
-                .HasForeignKey<AvaliationModel>(a => a.AverageId)
+                .WithMany()
+                .HasForeignKey(a => a.AverageId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<AvaliationModel>()
@@ -40,19 +40,15 @@ namespace AvaliaAe.Context
                 .HasOne(a => a.Institution)
                 .WithMany()
                 .HasForeignKey(a => a.InstitutionId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<AverageModel>()
-                .HasOne(a => a.Institution)
-                .WithOne(a => a.Average)
-                .HasForeignKey<AverageModel>(a => a.InstitutionId)
-                .OnDelete(DeleteBehavior.NoAction);
+               .HasOne(a => a.Institution)
+               .WithOne(a => a.Average)
+               .HasForeignKey<AverageModel>(a => a.InstitutionId)
+               .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<AssociationsModel>()
-                .HasOne(a => a.User)
-                .WithMany(a => a.Associations)
-                .HasForeignKey(a => a.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
             base.OnModelCreating(modelBuilder);
         }
 
