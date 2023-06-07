@@ -1,6 +1,9 @@
 ﻿@inject IHttpContextAccessor context
-@model List<DocumentationModel>
+@model DocumentationAvaliationViewModel
+@{
 
+
+}
 <style>
 
     .ratings_stars {
@@ -11,52 +14,59 @@
     <div class="row">
         <div class="col border border-dark border-1 m-5 rounded-3">
             <div class="text-center">
-                <h5 class="text-muted">Fatec Santana de Parnaíba</h5>
+                <h5 class="text-muted">@Model.Documentation.Associations.Institution.InstitutionName</h5>
+            </div>
+            <div class="text-center">
+                <i class="bi bi-star"></i> @(Model.Documentation.Associations.Institution.Average.Average ?? 0)
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CNPJ" disabled>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CNPJ" disabled asp-for=@Model.Documentation.Associations.Institution.Cnpj>
                 </div>
 
                 <div class="col">
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" disabled >
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" disabled asp-for=@Model.Documentation.Associations.Institution.Email>
                 </div>
 
             </div>
-            @foreach(var i in Model)
-            {
-                @i.Associations.Institution.InstitutionName
-            }
 
             <div class="row mb-3">
                 <div class="col-8 mb">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Endereço" disabled>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Endereço" disabled asp-for=@Model.Documentation.Associations.Institution.Address>
                 </div>
                 <div class="col">
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Número" disabled>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Número" disabled asp-for=@Model.Documentation.Associations.Institution.Number>
                 </div>
 
             </div>
 
             <div class="row mb-3">
                 <div class="col">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CEP" disabled>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CEP" disabled asp-for=@Model.Documentation.Associations.Institution.Cep>
                 </div>
 
                 <div class="col">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diretor" disabled>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diretor" disabled asp-for=@Model.Documentation.Associations.Institution.OwnerName>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col mb-5">
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" disabled></textarea>
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" disabled>@Model.Documentation.Associations.Institution.Description</textarea>
                         <label for="floatingTextarea2">Descrição</label>
                     </div>
                 </div>
-            </div>
 
+            </div>
+            <div class="row">
+                <div class="col text-center mb-4">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <h4>Associar-se já!</h4>
+                    </button>
+                </div>
+            </div>
+            
 
         </div>
         <div class="col-5 border border-dark m-5 rounded-3">
@@ -65,15 +75,23 @@
             </div>
             <div class="row">
                 <div class="col">
+
+                    @foreach (var j in Model.Avaliations)
+                    {
                     <div class="comment mx-3">
                         <div class="row mt-3 mb-3">
                             <div class="col me-4 d-flex flex-row">
                                 <div class="wrap me-3">
-                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="main-profile-img" />
+                                    <img src=@j.User.photo_uri ?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="main-profile-img" />
                                 </div>
                                 <p>
                                     <b>
-                                        <i class="bi bi-star"></i>
+                                        
+                                            @foreach (var stars in Enumerable.Range(1, j.Note))
+                                            {
+                                                <i class="bi bi-star"></i>
+                                            }
+
                                     </b>
                                 </p> <br />
 
@@ -83,12 +101,16 @@
                         <div class="row">
                             <div class="col-10">
                                 <div class="text-dark mx-1">
-                                    teste
+                                    @j.Comment
+
                                 </div>
                             </div>
                         </div>
                         <hr />
                     </div>
+                    }
+                    
+
 
                 </div>
             </div>
@@ -96,6 +118,29 @@
     </div>
 
 </div>
+
+@using (Html.BeginForm("UploadDoc", "ToAssociate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <input type="text" value=@context.HttpContext.Session.GetInt32("Id") />
+                <input type="text" asp-for=@Model.Documentation.Associations.Institution.Id />
+                <div class="modal-body">
+                    Faça o upload de um arquivo que comprove sua associação a instituição: <br /><br />
+                    <input type="file" multiple="multiple" asp-for=@Model.Documentation.File />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Enviar </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <style>
 

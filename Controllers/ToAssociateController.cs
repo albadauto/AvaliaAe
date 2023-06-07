@@ -21,7 +21,8 @@ namespace AvaliaAe.Controllers
         public IActionResult Index(int id)
         {
             var result = _repository.GetInstitution(id);
-         
+            var idUser = HttpContext.Session.GetInt32("Id");
+           
             if (HttpContext.Session.GetString("email") == null)
             {
                 return RedirectToAction("Index", "Login");

@@ -15,11 +15,13 @@ namespace AvaliaAe.Controllers
 		private readonly IUserRepository _repository;
 		private readonly IInstitutionRepository _instituionRepository;
 		private readonly IInstitutionTypeRepository _typeRepository;
-		public RegisterController(IUserRepository repo, IInstitutionRepository institutionRepository, IInstitutionTypeRepository typeRepository)
+		private readonly IAssociationRepository _associationRepository;
+		public RegisterController(IUserRepository repo, IInstitutionRepository institutionRepository, IInstitutionTypeRepository typeRepository, IAssociationRepository associationRepository)
 		{
 			_repository = repo;
 			_instituionRepository = institutionRepository;
 			_typeRepository = typeRepository;
+			_associationRepository = associationRepository;
 		}
 		public IActionResult Index()
 		{
@@ -79,6 +81,7 @@ namespace AvaliaAe.Controllers
 				CryptographyHelper crypto = new CryptographyHelper(SHA256.Create());
 				model.institutionModel.Password = crypto.hashPassword(model.institutionModel.Password);
 				_instituionRepository.InsertNewInstitution(model.institutionModel);
+				
 				TempData["successInstitution"] = "Instituição cadastrada com sucesso!";
 				return RedirectToAction("Institution");
 
