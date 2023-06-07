@@ -20,21 +20,13 @@ namespace AvaliaAe.Controllers
         }
         public IActionResult Index(int id)
         {
-            var result = _institutionRepository.GetInstitutionById(id);
-            DocumentationModel doc = new DocumentationModel()
-            {
-                Associations = new AssociationsModel()
-                {
-                    Institution = result,
-                },
-
-
-            };
+            var result = _repository.GetInstitution(id);
+         
             if (HttpContext.Session.GetString("email") == null)
             {
                 return RedirectToAction("Index", "Login");
             }
-            return View(doc);
+            return View(result);
         }
 
         [HttpPost]

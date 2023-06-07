@@ -12,8 +12,6 @@ namespace AvaliaAe.Repository
         {
             _context = context;
         }
-
-
         public List<InstitutionModel> GetAllInstitutions()
         {
             var result = _context.Institution.ToList();
