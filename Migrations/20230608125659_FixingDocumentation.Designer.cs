@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AvaliaAe.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230607205943_UserIdAndInstIdDocumentation")]
-    partial class UserIdAndInstIdDocumentation
+    [Migration("20230608125659_FixingDocumentation")]
+    partial class FixingDocumentation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -498,13 +498,13 @@ namespace AvaliaAe.Migrations
                     b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
                         .WithMany()
                         .HasForeignKey("InstitutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("AvaliaAe.Models.UserModel", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Associations");

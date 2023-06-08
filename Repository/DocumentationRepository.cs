@@ -1,6 +1,8 @@
 ﻿using AvaliaAe.Context;
 using AvaliaAe.Models;
 using AvaliaAe.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace AvaliaAe.Repository
 {
@@ -46,25 +48,11 @@ namespace AvaliaAe.Repository
 
             return listDocumentation;
         }
-
         public DocumentationAvaliationViewModel GetInstitution(int IdInst)
         {
-
             List<AvaliationModel> listAvaliation = new List<AvaliationModel>();
-            var result = (from a in _context.Associations
-                          join d in _context.Documentations
-                             on a.Id equals d.AssociationsId into assocDocs
-                          from ad in assocDocs.DefaultIfEmpty()
-                          join u in _context.User
-                             on a.UserId equals u.Id
-                          join i in _context.Institution
-                             on a.InstitutionId equals i.Id
-                          join j in _context.Average
-                            on i.Id equals j.InstitutionId
-                          where i.Id == IdInst
-                          select new { u.Name, i.InstitutionName, ad.doc_uri, u.photo_uri, i.Email, i.Address, i.Cep, i.Cnpj, i.Description, i.District, i.Number, j.Average, i.OwnerName, a.UserId, a.InstitutionId }
-                          ).FirstOrDefault();
-
+            var institution = _context.Institution.FirstOrDefault(x => x.Id == IdInst);
+            var average = _context.Average.FirstOrDefault(x => x.InstitutionId == IdInst);
             var avaliations = (from u in _context.User
                                join t in _context.Avaliations
                                on u.Id equals t.UserId
@@ -81,30 +69,32 @@ namespace AvaliaAe.Repository
                         Name = i.Name,
                         photo_uri = i.photo_uri,
                     },
-                    Note = i.Note
+                    Note = i.Note,
+                   
                 });
             }
 
             DocumentationAvaliationViewModel documentations = new DocumentationAvaliationViewModel()
             {
-                Avaliations = listAvaliation,
+                Avaliations = listAvaliation != null ? listAvaliation : new List<AvaliationModel>(),
                 Institution = new InstitutionModel
                 {
-                    Id = result.InstitutionId,
-                    InstitutionName = result.InstitutionName,
-                    Cep = result.Cep,
-                    Description = result.Description,
-                    District = result.District,
-                    Number = result.Number,
-                    Cnpj = result.Cnpj,
-                    Email = result.Email,
-                    OwnerName = result.OwnerName,
-                    Address = result.Address,
+                    Id = institution.Id,
+                    InstitutionName = institution.InstitutionName,
+                    Cep = institution.Cep,
+                    Description = institution.Description,
+                    District = institution.District,
+                    Number = institution.Number,
+                    Cnpj = institution.Cnpj,
+                    Email = institution.Email,
+                    OwnerName = institution.OwnerName,
+                    Address = institution.Address,
                     Average = new AverageModel
                     {
-                        Average = result.Average,
-                    },
+                        Average = average != null ? average.Average : 0
+                    }
                 },
+           
             };
 
             return documentations;
@@ -116,6 +106,7 @@ namespace AvaliaAe.Repository
         public DocumentationModel InsertNewDocumenation(DocumentationModel model, string docUri)
         {
             model.doc_uri = docUri;
+            Console.WriteLine(model.InstitutionId);
             _context.Documentations.Add(model);
             _context.SaveChanges();
             return model;

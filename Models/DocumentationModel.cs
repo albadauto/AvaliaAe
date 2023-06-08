@@ -8,7 +8,7 @@ namespace AvaliaAe.Models
         public AssociationsModel Associations { get; set; }
         [ForeignKey("UserId")]
         public UserModel User { get; set; }
-        [ForeignKey("InstitutionId")]
+        [ForeignKey("InstitutionId") ]
         public InstitutionModel Institution { get; set; }   
         public int UserId { get; set; }
         public int InstitutionId { get; set; }  

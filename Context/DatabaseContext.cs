@@ -49,6 +49,19 @@ namespace AvaliaAe.Context
                .HasForeignKey<AverageModel>(a => a.InstitutionId)
                .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<DocumentationModel>()
+               .HasOne(d => d.User)
+               .WithMany()
+               .HasForeignKey(d => d.UserId)
+               .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<DocumentationModel>()
+                .HasOne(d => d.Institution)
+                .WithMany()
+                .HasForeignKey(d => d.InstitutionId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
             base.OnModelCreating(modelBuilder);
         }
 

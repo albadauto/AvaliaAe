@@ -1,0 +1,44 @@
+﻿@inject IHttpContextAccessor context
+@model DocumentationModel
+
+<div class="container mt-5">
+    <div class="bg-light text-center border rounded-5">
+        <h3>Associação à instituição</h3>
+        <div class="row">
+            <div class="col text-muted mt-5 mb-2">
+                <h5>
+                    Para associar-se a esta instituição é preciso enviar um documento obrigatóriamente .PDF para comprovar sua associação
+                </h5>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col text-muted mb-3">
+                <h5>
+                    Favor clicar no botão abaixo e selecionar o documento .pdf
+                </h5>
+            </div>
+        </div>
+        @using (Html.BeginForm("UploadDoc", "ToAssociate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row justify-content-center">
+                <div class="col-sm-6 mb-3">
+                    <input type="hidden" value=@context.HttpContext.Session.GetInt32("Id") />
+                     <input type="hidden" id="id-institution" asp-for="InstitutionId"/>
+                    <input class="form-control" type="file" id="formFile" asp-for="File">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-5">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<script>
+    const idInst = window.location.href.split('/')[5]
+    document.getElementById('id-institution').value = idInst
+</script>

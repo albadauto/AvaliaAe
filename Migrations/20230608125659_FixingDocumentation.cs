@@ -4,7 +4,7 @@
 
 namespace AvaliaAe.Migrations
 {
-    public partial class UserIdAndInstIdDocumentation : Migration
+    public partial class FixingDocumentation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,16 +37,14 @@ namespace AvaliaAe.Migrations
                 table: "Documentations",
                 column: "InstitutionId",
                 principalTable: "Institution",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Documentations_User_UserId",
                 table: "Documentations",
                 column: "UserId",
                 principalTable: "User",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

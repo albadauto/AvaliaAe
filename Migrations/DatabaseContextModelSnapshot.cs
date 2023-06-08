@@ -496,13 +496,13 @@ namespace AvaliaAe.Migrations
                     b.HasOne("AvaliaAe.Models.InstitutionModel", "Institution")
                         .WithMany()
                         .HasForeignKey("InstitutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("AvaliaAe.Models.UserModel", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Associations");
