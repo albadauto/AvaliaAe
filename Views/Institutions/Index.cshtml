@@ -12,7 +12,7 @@
             {
                 <div class="col mb-3" id="cardInstitution">
                     <div class="card card-institution" style="width: 18rem;">
-                        <img src="https://i.ytimg.com/vi/pegY6Uxg2UI/maxresdefault.jpg" class="card-img-top" alt="Institution image">
+                        <img src="https://img.freepik.com/free-vector/high-school-concept-illustration_114360-8329.jpg" class="card-img-top" alt="Institution image">
                         <div class="card-body">
                             <h5 class="card-title"><b class="institutionName">@i.Institution.InstitutionName</b></h5>
                             <p class="card-text">@i.Institution.InstitutionType.Name</p>
@@ -23,12 +23,11 @@
                                     <p><i class="bi bi-star-fill"></i> @(i.Average.Average == null ? "Sem nota" : i.Average.Average)</p>
                                 </div>
                             </div>
-                            @if(context.HttpContext.Session.GetString("type") != "inst")
-                            {
+                            
                                <div class="text-center">
                                 <a class="btn btn-success" asp-controller="ToAssociate" asp-action="Index" asp-route-id=@i.Institution.Id>Verificar</a>
                             </div> 
-                            }
+                            
                             
                         </div>
                     </div>

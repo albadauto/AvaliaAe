@@ -21,10 +21,6 @@ namespace AvaliaAe.Controllers
         public IActionResult Index(int id)
         {
            
-            if (HttpContext.Session.GetString("email") == null || id == 0)
-            {
-                return RedirectToAction("Index", "Login");
-            }
             var result = _repository.GetInstitution(id);
 
             return View(result);
@@ -103,6 +99,10 @@ namespace AvaliaAe.Controllers
 
         public IActionResult AssociationPerson(int Id)
         {
+            if (HttpContext.Session.GetString("email") == null || Id == 0)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
     }
