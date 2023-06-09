@@ -1,117 +1,146 @@
-﻿@model InstitutionModel
+﻿@model CertificationInstitutionViewModel
 
 <div class="text-center">
     <h1 class="display-6 ">Meu perfil</h1>
 
 </div>
-@using (Html.BeginForm("", "", FormMethod.Post))
-{
-    <div class="container bg-light p-3">
-        <div class="row">
-            <div class="col text-center">
-                <h3 class="display-6">Dados pessoais</h3>
-            </div>
-        </div>
 
+<div class="container bg-light p-3">
+    @if (TempData["successUpdateInstitution"] != null)
+    {
         <div class="row">
             <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="InstitutionName">
-                    <label for="floatingInput">Nome</label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Email">
-                    <label for="floatingInput">Email</label>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Cnpj">
-                    <label for="floatingInput">CNPJ</label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Phone">
-                    <label for="floatingInput">Número de telefone</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col text-center">
-                <h3 class="display-6">Informações de localidade</h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Address">
-                    <label for="floatingInput">Endereço</label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="District">
-                    <label for="floatingInput">Bairro</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="Number">
-                    <label for="floatingInput">Número</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="OwnerName">
-                    <label for="floatingInput">Diretor da instituição</label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="OwnerCpf">
-                    <label for="floatingInput">CPF</label>
-                </div>
-            </div>
-        </div>
-        
-
-        <div class="text-center">
-            @if(TempData["successCertification"] != null)
-            {
                 <div class="alert alert-success">
-                    @TempData["successCertification"]
+                    @TempData["successUpdateInstitution"]
                 </div>
-            }
-            @if (TempData["errorCertification"] != null)
-            {
-                <div class="alert alert-danger">
-                    @TempData["errorCertification"]
-                </div>
-            }
-            <a class="btn btn-success" asp-route-id=@Model.Id asp-action="GenerateNewCertification" asp-controller="MyProfile">Gerar certificado</a>
+            </div>
         </div>
+    }
 
+    @if (TempData["errorUpdateInstitution"] != null)
+    {
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger">
+                    @TempData["errorUpdateInstitution"]
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col text-center">
+            <h3 class="display-6">Dados pessoais</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="@Model.Institution.InstitutionName">
+                <label for="floatingInput">Nome</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="@Model.Institution.Email">
+                <label for="floatingInput">Email</label>
+            </div>
+        </div>
 
     </div>
 
-}
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="@Model.Institution.Cnpj">
+                <label for="floatingInput">CNPJ</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="@Model.Institution.Phone">
+                <label for="floatingInput">Número de telefone</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            <h3 class="display-6">Informações de localidade</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="@Model.Institution.Address">
+                <label for="floatingInput">Endereço</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="@Model.Institution.District">
+                <label for="floatingInput">Bairro</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="@Model.Institution.Number">
+                <label for="floatingInput">Número</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="@Model.Institution.OwnerName">
+                <label for="floatingInput">Diretor da instituição</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" disabled asp-for="@Model.Institution.OwnerCpf">
+                <label for="floatingInput">CPF</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-center">
+        @if (TempData["successCertification"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["successCertification"]
+            </div>
+        }
+        @if (TempData["errorCertification"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["errorCertification"]
+            </div>
+        }
+        <a class="btn btn-success" asp-route-id=@Model.Institution.Id asp-action="GenerateNewCertification" asp-controller="MyProfile">Gerar certificado</a>
+        <a class="btn btn-warning" asp-action="UpdateInstitution" asp-controller="MyProfile" asp-route-id=@Model.Institution.Id>Atualizar informações</a>
+
+    </div>
+
+    @if (Model.Certification.CodeCertification != null)
+    {
+        <div class="alert alert-warning mt-3">
+            Esta instituição possui uma certificação de alta avaliação em nosso site! Código de certificação: @Model.Certification.CodeCertification
+        </div>
+    }
+
+
+</div>
+
 
 
 
@@ -127,7 +156,7 @@
             </div>
             <div class="modal-body">
                 <h5>Enviar novo foto de perfil:</h5>
-                <input type="file" accept="image/*"/>
+                <input type="file" accept="image/*" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -167,7 +196,7 @@
 
 
 <script>
-    function SendImageToIcon(){
+    function SendImageToIcon() {
         document.querySelector('.main-profile-img').src = 'https://br.web.img3.acsta.net/c_310_420/pictures/20/03/25/18/52/4193364.jpg';
         $('#exampleModal').modal('hide')
         document.getElementById('sendImage').disabled = false

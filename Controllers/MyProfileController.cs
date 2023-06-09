@@ -76,7 +76,7 @@ namespace AvaliaAe.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            InstitutionModel inst = _institutionRepository.GetInstitutionById(id);
+            var inst = _institutionRepository.GetInstitutionAndCertification(id);
             if (inst == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -144,8 +144,6 @@ namespace AvaliaAe.Controllers
             }
 
         }
-
-      
         public IActionResult RemoveInstutionFromUser(int idInst)
         {
             try
@@ -208,6 +206,29 @@ namespace AvaliaAe.Controllers
             catch (Exception err)
             {
 
+                throw new Exception(err.Message);
+            }
+        }
+
+        public IActionResult UpdateInstitution(int Id)
+        {
+            var result = _institutionRepository.GetInstitutionById(Id);
+            return View(result);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateInstitutionById(InstitutionModel model)
+        {
+            try
+            {
+                _institutionRepository.UpdateInstitution(model, model.Id);
+                TempData["successUpdateInstitution"] = "Registro atualizado com sucesso";
+                return RedirectToAction("InstitutionProfile", new { id = model.Id });
+
+            }
+            catch (Exception err)
+            {
+                TempData["errorUpdateInstitution"] = "Erro, favor contatar um administrador. Erro original: " + err.Message;
                 throw new Exception(err.Message);
             }
         }

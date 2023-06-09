@@ -51,6 +51,44 @@ namespace AvaliaAe.Repository
             return viewModel;
         }
 
+        public CertificationInstitutionViewModel GetInstitutionAndCertification(int id)
+        {
+            var result = (from i in _context.Institution
+                          join c in _context.Certification
+                          on i.Id equals c.InstitutionId
+                          where i.Id == id
+                          select new { i.InstitutionName, Institution = i, c.CodeCertification }).FirstOrDefault();
+
+            
+                var certification = new CertificationInstitutionViewModel
+                {
+                    Institution = new InstitutionModel
+                    {
+                        Id = result.Institution.Id,
+                        InstitutionName = result.InstitutionName,
+                        Email = result.Institution.Email,
+                        Address = result.Institution.Address,
+                        Cep = result.Institution.Cep,
+                        Number = result.Institution.Number,
+                        Phone = result.Institution.Phone,   
+                        District = result.Institution.District,
+                        Description = result.Institution.Description,
+                        OwnerCpf = result.Institution.OwnerCpf,
+                        OwnerName = result.Institution.OwnerName,
+                        Cnpj = result.Institution.Cnpj,
+
+                    },
+
+                    Certification = new CertificationModel
+                    {
+                        CodeCertification= result.CodeCertification,
+                    }
+                    
+                };
+
+            return certification;
+        }
+
         public InstitutionModel GetInstitutionByEmailAndCnpj(string email, string cnpj)
 		{
             var result = _context.Institution.FirstOrDefault(x => x.Email == email || x.Cnpj == cnpj);
@@ -91,6 +129,32 @@ namespace AvaliaAe.Repository
             {
                 throw new NullReferenceException();
             }
+        }
+
+        public InstitutionModel UpdateInstitution(InstitutionModel institution, int id)
+        {
+
+            var result = _context.Institution.FirstOrDefault(o => o.Id == id);
+            if (result != null)
+            {
+                result.Address = institution.Address;
+                result.Cnpj = institution.Cnpj;
+                result.Phone = institution.Phone;   
+                result.Cep = institution.Cep;
+                result.Description = institution.Description;
+                result.District = institution.District;
+                result.Email = institution.Email;
+                result.OwnerName = institution.OwnerName;
+                result.OwnerCpf = institution.OwnerCpf;
+                result.Number = institution.Number;
+                _context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("é nulo");
+            }
+
+            return result;
         }
     }
 }
