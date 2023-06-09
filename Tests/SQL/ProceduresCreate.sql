@@ -96,7 +96,29 @@ BEGIN
 END
 GO
 
---Procedure para criar tipos de pessoas físicas
+--Procedure para criar massa de dados para administrador
+
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.MASSADEDADOS_ADMIN'))
+BEGIN 
+	DROP PROCEDURE dbo.MASSADEDADOS_ADMIN;
+END
+GO
+CREATE PROCEDURE MASSADEDADOS_ADMIN
+AS 
+BEGIN
+	IF NOT EXISTS(SELECT * FROM [LEVEL])
+	BEGIN
+		INSERT INTO [LEVEL] VALUES ('ADMINISTRADOR'), ('GESTOR'), ('SUPERVISOR')
+	END
+	IF NOT EXISTS(SELECT EMAIL FROM [ADMIN] WHERE EMAIL = 'admin@avaliae.com')
+	BEGIN
+		INSERT INTO [ADMIN] VALUES ('Administrador', '47575105867', 'admin@avaliae.com', 3, 'SBNJTRN+FjG7owHVrKtue7eqdM4RhdRWVl71HXN2d7I=')
+	END
+
+
+END
+
+--Procedure para criar massa de dados para apresentação
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.MASSADEDADOS'))
 BEGIN 
 	DROP PROCEDURE dbo.MASSADEDADOS;
@@ -129,7 +151,9 @@ BEGIN
 			);
 		SET @COUNT = @COUNT + 1
 	END
-
+	EXEC MASSADEDADOS_ADMIN
+	EXEC ADDFISICPEOPLESTYPES
+	EXEC ADDINSTITUTIONSTYPE
 		
 END
 GO
