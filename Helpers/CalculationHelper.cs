@@ -8,14 +8,9 @@ namespace AvaliaAe.Helpers
     {
         public double CalculateAverage(List<int> notes)
         {
-            if (notes.Any())
-            {
-                return (Math.Truncate(notes.Average() * 1000) / 1000);
-            }
-            else
-            {
-                return 0;
-            }
+
+            return (notes.Any() ? (Math.Truncate(notes.Average() * 1000) / 1000) : 0);
+
         }
     }
 }
