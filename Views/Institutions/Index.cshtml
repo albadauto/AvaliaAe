@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="text-center mt-5">
-        <input type="text" class="form-control" placeholder="Digite o nome de uma instituição" onkeyup="searchInstitution()" id="searchName" />
+        <input type="text" class="form-control" placeholder="Digite o nome de uma instituição" oninput="searchInstitution()" id="searchName" />
     </div>
     <div class="row mt-5">
         @if (Model.Count > 0)
@@ -23,12 +23,12 @@
                                     <p><i class="bi bi-star-fill"></i> @(i.Average.Average == null ? "Sem nota" : i.Average.Average)</p>
                                 </div>
                             </div>
-                            
-                               <div class="text-center">
+
+                            <div class="text-center">
                                 <a class="btn btn-success" asp-controller="ToAssociate" asp-action="Index" asp-route-id=@i.Institution.Id>Verificar</a>
-                            </div> 
-                            
-                            
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -60,4 +60,17 @@
         }
 
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        const searchBox = document.getElementById("searchName")
+        const searchTerm = params.get("q");
+        if (searchTerm != null) {
+            searchBox.value = searchTerm;
+            searchInstitution();
+        }
+    });
+
+    searchBox.addEventListener('input', searchInstitution);
+
 </script>

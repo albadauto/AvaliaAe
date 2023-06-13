@@ -39,7 +39,7 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <div class="col text-center">
-                        <input class="form-control ml-3 box-shadow" placeholder="Pesquise uma instituição aqui" />
+                        <input class="form-control ml-3 box-shadow" placeholder="Pesquise uma instituição aqui" id="searchInstitution"/>
                     </div>
                     <ul class="navbar-nav ms-auto">
                         @if (context.HttpContext.Session.GetString("email") == null)
@@ -130,3 +130,15 @@
 
 </body>
 </html>
+
+<script>
+    const search = document.getElementById("searchInstitution")
+
+    search.addEventListener('keyup', (event) => {
+        if(event.keyCode === 13){
+            const valueSearch = search.value
+
+            window.location.href = 'Institutions?q=' + encodeURIComponent(valueSearch)
+        }
+    })
+</script>
